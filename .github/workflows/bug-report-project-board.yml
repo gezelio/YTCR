@@ -21,12 +21,24 @@ jobs:
 
       - name: Add issue to project
         if: steps.check_bug_report.outputs.isBugReport
-        uses: peter-evans/create-issue-comment@v1.5.2
+        uses: actions/github-script@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            This issue has been added to the Bug Report project.
-          issue-number: ${{ github.event.issue.number }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          project-url: https://github.com/orgs/gezelio/projects/6
-          column-name: To do
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { Octokit } = require("@octokit/rest");
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const issue_number = context.payload.issue.number;
+            const project_number = 6; // Replace with your project number
+            const column_name = "To do"; // Replace with your column name
+            const { data: columns } = await octokit.projects.listColumns({
+              project_id: project_number,
+            });
+            const column = columns.find((c) => c.name === column_name);
+            if (!column) {
+              throw new Error(`Column not found: ${column_name}`);
+            }
+            await octokit.projects.createCard({
+              column_id: column.id,
+              content_id: issue_number,
+              content_type: "Issue",
+            });
