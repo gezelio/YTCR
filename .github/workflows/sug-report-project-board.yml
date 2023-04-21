@@ -10,12 +10,27 @@ jobs:
     name: Add issue to project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@v0.5.0
+      - name: Get column ID
+        id: get_column_id
+        uses: actions/github-script@v6.4.1
         with:
-          # You can target a project in a different organization
-          # to the issue
-          project-url: https://github.com/orgs/gezelio/projects/5
+          script: |
+            const { data: columns } = await github.projects.listColumns({
+              project_id: 5, // Replace with the ID of your project
+            });
+            const column = columns.find((c) => c.name === "🤔 Suggestions"); // Replace with the name of your column
+            if (!column) {
+              throw new Error("Column not found");
+            }
+            return column.id;
+
+      - name: Add issue to project
+        uses: actions/github-script@v6.4.1
+        with:
+          script: |
+            await github.projects.createCard({
+              column_id: ${{ steps.get_column_id.outputs.result }},
+              content_id: context.payload.issue.id,
+              content_type: "Issue",
+            });
           github-token: ${{ secrets.TOKEN }}
-          labeled: 🤔 Suggestions
-          label-operator: OR
-          column-id: be129672
