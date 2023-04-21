@@ -1,37 +1,27 @@
-name: Add suggestions to main project
+name: Add Suggestions to project
 
 on:
   issues:
     types:
-      - opened
+      - labeled
+      - unlabeled
+
+concurrency:
+  group: update-projects-${{ github.event_name }}
+  cancel-in-progress: true
+
 
 jobs:
-  add-to-project:
-    name: Add issue to project
+  issues:
     runs-on: ubuntu-latest
     steps:
-      - name: Get column ID
-        id: get_column_id
-        uses: actions/github-script@v6.4.1
+      # substitute RELEASE_VERSION for the latest version available in releases
+      - uses: Machine-Maker/add-to-project-action@v0.2.0
         with:
           github-token: ${{ secrets.TOKEN }}
-          script: |
-            const { data: columns } = await github.projects.listColumns({
-              project_id: 5, // Replace with the ID of your project
-            });
-            const column = columns.find((c) => c.name === "🤔 Suggestions"); // Replace with the name of your column
-            if (!column) {
-              throw new Error("Column not found");
+          project-url: https://github.com/orgs/gezelio/projects/5/views/1 # e.g. https://github.com/users/Machine-Maker/projects/1/views/1
+          column-field: Status
+          label-to-column-map: |
+            {
+              "🤔 Suggestion": "🤔 Suggestions"
             }
-            return column.id;
-
-      - name: Add issue to project
-        uses: actions/github-script@v6.4.1
-        with:
-          github-token: ${{ secrets.TOKEN }}
-          script: |
-            await github.projects.createCard({
-              column_id: ${{ steps.get_column_id.outputs.result }},
-              content_id: context.payload.issue.id,
-              content_type: "Issue",
-            });
