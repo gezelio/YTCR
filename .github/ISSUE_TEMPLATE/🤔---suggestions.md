@@ -1,5 +1,5 @@
 ---
-name: "\U0001F914 - Suggestions"
+name: "\U0001F914 Suggestions"
 about: Have an idea for YTCR? Let us know!
 title: "[SUG]"
 labels: "\U0001F914 Suggestion"
