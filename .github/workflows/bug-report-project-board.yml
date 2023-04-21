@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check if issue is a Bug Report
         id: check_bug_report
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -21,7 +21,7 @@ jobs:
 
       - name: Add issue to project
         if: steps.check_bug_report.outputs.isBugReport
-        uses: actions/github-script@v4
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
