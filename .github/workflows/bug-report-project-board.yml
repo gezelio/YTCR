@@ -29,7 +29,7 @@ jobs:
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
             const issue_number = context.payload.issue.number;
             const project_number = 6; // Replace with your project number
-            const column_name = "To do"; // Replace with your column name
+            const column_name = "Todo"; // Replace with your column name
             const { data: columns } = await octokit.projects.listColumns({
               project_id: project_number,
             });
