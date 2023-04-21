@@ -6,8 +6,13 @@ labels: "\U0001F41E Bug"
 assignees: trent-gezel, tommerty
 
 ---
-# IMPORTANT
-Please keep the `[BUG]` in the title, and add your bug title after
+
+# Thanks for submitting a bug report! 🐞
+
+## IMPORTANT
+>Please keep the `[BUG]` in the title, and add your bug title after
+
+---
 
 **Describe the bug**
 A clear and concise description of what the bug is.
