@@ -1,0 +1,13 @@
+labeler:
+  - name: Chrome Extension
+    checks:
+    - 'Chrome Extension'
+  - name: Streamerbot Actions
+    checks:
+      - 'Streamerbot Actions'
+  - name: Website
+    checks:
+      - 'Website'
+  - name: Websocket
+    checks:
+      - 'Websocket'
