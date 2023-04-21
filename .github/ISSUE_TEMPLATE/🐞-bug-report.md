@@ -1,11 +1,13 @@
 ---
 name: "\U0001F41E Bug report"
 about: Create a report to help us improve
-title: "[BUG]"
+title: "[BUG] {ISSUE_HERE}"
 labels: "\U0001F41E Bug"
 assignees: trent-gezel, tommerty
 
 ---
+# IMPORTANT
+Please keep the `[BUG]` in the title, and add your bug title after
 
 **Describe the bug**
 A clear and concise description of what the bug is.
