@@ -10,13 +10,6 @@ assignees: trent-gezel, tommerty
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-## What is this about?
-
-- [ ] Chrome Extension
-- [ ] Streamerbot actions
-- [ ] Website
-- [ ] Websocket
-
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
