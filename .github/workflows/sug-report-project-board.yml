@@ -16,6 +16,6 @@ jobs:
           # to the issue
           project-url: https://github.com/orgs/gezelio/projects/5
           github-token: ${{ secrets.TOKEN }}
-          labeled: 🐞 Bug
+          labeled: 🤔 Suggestions
           label-operator: OR
           column-id: be129672
