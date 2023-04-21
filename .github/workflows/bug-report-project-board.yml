@@ -12,7 +12,7 @@ jobs:
         id: check_bug_report
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.TOKEN }}
           script: |
             const issue = context.payload.issue;
             const template = /<!--\s*Bug Report\s*-->/i;
@@ -23,10 +23,10 @@ jobs:
         if: steps.check_bug_report.outputs.isBugReport
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.TOKEN }}
           script: |
             const { Octokit } = require("@octokit/rest");
-            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const octokit = new Octokit({ auth: process.env.TOKEN });
             const issue_number = context.payload.issue.number;
             const project_number = 6; // Replace with your project number
             const column_name = "Todo"; // Replace with your column name
