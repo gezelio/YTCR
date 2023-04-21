@@ -23,5 +23,6 @@ jobs:
           column-field: Status
           label-to-column-map: |
             {
-              "🤔 Suggestion": "🤔 Suggestions"
+              "🤔 Suggestion": "🤔 Suggestions",
+              "🐞 Bug": "🐞 Issue/Bug/Improvement"
             }
