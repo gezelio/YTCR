@@ -1,8 +1,8 @@
 ---
-name: "🤔 - Suggestions"
-about: Create a report to help us improve
-title: "[suggestion]"
-labels: "suggestion"
+name: "\U0001F914 - Suggestions"
+about: Have an idea for YTCR? Let us know!
+title: "[SUG]"
+labels: "\U0001F914 Suggestion"
 assignees: trent-gezel, tommerty
 
 ---
