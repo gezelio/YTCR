@@ -8,7 +8,7 @@ assignees: trent-gezel, tommerty
 ---
 
 # IMPORTANT
-Please keep the `[BUG]` in the title, and add your bug title after
+Please keep the `[SUG]` in the title, and add your bug title after
 
 **Describe your idea**
 Please give us as much detail as possible. If something should work a certain way, look a certain way, act a certain way. The more detail you give us, the better we can build it!
