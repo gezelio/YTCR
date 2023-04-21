@@ -16,5 +16,5 @@ jobs:
           # to the issue
           project-url: https://github.com/orgs/gezelio/projects/6
           github-token: ${{ secrets.TOKEN }}
-          labeled: bug
+          labeled: 🐞 Bug
           label-operator: OR
