@@ -41,9 +41,11 @@
     <br />
     <a href="https://gezel.io">Gezel.io</a>
     ·
-    <a href="https://github.com/gezelio/ytcr/issues">Report Bug</a>
+    <a href="https://github.com/gezelio/YTCR/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/gezelio/ytcr/issues">Request Feature</a>
+    <a href="https://github.com/orgs/gezelio/projects/5">RoadMap</a>
+    ·
+    <a href="https://github.com/gezelio/ytcr/issues/new/choose">Request Feature</a>
   </p>
 </div>
 
