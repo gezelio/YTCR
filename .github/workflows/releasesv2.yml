@@ -1,26 +1,35 @@
 name: Releases
 
-on:
+on: 
   push:
     paths:
-      - 'streamerbot/*.gezel'
+    - 'streamerbot/*.gezel'
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
-      - name: Extract version from file name
-        id: version
-        run: |
-          export TAG=$(echo ${{github.event.head_commit.modified}} | grep -oP 'YTCR\.\K[^.]*\.[^.]*\.[^.]*')
-          echo "TAG=$TAG" >> $GITHUB_ENV
-      - uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ env.TAG }}
-          artifacts: "streamerbot/*.gezel"
-          bodyFile: "streamerbot/README.md"
-          generateReleaseNotes: true
-          makeLatest: true
+    - uses: actions/checkout@v3.5.2
+    - name: Extract version from file name
+      id: version
+      run: |
+        export TAG=$(echo ${{github.event.head_commit.modified}} | sed -n 's/.*YTCR.v\([0-9]*\.[0-9]*\.[0-9]*\).gezel/\1/p')
+        echo "TAG=$TAG" >> $GITHUB_ENV
+    - name: Create or update tag
+      id: tag
+      uses: mathieudutour/github-tag-action@v6.1
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        tag: ${{ env.TAG }}
+        message: ${{ env.TAG }}
+        release_branch: main
+    - uses: ncipollo/release-action@v1.12.0
+      with:
+        tag: ${{ steps.tag.outputs.tag }}
+        artifacts: "streamerbot/*.gezel"
+        bodyFile: "streamerbot/README.md"
+        generateReleaseNotes: true
+        makeLatest: true
