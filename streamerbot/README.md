@@ -1,8 +1,6 @@
-## The latest versions of the StreamerBot implementation
-From time to time, we have to update the StreamerBot actions, which will require you the actions.
-
-## How to update
-1. Download the latest version [here]()
+## If you're updating from a previous version, please follow the below steps.
+If you're setting up YTCR for the first time, you can ignore these and follow the main tutorial
+1. Scroll down and download the latest `YTCR_v*.gezel` under "Assets"
 2. Launch StreamerBot and remove the following Actions:
   - `Clipping Tool`
   - `Execute Channel Reward Redeem`

@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: ncipollo/release-action@v1
       with:
-        tag: "latest"
+        tag: "vx.x.x"
         artifacts: "streamerbot/*.gezel"
         bodyFile: "streamerbot/README.md"
         generateReleaseNotes: true
