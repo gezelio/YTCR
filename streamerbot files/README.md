@@ -10,5 +10,4 @@ From time to time, we have to update the StreamerBot actions, which will require
 3. Go to `Import` and import the latest file, giving you the newest versions
 4. Complete the steps for our [websocket connection](https://github.com/gezelio/ytcr#2-websocket) to ensure the actions are properly linked
 5. Restart StreamerBot
-
-
+6. Enjoy! 🎉
