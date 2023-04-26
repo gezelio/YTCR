@@ -52,6 +52,9 @@
 #### Note to contributors:
 Please ensure you are forking the `staging` branch, as this is where the most up to date code will live
 
+<!-- Download -->
+# [Download the latest release for StreamerBot]()
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
