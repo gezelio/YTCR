@@ -9,16 +9,12 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v3
-    - name: Get filename
-      run: echo "::set-output name=filename::${{ github.event.inputs.path }}"
-      shell: bash
-      env:
-        GITHUB_EVENT_PATH: ${{ github.event_path }}
-    - uses: ncipollo/release-action@v1.12.0
+    - uses: ncipollo/release-action@v1
       with:
-        tag: ${{ env.GITHUB_EVENT_PATH }}
-        makeLatest: "true"
+        tag: "YTCR - v2.0.0"
         artifacts: "streamerbot/*.gezel"
-        bodyFile: "streamerbot/README.md"
+        bodyFile: "/streamerbot/README.md"
