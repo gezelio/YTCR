@@ -6,12 +6,22 @@ on:
       - '**/*.gezel'
 
 jobs:
-  build:
+  create_release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: ncipollo/release-action@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Extract version number
+        id: extract_version
+        run: echo "::set-output name=version::$(echo ${{ github.event_path }} | grep -oP '(?<=YTCR_)[^/]+(?=\.gezel)')"
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          artifacts: "*.gezel"
+          tag_name: ${{ steps.extract_version.outputs.version }}
+          release_name: Release ${{ steps.extract_version.outputs.version }}
+          body: |
+            This is a new release of the repository.
+          draft: false
+          prerelease: false
