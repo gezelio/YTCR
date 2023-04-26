@@ -85,12 +85,8 @@ function UpdateSend(url, data) {
         });
     });
 }
-document.getElementById("select_points").addEventListener("change", function () {
-    UpdateSend("/post/update/ChannelAmount", this.value)
-})
 function ShowData(data) {
     document.getElementById("select_points").innerHTML = ""
-    document.getElementById("channel_id").innerHTML = data.channel_id
     //ANCHOR - Channel points select how many
     Channel_points_template.map(function (item) {
         CLASS = "";
@@ -98,41 +94,23 @@ function ShowData(data) {
             CLASS = "bg-botred"
         }
         document.getElementById("select_points").innerHTML += `
-        <option class="${CLASS}">${item.points}</option>
+        <li class="${CLASS}" onclick="UpdateSend('/post/update/ChannelAmount', ${item.points})"><a>${item.points}</a></li>
         `
-        document.getElementById("select_points").value = data.channel_options.channel_amount
+        document.getElementById("ytcr-setpoints-label").innerText = data.channel_options.channel_amount
     })
     //ANCHOR - Clip stuff
-    document.getElementById("clip_enable").addEventListener("click", function () {
-        var clip_button_data1
-        if (document.querySelector('input[name="radio-10"]:checked').value == 'off') {
-            clip_button_data1 = false
-        }
-        if (document.querySelector('input[name="radio-10"]:checked').value == 'on') {
-            clip_button_data1 = true
-        }
+    document.getElementById("clip").addEventListener("click", function () {
+        clip_button_data1 = this.checked
+        console.log('clip_button_data1: ', clip_button_data1);
         if (clip_button_data1 != data.ext.clip_button) {
-            UpdateSend("/post/update/Clip", true)
-        }
-    });
-    document.getElementById("clip_disable").addEventListener("click", function () {
-        var clip_button_data11
-        if (document.querySelector('input[name="radio-10"]:checked').value == 'off') {
-            clip_button_data11 = false
-        }
-        if (document.querySelector('input[name="radio-10"]:checked').value == 'on') {
-            clip_button_data11 = true
-        }
-        if (clip_button_data11 != data.ext.clip_button) {
-            UpdateSend("/post/update/Clip", false)
+            UpdateSend("/post/update/Clip", clip_button_data1)
         }
     });
     if (data.ext.clip_button) {
-        document.getElementById('clip_disable').removeAttribute('checked', false);
-        document.getElementById('clip_enable').setAttribute('checked', true);
+        document.getElementById('clip').setAttribute("checked", true)
     } else {
-        document.getElementById('clip_disable').setAttribute('checked', true);
-        document.getElementById('clip_enable').removeAttribute('checked', false);
+        document.getElementById('clip').removeAttribute("checked", true)
+
     }
 }
 //ANCHOR - User Search and add or remove points
@@ -144,6 +122,7 @@ function searchUsers() {
     const searchTerm = searchInput.value.toLowerCase();
     if (searchTerm.length === 0) {
         searchResults.style.display = "none";
+        document.getElementById("user_points").value = ""
     } else {
         const filteredUsers = Data.users.filter(user => user.user.toLowerCase().includes(searchTerm));
         displayResults(filteredUsers);
@@ -151,6 +130,7 @@ function searchUsers() {
 }
 
 function displayResults(users) {
+    console.log('users: ', users);
     userList.innerHTML = "";
     if (users.length > 0) {
         searchResults.style.display = "block";
@@ -170,7 +150,7 @@ function displayResults(users) {
 }
 
 function selectUser(user) {
-    document.getElementById('ytcr_name').value = user.user;
+    document.getElementById('user-search-input').value = user.user;
     document.getElementById('user_points').value = user.points;
     document.getElementById('users_id').value = user.user_id;
     searchResults.style.display = "none";
