@@ -43,9 +43,9 @@
     ·
     <a href="https://github.com/gezelio/YTCR/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/orgs/gezelio/projects/5">RoadMap</a>
-    ·
     <a href="https://github.com/gezelio/ytcr/issues/new/choose">Request Feature</a>
+    ·
+    <a href="https://github.com/orgs/gezelio/projects/5">RoadMap</a>
   </p>
 </div>
 
