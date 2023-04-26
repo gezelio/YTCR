@@ -17,4 +17,4 @@ jobs:
       with:
         tag: "v2.0.0"
         artifacts: "streamerbot/*.gezel"
-        bodyFile: "/streamerbot/README.md"
+        bodyFile: "streamerbot/README.md"
