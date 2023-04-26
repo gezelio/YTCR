@@ -5,14 +5,13 @@ on:
     paths:
       - '**/*.gezel'
 
-      jobs:
-
-        build:
-          runs-on: ubuntu-latest
-          permissions:
-            contents: write
-          steps:
-          - uses: actions/checkout@v3
-          - uses: ncipollo/release-action@v1
-            with:
-              artifacts: "*.gezel"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "*.gezel"
