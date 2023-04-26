@@ -1,9 +1,9 @@
-name: Create release on new StreamerBot file
+name: Create Release on New File
 
 on:
   push:
     paths:
-      - 'streamerbot/**.gezel'
+      - '**/*.gezel'
 
 jobs:
   create_release:
@@ -17,11 +17,11 @@ jobs:
       - name: Create Release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.extract_version.outputs.version }}
-          release_name: ${{ steps.extract_version.outputs.version }} Release
+          release_name: Release ${{ steps.extract_version.outputs.version }}
           body: |
-            Latest version for StreamerBot
+            This is a new release of the repository.
           draft: false
           prerelease: false
