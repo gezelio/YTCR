@@ -13,6 +13,9 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v3.5.2
+    - name: Print head_commit object
+      run: |
+        echo "${{ toJson(github.event.head_commit) }}"
     - name: Extract version from file name
       id: version
       run: |
