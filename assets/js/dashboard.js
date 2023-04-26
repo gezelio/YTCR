@@ -50,7 +50,7 @@ function RefreshData() {
     }).catch(function (error) {
         console.log('error: ', error)
         $('#toast-container-fail').fadeIn(400, function () {
-            $(this).delay(200).fadeOut(400);
+            $(this).delay(5000).fadeOut(400);
         });
     });
 }
@@ -69,19 +69,19 @@ function UpdateSend(url, data) {
     }).then(function (data) {
         if (data.status == "success") {
             $('#toast-container-works').fadeIn(400, function () {
-                $(this).delay(200).fadeOut(400);
+                $(this).delay(5000).fadeOut(400);
             });
             RefreshData()
         }
         if (data.status == "fail") {
             $('#toast-container-fail').fadeIn(400, function () {
-                $(this).delay(200).fadeOut(400);
+                $(this).delay(5000).fadeOut(400);
             });
         }
     }).catch(function (error) {
         console.log('error: ', error)
         $('#toast-container-fail').fadeIn(400, function () {
-            $(this).delay(200).fadeOut(400);
+            $(this).delay(5000).fadeOut(400);
         });
     });
 }
