@@ -3,7 +3,7 @@ name: Create Release on New File
 on:
   push:
     paths:
-      - '**/*.gezel'
+      - 'path/to/repository/**'
 
 jobs:
   create_release:
@@ -15,9 +15,9 @@ jobs:
         id: extract_version
         run: echo "::set-output name=version::$(echo ${{ github.event_path }} | grep -oP '(?<=YTCR_)[^/]+(?=\.gezel)')"
       - name: Create Release
-        uses: actions/create-release@v1.12.0
+        uses: ncipollo/release-action@v1.12.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
           tag_name: ${{ steps.extract_version.outputs.version }}
           release_name: Release ${{ steps.extract_version.outputs.version }}
