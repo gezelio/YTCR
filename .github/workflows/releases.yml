@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.5.2
       - name: Extract version number
         id: extract_version
         run: echo "::set-output name=version::$(echo ${{ github.event_path }} | grep -oP '(?<=YTCR_)[^/]+(?=\.gezel)')"
       - name: Create Release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.12.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
