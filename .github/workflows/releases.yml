@@ -13,8 +13,11 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v3
+    - name: Get filename
+      id: filename
+      run: echo "::set-output name=filename::$(basename ${{ github.event_path }})"
     - uses: ncipollo/release-action@v1
       with:
-        tag: "v2.0.0"
+        tag: ${{ steps.filename.outputs.filename }}
         artifacts: "streamerbot/*.gezel"
         bodyFile: "streamerbot/README.md"
