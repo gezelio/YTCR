@@ -1,0 +1,26 @@
+name: Releases
+
+on:
+  push:
+    paths:
+      - 'streamerbot/*.gezel'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Extract version from file name
+        id: version
+        run: |
+          export TAG=$(echo ${{github.event.head_commit.modified}} | grep -oP 'YTCR\.\K[^.]*\.[^.]*\.[^.]*')
+          echo "TAG=$TAG" >> $GITHUB_ENV
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ env.TAG }}
+          artifacts: "streamerbot/*.gezel"
+          bodyFile: "streamerbot/README.md"
+          generateReleaseNotes: true
+          makeLatest: true
