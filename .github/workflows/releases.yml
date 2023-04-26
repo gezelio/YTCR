@@ -17,4 +17,7 @@ jobs:
       with:
         tag: "YTCR - v2.0.0"
         artifacts: "streamerbot/*.gezel"
-        bodyFile: "/streamerbot/README.md"
+        bodyFile: "streamerbot/README.md"
+        generateReleaseNotes: true
+        makeLatest: true
+        
