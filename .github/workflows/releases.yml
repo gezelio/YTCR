@@ -1,28 +1,20 @@
-name: New YTCR Release
+name: Releases
 
-on:
+on: 
   push:
     paths:
-      - 'streamerbot/*.gezel'
+    - 'streamerbot/*.gezel'
 
 jobs:
-  create_release:
+
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3.5.2
-      - name: Get filename
-        id: filename
-        run: echo "::set-output name=filename::$(basename ${{ github.event_path }})"
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          tag_name: ${{ github.event.client_payload.version }}
-          release_name: New YTCR Release
-          body: |
-            This is a new release of the repository.
-          draft: false
-          prerelease: false
-          asset_path: streamerbot/${{ steps.filename.outputs.filename }}
+    - uses: actions/checkout@v3
+    - uses: ncipollo/release-action@v1
+      with:
+        tag: "v2.0.0"
+        artifacts: "streamerbot/*.gezel"
+        bodyFile: "/streamerbot/README.md"
