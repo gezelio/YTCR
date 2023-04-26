@@ -70,9 +70,9 @@ Why we built this:
 
 #### Prerequisites
 
-- [Streamer.Bot](https://streamer.bot) v0.1.16 or newer
-- An affiliated Twitch channel (is needed to create channel rewards in Streamer.Bot)
-- 
+- [Streamer.Bot](https://streamer.bot) - v0.1.16 or newer
+- An affiliated Twitch channel - needed to create channel rewards in Streamer.Bot
+- A YouTube channel that is connected to your Discord - needed for [step 4](https://github.com/gezelio/YTCR#4-the-ytcr-dashboard)
 ## 1. Streamerbot configuration
 ---
 ### Initial setup
