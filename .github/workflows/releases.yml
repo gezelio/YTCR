@@ -1,0 +1,27 @@
+name: Create release on new StreamerBot file
+
+on:
+  push:
+    paths:
+      - 'streamerbot/**.gezel'
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Extract version number
+        id: extract_version
+        run: echo "::set-output name=version::$(echo ${{ github.event_path }} | grep -oP '(?<=YTCR_)[^/]+(?=\.gezel)')"
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          tag_name: ${{ steps.extract_version.outputs.version }}
+          release_name: ${{ steps.extract_version.outputs.version }} Release
+          body: |
+            Latest version for StreamerBot
+          draft: false
+          prerelease: false
