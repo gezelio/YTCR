@@ -16,8 +16,9 @@ jobs:
     - name: Get filename
       id: filename
       run: echo "::set-output name=filename::$(basename ${{ github.event_path }})"
-    - uses: ncipollo/release-action@v1
+    - uses: ncipollo/release-action@v1.12.0
       with:
         tag: ${{ steps.filename.outputs.filename }}
+        makeLatest: "true"
         artifacts: "streamerbot/*.gezel"
         bodyFile: "streamerbot/README.md"
