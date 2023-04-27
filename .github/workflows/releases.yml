@@ -18,5 +18,4 @@ jobs:
         tag: "vx.x.x"
         artifacts: "streamerbot/*.gezel"
         bodyFile: "streamerbot/README.md"
-        generateReleaseNotes: true
         makeLatest: true
