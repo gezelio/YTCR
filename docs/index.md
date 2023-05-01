@@ -2,18 +2,18 @@
 layout: default
 title: Home
 nav_order: 1
-description: "Just the Docs is a responsive Jekyll theme with built-in search that is easily customizable and hosted on GitHub Pages."
+description: "The latest changes with YTCR and the Chrome extension"
 permalink: /
 ---
 
-# Focus on writing good documentation
+# Updates on YTCR and related releases
 {: .fs-9 }
 
-Just the Docs gives your documentation a jumpstart with a responsive Jekyll theme that is easily customizable and hosted on GitHub Pages.
+Stay up to date on YTCR and the latest versions of the StreamerBot tool, Chrome Extension, and more.
 {: .fs-6 .fw-300 }
 
-[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View it on GitHub][Just the Docs repo]{: .btn .fs-5 .mb-4 .mb-md-0 }
+[Latest Release Notes](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Contribute on GitHub][github]{: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
@@ -90,7 +90,7 @@ Just the Docs is committed to fostering a welcoming community.
 [source file for this page]: https://github.com/just-the-docs/just-the-docs/blob/main/index.md
 [Just the Docs Template]: https://just-the-docs.github.io/just-the-docs-template/
 [Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[Just the Docs repo]: https://github.com/just-the-docs/just-the-docs
+[github]: https://github.com/gezelio/ytcr
 [Just the Docs README]: https://github.com/just-the-docs/just-the-docs/blob/main/README.md
 [GitHub Pages]: https://pages.github.com/
 [Template README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
