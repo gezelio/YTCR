@@ -1,0 +1,40 @@
+<html class="bg-[0f0f0f]">
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://api.gezel.io/js/tailwind_config.js"></script>
+    <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="mainBody" class="text-center break-words p-2">
+        <div id="buttons">
+            <div class="flex justify-between">
+                <btn id="toggle" class="p-2 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg"> $points</btn>
+                <btn class="p-2 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</btn>
+            </div>
+        </div>
+        <div id="dropdown" class="py-3 px-1 mt-2 grid grid-cols-4 gap-2">
+            <btn id="b1" class="px-1 py-3 bg-[#24292e] text-white font-bold text-[10px] rounded-lg border border-white">Button 1
+            </btn>
+            <btn class="px-1 py-3 bg-[#24292e] text-white font-bold text-[10px] rounded-lg border border-white">Button 2
+            </btn>
+            <btn class="px-1 py-3 bg-[#24292e] text-white font-bold text-[10px] rounded-lg border border-white">Button 3
+            </btn>
+            <btn class="px-1 py-3 bg-[#24292e] text-white font-bold text-[10px] rounded-lg border border-white">Button 4
+            </btn>
+        </div>
+        
+    </div>
+    <script>
+        const dropdownDiv = document.getElementById('dropdown');
+        dropdownDiv.classList.remove('hidden');
+
+        const toggleBtn = document.getElementById('toggle');
+        toggleBtn.addEventListener('click', () => {
+            dropdownDiv.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
