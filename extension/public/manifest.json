@@ -28,7 +28,9 @@
       "resources": [
         "main.js",
         "reward.css",
-        "icons/*"
+        "tailwind.css",
+        "icons/*",
+        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       ],
       "matches": [
         "https://www.youtube.com/*"

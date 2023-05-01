@@ -1,66 +1,5 @@
 var ytcr_image = localStorage.getItem('ytcr_image');
-
-const new_button = () => {
-    let button = document.createElement("button");
-    button.id = "channel_points_button";
-    button.setAttribute("class", "yt-icon-button");
-    button.onclick = () => {
-
-        let div = document.querySelector("#channel_points_div");
-        let clip_div = document.querySelector("#channel_points_div_clip");
-        let clip_div_button = document.querySelector("#channel_points_button_clip");
-
-        if (div.style.display === "none") {
-            div.style.display = "flex";
-            if (clip_div) {
-                clip_div.style.display = "flex";
-                clip_div_button.style.display = "block";
-            }
-        }
-        else {
-            div.style.display = "none";
-            if (clip_div) {
-                clip_div.style.display = "none";
-                clip_div_button.style.display = "none";
-            }
-        };
-    };
-    return button;
-}
-const new_div = () => {
-    let div = document.createElement("div");
-    div.id = "channel_points_div";
-    div.setAttribute("class", "yt-uix-button-group");
-    div.setAttribute("style", `
-    display: none !important;
-    border-radius: 5px;
-    position: relative;
-    height: auto;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    `
-    );
-    return div;
-}
-const clip_button_div = () => {
-    let div = document.createElement("div");
-    div.id = "channel_points_div_clip";
-    div.setAttribute("class", "yt-uix-button-group");
-    div.setAttribute("style", `
-    border-radius: 5px;
-    position: relative;
-    height: auto;
-    width: 12%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    `
-    );
-    return div;
-}
-const notification = (img, type) => {
+const notification_new = (img, type) => {
     var message_notification = "none";
     if (type = "no_channel") {
         message_notification = "This channel does not have YTCR points yet.";
@@ -93,10 +32,24 @@ const notification = (img, type) => {
     notification.appendChild(notification_text_div);
     document.body.prepend(notification);
 }
-export const add_button_new = new_button;
-export const add_div_new = new_div;
-export const notification_new = notification;
-export const clip_button_div_new = clip_button_div;
+
+const AddDiv = (points) => {
+    let div = document.createElement("div");
+    div.className = "text-center break-words p-2"
+    div.id = "YTCRMain"
+    div.innerHTML = `
+        <div id="buttons">
+            <div class="flex justify-between">
+                <btn id="PointsButton" class="p-2 bg-[#fc2a1b] hover:bg-[#af1d12] text-white font-bold rounded-lg cursor-pointer"><span id="ytcr_points_text">${points}</span> points</btn>
+                <button id="ClipButton" class="p-2 bg-[#fc2a1b] hover:bg-[#af1d12] text-white font-bold rounded-lg cursor-pointer disabled:bg-gray2 disabled:pointer-events-none"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</button>
+            </div>
+        </div>
+        <div id="YTCRDropdown" class="py-3 mt-2 grid grid-cols-4 gap-2">
+        </div>
+    `
+    return div;
+}
+export default { AddDiv, notification_new }
 
 
 

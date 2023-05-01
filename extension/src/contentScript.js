@@ -44,4 +44,14 @@ function load() {
     css.href = chrome.runtime.getURL('reward.css');
     css.id = 'gezel_youtube_css';
     head.appendChild(css);
+    const css_tailwind = document.createElement('link');
+    css_tailwind.rel = 'stylesheet';
+    css_tailwind.href = chrome.runtime.getURL('tailwind.css');
+    css_tailwind.id = 'gezel_youtube_tailwind';
+    head.appendChild(css_tailwind);
+    const css_fontawesome = document.createElement('link');
+    css_fontawesome.rel = 'stylesheet';
+    css_fontawesome.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
+    css_fontawesome.id = 'gezel_youtube_fontawesome';
+    head.appendChild(css_fontawesome);
 }
