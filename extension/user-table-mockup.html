@@ -1,0 +1,82 @@
+<html class="bg-[0f0f0f] text-white">
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://api.gezel.io/js/tailwind_config.js"></script>
+    <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="p-4">
+    <h1 class="text-2xl font-bold mb-4">%username</h1>
+    <div class="flex gap-2 mb-4">
+        <button id="sortByName"
+            class="p-1 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg cursor-pointer">A - Z</button>
+        <button id="sortByPoints"
+            class="px-1 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg cursor-pointer">Sort</button>
+    </div>
+    <table class="w-full border-collapse">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 text-left border border-white">Name</th>
+                <th class="px-4 py-2 text-left border border-white">Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="px-4 py-2 border border-white">John Doe</td>
+                <td class="px-4 py-2 border border-white">100</td>
+            </tr>
+            <tr>
+                <td class="px-4 py-2 border border-white">Jane Smith</td>
+                <td class="px-4 py-2 border border-white">50</td>
+            </tr>
+            <tr>
+                <td class="px-4 py-2 border border-white">Bob Johnson</td>
+                <td class="px-4 py-2 border border-white">75</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        const sortByNameBtn = document.getElementById('sortByName');
+        const sortByPointsBtn = document.getElementById('sortByPoints');
+        const tableBody = document.querySelector('tbody');
+        let nameSortOrder = 'asc';
+        let pointsSortOrder = 'asc';
+
+        sortByNameBtn.addEventListener('click', () => {
+            sortTable('name', nameSortOrder);
+            nameSortOrder = nameSortOrder === 'asc' ? 'desc' : 'asc';
+sortByNameBtn.innerHTML = `A - Z (${nameSortOrder === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>'})`;
+        });
+
+        sortByPointsBtn.addEventListener('click', () => {
+            sortTable('points', pointsSortOrder);
+            pointsSortOrder = pointsSortOrder === 'asc' ? 'desc' : 'asc';
+            sortByPointsBtn.innerHTML = `Sort (${pointsSortOrder === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>'})`;
+        });
+        function sortTable(column, order) {
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+            rows.sort((a, b) => {
+                let aValue, bValue;
+                if (column === 'name') {
+                    aValue = a.querySelector('td:first-child').textContent.trim();
+                    bValue = b.querySelector('td:first-child').textContent.trim();
+                } else if (column === 'points') {
+                    aValue = parseInt(a.querySelector('td:last-child').textContent.trim());
+                    bValue = parseInt(b.querySelector('td:last-child').textContent.trim());
+                }
+                if (order === 'asc') {
+                    return String(aValue).localeCompare(String(bValue));
+                } else if (order === 'desc') {
+                    return String(bValue).localeCompare(String(aValue));
+                }
+            });
+            rows.forEach(row => {
+                tableBody.appendChild(row);
+            });
+        }
+
+    </script>
+</body>
+
+</html>
