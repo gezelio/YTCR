@@ -133,6 +133,8 @@ It's likely you've set up channel points with StreamerBot before for your Twitch
     - This is to allow you to quickly enable/disable points that may not be working on your side, or are not fully complete.
 - User Input Required
   - Any reward that requires a user input will also automatically not be added to the extension, as this is a Twitch feature that currently cannot be replicated with our extension (yet).
+- Action
+  - Ensure you have an action set in order for this to work! You must create a new action, and have a sub action inside to link. (This will be resolved in v2.0.0)
 
 > The cost of a channel point inside StreamerBot will also be the cost of the action inside YouTube. Users generate points every 5 minutes, so be sure you set these fair with how many points you offer every 5 minutes from the [Dashboard](https://ytcr.gezel.io).
 
