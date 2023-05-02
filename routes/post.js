@@ -34,7 +34,7 @@ app.post('/post/update/ChannelAmount', async (req, res) => {
     } else {
         res.send({ status: 'failed' })
     }
-})
+});
 app.post('/post/update/Clip', async (req, res) => {
     const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
     if (data) {
@@ -49,5 +49,5 @@ app.post('/post/update/Clip', async (req, res) => {
     } else {
         res.send({ status: 'failed' })
     }
-})
+});
 module.exports = app;

@@ -62,7 +62,6 @@ app.use('/', require('./routes/post'));
 app.get('/api/channel_points', async (req, res) => {
     if (req.query.channel_id !== undefined && req.query.channel_id !== null && req.query.channel_id !== '' && req.query.user_id !== undefined && req.query.user_id !== null && req.query.user_id !== '') {
         const data = await DataBase.findOne({ channel_id: req.query.channel_id }).exec();
-        console.log('data: ', data);
         if (data === null) {
             res.send({
                 status: "error",
@@ -70,7 +69,6 @@ app.get('/api/channel_points', async (req, res) => {
             })
         } else {
             let found = data.users.find((go) => go.user_id === req.query.user_id)
-            // console.log('found: ', found);
             if (found !== undefined) {
                 // if (data.verified === true) {
                 if (req.query.channel_id == req.query.user_id) {
@@ -102,7 +100,6 @@ app.get('/api/channel_points', async (req, res) => {
                 // }
             } else {
                 let user_not_new = data.users.find((go) => go.user_id === req.query.user_id);
-                console.log('user_not_new: ', user_not_new)
                 if (user_not_new === undefined) {
                     if (req.query.channel_id == req.query.user_id) {
                         data.users.push({
@@ -111,10 +108,8 @@ app.get('/api/channel_points', async (req, res) => {
                             points: "%"
                         })
                         data.save().then(savedDocument => {
-                            console.log('savedDocument: ', JSON.parse(savedDocument.rewards, null, 4));
                             channel_rewards = []
                             id = 0
-                            console.log("rewards updated", userId)
                         }).catch(err => {
                             // handle error
                         });
@@ -133,10 +128,8 @@ app.get('/api/channel_points', async (req, res) => {
                         points: 0
                     })
                     data.save().then(savedDocument => {
-                        console.log('savedDocument: ', JSON.parse(savedDocument.rewards, null, 4));
                         channel_rewards = []
                         id = 0
-                        console.log("rewards updated", userId)
                     }).catch(err => {
                         // handle error
                     });
@@ -165,7 +158,6 @@ app.post('/api/claim_rewards', async (req, res) => {
             if (data != null) {
                 let user_found_update = data.users.find((go) => go.user_id === req.body.user_id);
                 if (user_found_update !== undefined) {
-                    console.log('user_found_update: ', user_found_update)
                     if (user_found_update.points == "%") {
                         res.send({
                             status: 'success',
@@ -183,18 +175,6 @@ app.post('/api/claim_rewards', async (req, res) => {
                             reward_action_message: req.body.reward_info.reward_action_message,
                             reward_action_clip: false
                         }))
-                        console.log(
-                            {
-                                type: 'rewards',
-                                channel_id: req.query.channel_id,
-                                username: req.body.username,
-                                user_id: req.body.user_id,
-                                reward_name: req.body.reward_info.reward_name,
-                                reward_action_id: req.body.reward_info.reward_action_id,
-                                reward_action_userInput: req.body.reward_info.reward_action_userInput,
-                                reward_action_message: req.body.reward_info.reward_action_message,
-                                reward_action_clip: false
-                            })
                         return
                     }
                     if (user_found_update.points >= req.body.points_to_redeem) {
@@ -224,17 +204,6 @@ app.post('/api/claim_rewards', async (req, res) => {
                             reward_action_message: req.body.reward_info.reward_action_message,
                             reward_action_clip: false
                         }))
-                        console.log(
-                            {
-                                type: 'rewards',
-                                channel_id: req.query.channel_id,
-                                username: req.body.username,
-                                reward_name: req.body.reward_info.reward_name,
-                                reward_action_id: req.body.reward_info.reward_action_id,
-                                reward_action_userInput: req.body.reward_info.reward_action_userInput,
-                                reward_action_message: req.body.reward_info.reward_action_message,
-                                reward_action_clip: false
-                            })
                         return
                     }
                 }
@@ -266,7 +235,6 @@ app.post("/api/update_points", async (req, res) => {
                     }
                     data.users.splice(data.users.indexOf(user_found_update), 1, user_update)
                     data.save().then(savedDocument => {
-                        console.log("data saved")
                         res.send({
                             status: 'success',
                             points: new_points
@@ -321,11 +289,9 @@ app.post("/api/clip_that", async (req, res) => {
     }
 });
 app.post('/post/update/UserPoints', async (req, res) => {
-    console.log(req.body)
     const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
     if (data) {
         data.users.find(x => x.user_id == req.body.data.user_id).points = req.body.data.points
-        console.log('data.users: ', data.users);
         if (groups.get("ext")) {
             for (const otherClient of groups.get("ext")) {
                 if (otherClient !== ws) {
@@ -339,7 +305,6 @@ app.post('/post/update/UserPoints', async (req, res) => {
             }
         }
         DataBase.findOneAndUpdate({ 'user.id': req.session.user.user.id }, data).exec().then(savedDocument => {
-            console.log('savedDocument: ', savedDocument.users);
             req.session.user = savedDocument;
             res.send({ status: 'success' })
         }).catch(err => {
@@ -414,7 +379,6 @@ wss.on('connection', function connection(ws, req) {
                 console.error('Failed to parse message:', error.message);
                 // handle the error
             }
-            console.log('message: ', message);
             if (message.connect) {
                 UserConnections[message.user] = ws;
                 ws.send(`Welcome, user ${message.user}`);
@@ -422,8 +386,6 @@ wss.on('connection', function connection(ws, req) {
             }
             if (message.send) {
                 const userId = Object.keys(UserConnections).find(key => UserConnections[key] === ws);
-                console.log('userId: ', userId);
-                console.log("send")
                 UserConnections[message.userid]?.send(JSON.stringify({
                     type: 'rewards',
                     channel_id: "UCOtNQeyJHiTzfeRTR20-eBg",
@@ -438,7 +400,6 @@ wss.on('connection', function connection(ws, req) {
             if (message.data) {
                 const userId = Object.keys(UserConnections).find(key => UserConnections[key] === ws);
                 if (userId) {
-                    console.log(`userId:${userId} Data:${message.data}`)
                     const data = await DataBase.findOne({ channel_id: userId }).exec();
                     if (data) {
                         json_rewards = JSON.parse(message.data)
@@ -447,9 +408,6 @@ wss.on('connection', function connection(ws, req) {
                                 setTimeout(() => {
                                     if (data.ext !== undefined && data.ext.user_input == true) {
                                         if (reward.actionId !== null && reward.group == "YTCR") {
-                                            console.log("user", data.user.username)
-                                            console.log("input is true: ", reward.name)
-                                            console.log("________________________________________")
                                             channel_rewards.push({
                                                 reward_id: id,
                                                 reward_name: reward.name,
@@ -463,9 +421,6 @@ wss.on('connection', function connection(ws, req) {
                                     } else {
                                         if (reward.userInput == false || reward.userInput == "false") {
                                             if (reward.actionId !== null && reward.group == "YTCR") {
-                                                console.log("user", data.user.username)
-                                                console.log("input is false: ", reward.name)
-                                                console.log("________________________________________")
                                                 channel_rewards.push({
                                                     reward_id: id,
                                                     reward_name: reward.name,
@@ -481,11 +436,8 @@ wss.on('connection', function connection(ws, req) {
                                     if (index == json_rewards.length - 1) {
                                         data.rewards = JSON.stringify(channel_rewards)
                                         data.save().then(savedDocument => {
-                                            console.log('savedDocument: ', JSON.parse(savedDocument.rewards, null, 4));
                                             channel_rewards = []
                                             id = 0
-                                            console.log("rewards updated", userId)
-                                            console.log(message.v)
                                             if (message.v != "2.0.0") {
                                                 console.log("found")
                                                 UserConnections[userId]?.send(JSON.stringify({
