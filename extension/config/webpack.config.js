@@ -12,6 +12,7 @@ const config = merge(common, {
         background: PATHS.src + '/background.js',
         main: PATHS.src + '/main.js',
         youtube: PATHS.src + '/youtube.js',
+        log: PATHS.src + '/log.js',
     },
 });
 

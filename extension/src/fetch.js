@@ -1,32 +1,29 @@
-const fetch_channel_points = async (channel_id, points, user_id_points, username) => {
+import logging from './log.js';
+const ChannelPoints = async (channel_id, points, user_id_points, username) => {
     const response = await fetch(`http://localhost:82/api/channel_points/?channel_id=${channel_id}&user_id=${user_id_points}&user=${username}`)
     if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
+        console.log('Looks like there was a problem. Status Code: ' + response.status);
         return;
     }
     const data = await response.json()
-
     if (data.data == undefined) {
         window.parent.postMessage({ "type": "ytcr_channel_link", "data": "none" });
         data.status == "error"
         return data
     }
     window.parent.postMessage({ "type": "ytcr_channel_link", "data": data.data.channel_link, "mystlink": data.data.mystlink });
-    console.log('data.data: ', data.data);
     return data
 }
-const fetch_rewards = async (channel_id) => {
+const Rewards = async (channel_id) => {
     const response = await fetch(`http://localhost:82/api/rewards/?channel_id=${channel_id}`)
     if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-            response.status);
+        console.log('Looks like there was a problem. Status Code: ' + response.status);
         return;
     }
     const data = await response.json()
     return data
 }
-const send_claim_reward = async (reward_id, channel_id, user_id, username, points_to_redeem, reward_info, callback) => {
+const ClaimRewards = async (reward_id, channel_id, user_id, username, points_to_redeem, reward_info, callback) => {
     fetch(`http://localhost:82/api/claim_rewards/?channel_id=${channel_id}`, {
         method: 'POST',
         headers: {
@@ -43,18 +40,17 @@ const send_claim_reward = async (reward_id, channel_id, user_id, username, point
     })
         .then(async function (response) {
             if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +
-                    response.status);
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
                 return;
             }
             const data = await response.json()
             callback(data)
         })
         .catch(error => {
+            logging.log(error)
         });
 }
-const clip_that = async (channel_id, user_id, username) => {
-    console.log("clip that")
+const Clip = async (channel_id, user_id, username) => {
     fetch(`http://localhost:82/api/clip_that/?channel_id=${channel_id}`, {
         method: 'POST',
         headers: {
@@ -68,16 +64,15 @@ const clip_that = async (channel_id, user_id, username) => {
     })
         .then(async function (response) {
             if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +
-                    response.status);
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
                 return;
             }
         })
         .catch(error => {
-
+            logging.log(error)
         });
 }
-const update_points = async (channel_id, user_id, username, points, callback) => {
+const UpdatePoints = async (channel_id, user_id, username, points, callback) => {
     fetch(`http://localhost:82/api/update_points/?channel_id=${channel_id}`, {
         method: 'POST',
         headers: {
@@ -92,21 +87,14 @@ const update_points = async (channel_id, user_id, username, points, callback) =>
     })
         .then(async function (response) {
             if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +
-                    response.status);
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
                 return;
             }
             const data = await response.json()
             callback(data)
         })
         .catch(error => {
-
+            logging.log(error)
         });
 }
-export {
-    fetch_channel_points,
-    fetch_rewards,
-    send_claim_reward,
-    update_points,
-    clip_that
-}
+export default { ChannelPoints, Rewards, ClaimRewards, Clip, UpdatePoints }

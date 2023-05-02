@@ -1,5 +1,5 @@
-import imports from './imports.js';
-import { fetch_channel_points, fetch_rewards, send_claim_reward, update_points, clip_that } from './fetch.js'
+import Imports from './imports.js';
+import Fetch from './fetch.js'
 var username_points = "none";
 var user_id_points = "none";
 var ytcr_broadcater_channel_id = "none";
@@ -14,7 +14,6 @@ if (ytInitialData.continuationContents != undefined && ytInitialData.continuatio
         localStorage.setItem('ytcr_broadcater_channel_id', parent.ytInitialData.contents.twoColumnWatchNextResults.results.results.contents[1].videoSecondaryInfoRenderer.owner.videoOwnerRenderer.title.runs[0].navigationEndpoint.browseEndpoint.browseId);
     }
     add_all()
-
 } else {
     if (localStorage.getItem('ytcr_viewerName') != undefined && localStorage.getItem('ytcr_user_channel_id') != undefined && localStorage.getItem('ytcr_broadcater_channel_id') != undefined) {
         username_points = localStorage.getItem('ytcr_viewerName')
@@ -23,15 +22,18 @@ if (ytInitialData.continuationContents != undefined && ytInitialData.continuatio
         add_all()
     }
 }
-var stop = false
 
 function add_all() {
     get_channel_points()
 }
 function ClickEvents() {
     document.getElementById("PointsButton").addEventListener('click', function () {
-        console.log('Button clicked!');
+        console.log('Points Button clicked!');
         document.getElementById("YTCRDropdown").classList.toggle("hidden")
+    });
+    document.getElementById("ClipButton").addEventListener('click', function () {
+        console.log('Clip Button clicked!');
+        Fetch.Clip(ytcr_broadcater_channel_id, user_id_points, username_points)
     });
 }
 var channel_points;
@@ -40,10 +42,10 @@ async function get_channel_points() {
         channel_points = localStorage.getItem('channel_points')
     }
     if (ytcr_broadcater_channel_id !== "none" && username_points !== "none" && user_id_points !== "none") {
-        fetch_channel_points(ytcr_broadcater_channel_id, channel_points, user_id_points, username_points).then(function (data) {
+        Fetch.ChannelPoints(ytcr_broadcater_channel_id, channel_points, user_id_points, username_points).then(function (data) {
             if (data.status == "error") {
                 stop = true
-                imports.notification_new(ytcr_image, "no_channel");
+                Imports.notification_new(ytcr_image, "no_channel");
                 if (localStorage.getItem('ytcr-notification') != "no_channel_off") {
                     setTimeout(() => {
                         document.querySelector('.ytcr-notification').style.top = "0px"
@@ -54,14 +56,13 @@ async function get_channel_points() {
             }
             if (!document.getElementById("YTCRMain")) {
                 let elmnt_div = document.querySelector('yt-live-chat-renderer');
-                elmnt_div.appendChild(imports.AddDiv(data.data.channel_points))
+                elmnt_div.appendChild(Imports.AddDiv(data.data.channel_points))
                 ClickEvents()
                 get_channel_reawrds()
                 connect();
                 document.getElementById("YTCRDropdown").classList.add("hidden")
             }
             document.getElementById("ClipButton").dataset.clip = data.data.clip_button
-            console.log('data.data.clip_button: ', data.data.clip_button);
             if (data.data.clip_button) {
                 localStorage.setItem('clip_button_status', "true")
                 document.getElementById("ClipButton").removeAttribute("disabled")
@@ -82,12 +83,11 @@ function update_cr_points_callback(data) {
 async function get_channel_reawrds() {
     document.getElementById("YTCRDropdown").innerHTML = ""
     if (ytcr_broadcater_channel_id !== "none" && username_points !== "none" && user_id_points !== "none") {
-        fetch_rewards(ytcr_broadcater_channel_id).then(function (data) {
+        Fetch.Rewards(ytcr_broadcater_channel_id).then(function (data) {
             data.data.channel_rewards.sort(function (a, b) {
                 return a.reward_points - b.reward_points;
             });
             data.data.channel_rewards.forEach(element => {
-                console.log('element: ', element);
                 document.getElementById("YTCRDropdown").innerHTML += `
                 <button id="YTCRbutton_${element.reward_action_id}" data-points="${element.reward_points}" data-id="${element.reward_action_id}" data-name="${element.reward_name}" class="disabled:bg-black disabled:pointer-events-none px-1 py-3 bg-[#24292e] text-white font-bold text-[10px] rounded-lg border border-white cursor-pointer disabled:pointer-events-none" style="text-align: -webkit-center; ">${element.reward_name}
                     <p class="mt-3 bg-[#1f2428] w-1/3 p-1 rounded-lg">${element.reward_points}</p>
@@ -95,7 +95,6 @@ async function get_channel_reawrds() {
                 `
             });
             data.data.channel_rewards.forEach(element => {
-                console.log('element: ', element);
                 document.getElementById("YTCRbutton_" + element.reward_action_id).addEventListener('click', function () {
                     console.log('Button clicked!');
                     send_claim_reward_popup(element.reward_id, ytcr_broadcater_channel_id, user_id_points, username_points, element.reward_points, { reward_name: element.reward_name, reward_description: element.reward_description, reward_action_id: element.reward_action_id, reward_action_userInput: element.reward_action_userInput, reward_action_message: "test" }, update_cr_points_callback)
@@ -109,9 +108,6 @@ function update_points_callback(data) {
     if (data.status == "success") {
         localStorage.setItem('channel_points', data.points);
         document.querySelector('#ytcr_points_text').innerText = data.points;
-        data.data.channel_rewards.forEach(element => {
-            PointCheck(element);
-        });
     }
 }
 function PointCheck(element) {
@@ -124,11 +120,11 @@ function PointCheck(element) {
 }
 async function update_channel_points() {
     if (ytcr_broadcater_channel_id !== "none" && username_points !== "none" && user_id_points !== "none") {
-        update_points(ytcr_broadcater_channel_id, user_id_points, username_points, channel_points, update_points_callback)
+        Fetch.UpdatePoints(ytcr_broadcater_channel_id, user_id_points, username_points, channel_points, update_points_callback)
     }
 }
 function send_claim_reward_popup(reward_id, channel_id, user_id, username, points_to_redeem, reward_info) {
-    send_claim_reward(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback)
+    Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback)
 }
 function connect() {
     var ws = new WebSocket('ws://localhost:82/ws?group=ext');
@@ -136,7 +132,6 @@ function connect() {
         console.log('Socket is connected to YTCR');
     };
     ws.onmessage = function (e) {
-        // console.log('Message:', e.data);
         var data = JSON.parse(e.data);
         if (data.type == "points_update") {
             if (localStorage.getItem("channel_points") != "%") {
@@ -144,9 +139,9 @@ function connect() {
             }
         }
         if (data.type == "refresh rewards") {
-            console.log("refresh rewards", data.channel_id == ytcr_broadcater_channel_id)
             if (data.channel_id == ytcr_broadcater_channel_id) {
                 get_channel_reawrds();
+                get_channel_points();
                 console.log("refresh rewards")
             }
             return;

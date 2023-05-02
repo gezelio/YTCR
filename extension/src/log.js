@@ -1,5 +1,5 @@
 const log = (message) => {
-    console.log("youtube_channel_points_extension: ", message);
+    console.log("YTCR EXT: ", message);
 }
 
-export const log_extension = log
+export default { log }

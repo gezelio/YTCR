@@ -50,7 +50,3 @@ const AddDiv = (points) => {
     return div;
 }
 export default { AddDiv, notification_new }
-
-
-
-
