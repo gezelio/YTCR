@@ -1,3 +1,4 @@
+import loging from './log.js'
 var ytcr_image;
 if (localStorage.getItem('ytcr_image') === null) {
     setTimeout(() => {
@@ -12,6 +13,7 @@ if (localStorage.getItem('ytcr_image') === null) {
         set_top_nav()
     }
 }
+var IframeDivElement;
 function set_top_nav() {
     // image
     let youtube_topnav = document.getElementById('masthead').children.container.children.end
@@ -33,21 +35,19 @@ function set_top_nav() {
     ytcr_topnave_button.appendChild(ytcr_topnave_img)
     ytcr_topnav_div.appendChild(ytcr_topnave_button)
     youtube_topnav.prepend(ytcr_topnav_div)
-    let youtube_div = document.body
-    let div_new_iframe = document.createElement('iframe')
-    div_new_iframe.id = 'ytcr_iframe_ytcr'
-    div_new_iframe.src = "https://ytcr.gezel.io"
-    div_new_iframe.setAttribute('style', `width: 520px; height: 84vh; position: fixed; top: 56px; right: 0px; z-index: 9999; display: none;`)
-    youtube_div.appendChild(div_new_iframe)
+    IframeDivElement = document.createElement("div");
+    IframeDivElement.innerHTML = `<iframe id="ytcr_iframe_ytcr" src="https://beta.ytcr.gezel.io" style="width: 520px; height: 84vh; position: fixed; top: 56px; right: 0px; z-index: 9999; display: none;"></iframe>`
+    document.body.appendChild(IframeDivElement)
 }
-indexfdsfdsfs = 0
-mystlink = null;
+let indexfdsfdsfs = 0
+let mystlink = null;
 window.addEventListener('message', function (event) {
     indexfdsfdsfs += 1
     if (event.data.type == "ytcr_channel_link" && event.data.data != null && event.data.data != undefined && event.data.data != "none") {
         mystlink = event.data.mystlink
         if (document.getElementById("YTCR_MYSTLINK")) {
         } else if (mystlink) {
+            loging.log("Mystl.ink: " + mystlink)
             let NewDiv = this.document.createElement("div")
             NewDiv.id = "YTCR_MYSTLINK"
             NewDiv.innerHTML = `
@@ -57,33 +57,20 @@ window.addEventListener('message', function (event) {
             `
             document.getElementById("related").prepend(NewDiv)
         }
-        document.getElementById('ytcr_iframe_ytcr').src = 'https://ytcr.gezel.io/u/' + event.data.data + '/ext'
+        document.getElementById('ytcr_iframe_ytcr').src = 'http://localhost:82/u/' + event.data.data
         document.getElementById('ytcr_topnav_div').setAttribute('style', "filter: grayscale(0%);")
         document.getElementById('ytcr_topnave_button').onclick = function () {
             if (document.getElementById('ytcr_iframe_ytcr').style.display == 'none') {
                 document.getElementById('ytcr_iframe_ytcr').style.display = 'block'
                 document.getElementById('ytcr_iframe_ytcr').onmouseout = function () {
                     document.getElementById('ytcr_iframe_ytcr').style.display = 'none'
+                    loging.log("mouse " + document.getElementById('ytcr_iframe_ytcr').style.display)
                 }
             }
             else {
                 document.getElementById('ytcr_iframe_ytcr').style.display = 'none'
             }
-        }
-    }
-    else {
-        document.getElementById('ytcr_topnave_button').onclick = function () {
-            if (document.getElementById('ytcr_iframe_ytcr').style.display == 'none') {
-                if (document.getElementById('ytcr_iframe_ytcr').src.includes("https://ytcr.gezel.io/u/")) {
-                    document.getElementById('ytcr_iframe_ytcr').style.display = 'block'
-                }
-                document.getElementById('ytcr_iframe_ytcr').onmouseout = function () {
-                    document.getElementById('ytcr_iframe_ytcr').style.display = 'none'
-                }
-            }
-            else {
-                document.getElementById('ytcr_iframe_ytcr').style.display = 'none'
-            }
+            loging.log(document.getElementById('ytcr_iframe_ytcr').style.display)
         }
     }
 })

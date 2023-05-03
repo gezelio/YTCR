@@ -1,5 +1,7 @@
 import Imports from './imports.js';
 import Fetch from './fetch.js'
+import logging from './log.js';
+import log from './log.js';
 var username_points = "none";
 var user_id_points = "none";
 var ytcr_broadcater_channel_id = "none";
@@ -22,17 +24,16 @@ if (ytInitialData.continuationContents != undefined && ytInitialData.continuatio
         add_all()
     }
 }
-
 function add_all() {
     get_channel_points()
 }
 function ClickEvents() {
     document.getElementById("PointsButton").addEventListener('click', function () {
-        console.log('Points Button clicked!');
+        logging.log('Points Button clicked!');
         document.getElementById("YTCRDropdown").classList.toggle("hidden")
     });
     document.getElementById("ClipButton").addEventListener('click', function () {
-        console.log('Clip Button clicked!');
+        logging.log('Clip Button clicked!');
         Fetch.Clip(ytcr_broadcater_channel_id, user_id_points, username_points)
     });
 }
@@ -56,6 +57,10 @@ async function get_channel_points() {
             }
             if (!document.getElementById("YTCRMain")) {
                 let elmnt_div = document.querySelector('yt-live-chat-renderer');
+                localStorage.setItem('channel_points', data.data.channel_points);
+                if (data.data.channel_points == "%") {
+                    data.data.channel_points = `<i class="fa-solid fa-infinity"></i>`
+                }
                 elmnt_div.appendChild(Imports.AddDiv(data.data.channel_points))
                 ClickEvents()
                 get_channel_reawrds()
@@ -70,14 +75,16 @@ async function get_channel_points() {
                 localStorage.setItem('clip_button_status', "false")
                 document.getElementById("ClipButton").setAttribute("disabled", true)
             }
-            localStorage.setItem('channel_points', data.data.channel_points);
         });
     }
 }
 function update_cr_points_callback(data) {
     if (data.status == "success") {
         localStorage.setItem('channel_points', data.data.channel_points);
-        document.querySelector('#ytcr_points_text').innerText = data.data.channel_points;
+        if (data.data.channel_points == "%") {
+            data.data.channel_points = `<i class="fa-solid fa-infinity"></i>`
+        }
+        document.querySelector('#ytcr_points_text').innerHTML = data.data.channel_points;
     }
 }
 async function get_channel_reawrds() {
@@ -96,7 +103,7 @@ async function get_channel_reawrds() {
             });
             data.data.channel_rewards.forEach(element => {
                 document.getElementById("YTCRbutton_" + element.reward_action_id).addEventListener('click', function () {
-                    console.log('Button clicked!');
+                    logging.log('Button clicked!');
                     send_claim_reward_popup(element.reward_id, ytcr_broadcater_channel_id, user_id_points, username_points, element.reward_points, { reward_name: element.reward_name, reward_description: element.reward_description, reward_action_id: element.reward_action_id, reward_action_userInput: element.reward_action_userInput, reward_action_message: "test" }, update_cr_points_callback)
                 });
                 PointCheck(element);
@@ -107,11 +114,14 @@ async function get_channel_reawrds() {
 function update_points_callback(data) {
     if (data.status == "success") {
         localStorage.setItem('channel_points', data.points);
-        document.querySelector('#ytcr_points_text').innerText = data.points;
+        if (data.points == "%") {
+            data.points = `<i class="fa-solid fa-infinity"></i>`
+        }
+        document.querySelector('#ytcr_points_text').innerHTML = data.points;
     }
 }
 function PointCheck(element) {
-    // console.log('element: ', element);
+    // logging.log('element: ', element);
     // if (parseInt(element.reward_points) <= localStorage.getItem('channel_points') || localStorage.getItem('channel_points') == "%") {
     //     document.getElementById("YTCRbutton_" + element.reward_action_id).removeAttribute("disabled")
     // } else {
@@ -129,10 +139,11 @@ function send_claim_reward_popup(reward_id, channel_id, user_id, username, point
 function connect() {
     var ws = new WebSocket('ws://localhost:82/ws?group=ext');
     ws.onopen = function () {
-        console.log('Socket is connected to YTCR');
+        logging.perm('Socket is connected to YTCR');
     };
     ws.onmessage = function (e) {
         var data = JSON.parse(e.data);
+        logging.log({ "WS": "Message", data });
         if (data.type == "points_update") {
             if (localStorage.getItem("channel_points") != "%") {
                 update_channel_points()
@@ -141,8 +152,7 @@ function connect() {
         if (data.type == "refresh rewards") {
             if (data.channel_id == ytcr_broadcater_channel_id) {
                 get_channel_reawrds();
-                get_channel_points();
-                console.log("refresh rewards")
+                logging.log("refresh rewards")
             }
             return;
         }
@@ -154,9 +164,17 @@ function connect() {
             }
             return;
         }
+        if (data.type == "refresh clip stuff") {
+            logging.log("refresh clip stuff")
+            if (data.channel_id == ytcr_broadcater_channel_id) {
+                logging.log("refresh clip stuff1")
+                get_channel_points();
+            }
+            return;
+        }
     };
     ws.onclose = function (e) {
-        console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+        logging.perm('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
         setTimeout(function () {
             connect();
         }, 1000);

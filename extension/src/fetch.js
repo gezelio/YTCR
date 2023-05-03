@@ -47,7 +47,7 @@ const ClaimRewards = async (reward_id, channel_id, user_id, username, points_to_
             callback(data)
         })
         .catch(error => {
-            logging.log(error)
+            logging.perm(error)
         });
 }
 const Clip = async (channel_id, user_id, username) => {
@@ -69,7 +69,7 @@ const Clip = async (channel_id, user_id, username) => {
             }
         })
         .catch(error => {
-            logging.log(error)
+            logging.perm(error)
         });
 }
 const UpdatePoints = async (channel_id, user_id, username, points, callback) => {
@@ -94,7 +94,7 @@ const UpdatePoints = async (channel_id, user_id, username, points, callback) => 
             callback(data)
         })
         .catch(error => {
-            logging.log(error)
+            logging.perm(error)
         });
 }
 export default { ChannelPoints, Rewards, ClaimRewards, Clip, UpdatePoints }
