@@ -53,7 +53,7 @@
 Please ensure you are forking the `staging` branch, as this is where the most up to date code will live
 
 <!-- Download -->
-# [Download the latest release for StreamerBot]()
+# [Download the latest release for StreamerBot](https://github.com/orgs/gezelio/packages?repo_name=YTCR)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -77,7 +77,7 @@ Why we built this:
 ---
 ### Initial setup
 
-1. Download `YTCR_{version}.gezel` from our [Releases Page]().
+1. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/orgs/gezelio/packages?repo_name=YTCR).
 2. Launch Streamer.Bot and select `Import` and drag the file into the `Import String` box.
    - Confirm you see the following `Actions`:
      - Clipping Tool
