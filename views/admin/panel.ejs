@@ -2,6 +2,7 @@
 <html style="font-size: 16px;">
 
     <head>
+        <script src="/assets/js/logging.js"></script>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
         </script>
@@ -87,7 +88,13 @@
                 <h1 class="font-black mb-2 text-center">Totals</h1>
                 <div class="grid lg:grid-cols-3 justify-center">
                     <div class="tooltip" data-tip="Showcases the total amount of users"><i
-                            class="fa-solid fa-circle text-teal-400 mr-2"></i>Total users: <span id="all"></span>
+                            class="fa-solid fa-circle text-white mr-2"></i>Total users: <span id="all"></span>
+                    </div>
+                    <div class="tooltip" data-tip="Users active with EXT"><i
+                            class="fa-solid fa-circle text-red-400 mr-2"></i>Active EXT: <span id="extStats"></span>
+                    </div>
+                    <div class="tooltip" data-tip="Users active with SB"><i
+                            class="fa-solid fa-circle text-purple-400 mr-2"></i>Active SB: <span id="sbStats"></span>
                     </div>
                 </div>
             </div>
@@ -139,10 +146,10 @@
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log('data: ', data);
+        logging({ 'Users': data });
         show(data)
     }).catch(function (error) {
-        console.log('error: ', error)
+        loggingPerm({ "error get-admin": error })
     });
     function show(data) {
         document.getElementById("all").innerHTML = data.length
@@ -192,5 +199,30 @@
                 checkimg(data)
             }
         });
+    }
+    WSconnect();
+    function WSconnect() {
+        var ws = new WebSocket('ws://localhost:82/ws?group=stats');
+        ws.onopen = function () {
+            loggingPerm('Socket is connected to YTCR');
+        };
+        ws.onmessage = function (e) {
+            var data = JSON.parse(e.data);
+            logging({ "WS": "Message", data });
+            if (data.type == "stats") {
+                document.getElementById("extStats").innerHTML = data.ext == undefined ? 0 : data.ext
+                document.getElementById("sbStats").innerHTML = data.sb
+            }
+        };
+        ws.onclose = function (e) {
+            loggingPerm('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+            setTimeout(function () {
+                WSconnect();
+            }, 1000);
+        };
+        ws.onerror = function (err) {
+            console.error('Socket encountered error: ', err.message, 'Closing socket');
+            ws.close();
+        };
     }
 </script>

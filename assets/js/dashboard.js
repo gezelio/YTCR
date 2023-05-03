@@ -48,7 +48,7 @@ function RefreshData() {
             ShowData(data.data)
         }
     }).catch(function (error) {
-        console.log('error: ', error)
+        loggingPerm({ "error RefreshData": error })
         $('#toast-container-fail').fadeIn(400, function () {
             $(this).delay(5000).fadeOut(400);
         });
@@ -79,7 +79,7 @@ function UpdateSend(url, data) {
             });
         }
     }).catch(function (error) {
-        console.log('error: ', error)
+        loggingPerm({ "error UpdateSend": error })
         $('#toast-container-fail').fadeIn(400, function () {
             $(this).delay(5000).fadeOut(400);
         });
@@ -99,13 +99,6 @@ function ShowData(data) {
         document.getElementById("ytcr-setpoints-label").innerText = data.channel_options.channel_amount
     })
     //ANCHOR - Clip stuff
-    document.getElementById("clip").addEventListener("click", function () {
-        clip_button_data1 = this.checked
-        console.log('clip_button_data1: ', clip_button_data1);
-        if (clip_button_data1 != data.ext.clip_button) {
-            UpdateSend("/post/update/Clip", clip_button_data1)
-        }
-    });
     if (data.ext.clip_button) {
         document.getElementById('clip').setAttribute("checked", true)
     } else {
@@ -113,6 +106,13 @@ function ShowData(data) {
 
     }
 }
+document.getElementById("clip").addEventListener("click", function () {
+    clip_button_data1 = this.checked
+    logging('clip_button_data1: ' + clip_button_data1)
+    if (clip_button_data1 != Data.ext.clip_button) {
+        UpdateSend("/post/update/Clip", clip_button_data1)
+    }
+});
 //ANCHOR - User Search and add or remove points
 const searchInput = document.getElementById("user-search-input");
 const searchResults = document.getElementById("user-search-results");
@@ -130,7 +130,7 @@ function searchUsers() {
 }
 
 function displayResults(users) {
-    console.log('users: ', users);
+    logging({ 'users': users });
     userList.innerHTML = "";
     if (users.length > 0) {
         searchResults.style.display = "block";

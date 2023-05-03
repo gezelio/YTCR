@@ -2,6 +2,7 @@
 <html lang="en" class="dark bg-gray2 text-white">
 
     <head>
+        <script src="/assets/js/logging.js" defer></script>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`)
         </script>
@@ -109,7 +110,7 @@
                             href="https://github.com/gezelio/YTCR#5-clipping-tool" class="text-sm underline">You need to
                             have set this up prior!</a></p>
                     <input id="clip" type="checkbox" class="toggle toggle-success" value="false" />
-                    <p class="">You must restart your StreamerBot application to take affect</p>
+                    <!-- <p class="">You must restart your StreamerBot application to take affect</p> -->
                 </div>
                 <div class="divider"></div>
                 <h1 class="font-bold text-4xl mb-2">Data and privacy</h1>

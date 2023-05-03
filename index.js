@@ -1,3 +1,4 @@
+const functions = require("./lib/functions")
 const UserConnections = {};
 const groups = new Map();
 const express = require('express');
@@ -65,7 +66,7 @@ app.get('/api/channel_points', async (req, res) => {
         if (data === null) {
             res.send({
                 status: "error",
-                message: "user not found"
+                message: "Channel not found"
             })
         } else {
             let found = data.users.find((go) => go.user_id === req.query.user_id)
@@ -78,7 +79,7 @@ app.get('/api/channel_points', async (req, res) => {
                             channel_points: "%",
                             channel_link: data.channel_link,
                             clip_button: data.ext.clip_button,
-                            mystlink: undefined
+                            mystlink: data.mystlink
                         }
                     })
                     return
@@ -89,7 +90,7 @@ app.get('/api/channel_points', async (req, res) => {
                         channel_points: found.points,
                         channel_link: data.channel_link,
                         clip_button: data.ext.clip_button,
-                        mystlink: undefined
+                        mystlink: data.mystlink
                     }
                 })
                 // } else {
@@ -291,7 +292,7 @@ app.post("/api/clip_that", async (req, res) => {
 app.post('/post/update/UserPoints', async (req, res) => {
     const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
     if (data) {
-        data.users.find(x => x.user_id == req.body.data.user_id).points = req.body.data.points
+        data.users.find(x => x.user_id == req.body.data.user_id).points = parseInt(req.body.data.points)
         if (groups.get("ext")) {
             for (const otherClient of groups.get("ext")) {
                 if (otherClient !== ws) {
@@ -315,7 +316,31 @@ app.post('/post/update/UserPoints', async (req, res) => {
         res.send({ status: 'failed' })
     }
 })
-
+app.post('/post/update/Clip', async (req, res) => {
+    const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
+    if (data) {
+        data.ext.clip_button = req.body.data
+        data.save().then(savedDocument => {
+            req.session.user = data;
+            if (groups.get("ext")) {
+                for (const otherClient of groups.get("ext")) {
+                    if (otherClient !== ws) {
+                        otherClient.send(JSON.stringify({
+                            type: 'refresh clip stuff',
+                            channel_id: data.channel_id,
+                        }));
+                    }
+                }
+            }
+            res.send({ status: 'success' })
+        }).catch(err => {
+            console.log('err: ', err)
+            res.send({ status: 'failed' })
+        });
+    } else {
+        res.send({ status: 'failed' })
+    }
+});
 app.get('/api/rewards', async (req, res) => {
     if (req.query.channel_id !== undefined && req.query.channel_id) {
         const data = await DataBase.findOne({ channel_id: req.query.channel_id }).exec();
@@ -506,13 +531,17 @@ setInterval(() => {
             type: 'Heartbeat'
         }))
     });
-    console.log('groups.get("ext")?.size: ', groups.get("ext")?.size);
+    let totalCount = 0;
+    for (let key in UserConnections) {
+        totalCount += 1;
+    }
     if (groups.get("stats")) {
         for (const otherClient of groups.get("stats")) {
             if (otherClient !== ws) {
                 otherClient.send(JSON.stringify({
                     type: 'stats',
-                    ext: groups.get("ext")?.size
+                    ext: groups.get("ext")?.size,
+                    sb: totalCount
                 }));
             }
         }
@@ -541,8 +570,8 @@ wss.on("close", function (error) {
     console.log("close: ", error)
 });
 wss.on('listening', () => {
-    console.log(`wss listening on ${port}`)
+    functions.log(require('url').pathToFileURL(__filename).toString(), `wss is listening on ${port}`)
 });
 server.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    functions.log(require('url').pathToFileURL(__filename).toString(), `URL is running on port ${port}`)
 });

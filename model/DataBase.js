@@ -71,6 +71,10 @@ const yt_extensionSchema = mongoose.Schema({
         unique: false,
         required: false
     },
+    mystlink: {
+        type: String,
+        default: undefined
+    },
     setup: {
         initial_setup: {
             type: Boolean,

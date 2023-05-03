@@ -57,10 +57,18 @@ app.get('/u/:slug', async (req, res) => {
     const UserData = await DataBase.findOne({ 'channel_link': req.params.slug }).exec();
     if (UserData) {
         res.render(path.resolve('./views/ytcr/channel.ejs'), {
+            link: UserData.channel_link,
             channel_name: UserData.user.username,
             users: UserData.users
         })
     }
 });
-
+app.get('/api/u/points/:slug', async (req, res) => {
+    const UserData = await DataBase.findOne({ 'channel_link': req.params.slug }).exec();
+    if (UserData) {
+        res.send({ status: "success", users: UserData.users })
+    } else {
+        res.send({ status: "fail" })
+    }
+});
 module.exports = app;
