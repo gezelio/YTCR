@@ -30,22 +30,8 @@ Stay up to date on YTCR and the latest versions of the StreamerBot tool, Chrome 
 {% endfor %}
 </ul>
 
-## v2.0.0
-Releasing: May 20th, 2023
-{: .label .label-green }
-#### Full breakdown of issues can be found on our GitHub [here](https://github.com/orgs/gezelio/projects/5/views/5).
-- Extension
-  - Chrome tab opens to this page on install and update
-  - added the ability to not include `actions` in rewards
-  - Improved stability of Chrome extension
-  - Stop the homepage from loading when clicking the extension icon when not on a stream or video page
-  - Improvements to the UI of the extension and buttons
-- StreamerBot
-  - Added a system detection feature to determine if a user is using an older version of the StreamerBot actions
-- Website
-  - Complete redesign and refresh of the website
-- Websocket Server
-  - Allow WS to work on either trailing slash or not
+## Get Started
+<!-- wil eventually embed the other readme here -->
 
 
 [github]: https://github.com/gezelio/ytcr
