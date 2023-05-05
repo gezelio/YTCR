@@ -49,6 +49,8 @@
   </p>
 </div>
 
+# This version is currently NOT in production, and is still in development. This banner will be removed when it is ready for production use.
+
 #### Note to contributors:
 Please ensure you are forking the `staging` branch, as this is where the most up to date code will live
 
