@@ -1,0 +1,20 @@
+name: Sync README
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Sync README
+        run: |
+          cp README.md docs/README.md
+          git add docs/README.md
+          git commit -m "Sync README.md"
+          git push
