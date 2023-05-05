@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Sync README
-        if: ${{ github.event.head_commit.modified | contains('README.md') }}
+        if: github.event.head_commit.modified || contains('README.md')
         run: |
           cp README.md docs/README.md
           git add docs/README.md
