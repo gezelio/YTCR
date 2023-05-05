@@ -3,7 +3,7 @@ name: Sync README
 on:
   push:
     branches:
-      - main
+      - staging
 
 jobs:
   sync:
