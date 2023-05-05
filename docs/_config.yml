@@ -13,8 +13,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: YTCR Extension Release Notes
-description: All the updates on the YTCR Chrome Extension
+title: YTCR Releases
+description: All the updates on the YTCR
 baseurl: "" # the subpath of your site, e.g. /blog
 repository: gezelio/ytcr # for github-metadata
 
@@ -112,6 +112,8 @@ nav_sort: case_sensitive # Capital letters sorted before lowercase
 
 # External navigation links
 nav_external_links:
+  - title: Set up
+    url: https://github.com/gezelio/YTCR/
   - title: Get started with YTCR
     url: https://ytcr.gezel.io
 
