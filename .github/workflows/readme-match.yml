@@ -13,10 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Sync README
-        if: github.event.head_commit.modified || contains('README.md')
+        if: steps.check_readme.outputs.modified == 'true'
+        id: check_readme
+        run: echo "::set-output name=modified::$(if [ -n "$(git diff --name-only HEAD^ HEAD | grep README.md)" ]; then echo 'true'; else echo 'false'; fi)"
+
+      - name: Copy README
+        if: steps.check_readme.outputs.modified == 'true'
         run: |
           cp README.md docs/README.md
           git add docs/README.md
