@@ -11,4 +11,4 @@ jobs:
         uses: github-actions-up-and-running/pr-comment@v1.0.1
         with:
           repo-token: ${{ secrets.TOKEN }}
-          message: `# Please read before merging the PR \n\n - [ ] Check the code \n - [ ] Check the tests \n - [ ] Check the docs`
+          message: # Please read before merging the PR \n\n - [ ] Check the code \n - [ ] Check the tests \n - [ ] Check the docs
