@@ -32,6 +32,4 @@ Stay up to date on YTCR and the latest versions of the StreamerBot tool, Chrome 
 
 ## Get Started
 
-{% include_relative README.md %}
-
 [github]: https://github.com/gezelio/ytcr
