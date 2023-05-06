@@ -24,7 +24,7 @@ jobs:
             const { owner, repo } = context.repo;
             const { number } = context.payload.pull_request;
             const comment = `Thanks for opening this pull request! Here's a checklist to help ensure everything is up to date:\n\n- [ ] Update the extension file\n- [ ] Double check the readme is complete\n- [ ] Update the extension to open a new page on this new release\n\nPlease check off each item as you complete it.`;
-            const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
             const { data: comments } = await octokit.issues.listComments({
               owner,
               repo,
