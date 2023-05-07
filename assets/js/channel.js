@@ -21,44 +21,45 @@ function dynamicSort(property, order) {
             return result * sortOrder;
         }
 }
-// users = users.filter(user => user.points !== "%");
-// function GetUserPointsUpdate() {
-//     fetch(`/api/u/points/${channel_link}`, {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     }).then(function (response) {
-//         return response.json();
-//     }).then(function (data) {
-//         if (data.status == "success") {
-//             console.log(data)
-//             users = data.users
-//             users.forEach(function (element, index) {
-//                 element.points = parseInt(element.points)
-//             });
-//             users.sort(dynamicSort("points", pointsSortOrder))
-//             document.getElementById("users").innerHTML = ""
-//             users.forEach(function (element, index) {
-//                 if (!parseInt(element.points)) {
-//                     points = `<i class="fa-solid fa-infinity"></i>`
-//                 } else {
-//                     points = element.points
-//                 }
-//                 document.getElementById("users").innerHTML += `
-//                 <tr>
-//                     <td data-name="${element.user}" class="px-4 py-2 border border-[#1f2428]">${element.user}</td>
-//                     <td data-points="${element.points}" class="px-4 py-2 border border-[#1f2428]">${points}</td>
-//                 </tr>
-//                 `
-//             });
-//         } else {
-//             console.log(data)
-//         }
-//     }).catch(function (error) {
-//         loggingPerm({ "error UpdateSend": error })
-//     });
-// }
+users = users.filter(user => user.points !== "%");
+function GetUserPointsUpdate() {
+    console.log("update")
+    fetch(`/api/u/points/${channel_link}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (data.status == "success") {
+            console.log(data)
+            users = data.users
+            users.forEach(function (element, index) {
+                element.points = parseInt(element.points)
+            });
+            users.sort(dynamicSort("points", pointsSortOrder))
+            document.getElementById("users").innerHTML = ""
+            users.forEach(function (element, index) {
+                if (!parseInt(element.points)) {
+                    points = `<i class="fa-solid fa-infinity"></i>`
+                } else {
+                    points = element.points
+                }
+                document.getElementById("users").innerHTML += `
+                <tr>
+                    <td data-name="${element.user}" class="px-4 py-2 border border-[#1f2428]">${element.user}</td>
+                    <td data-points="${element.points}" class="px-4 py-2 border border-[#1f2428]">${points}</td>
+                </tr>
+                `
+            });
+        } else {
+            console.log(data)
+        }
+    }).catch(function (error) {
+        loggingPerm({ "error UpdateSend": error })
+    });
+}
 users.forEach(function (element, index) {
     element.points = parseInt(element.points)
     if (!parseInt(element.points)) {
@@ -120,3 +121,7 @@ function sortTable(column, order) {
         tableBody.appendChild(row);
     });
 }
+
+setInterval(() => {
+    GetUserPointsUpdate();
+}, 60000);

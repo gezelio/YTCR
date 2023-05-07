@@ -11,7 +11,8 @@ function CheckUser(user) {
         "id": user.user.id,
         "profile_pic": user.user.profile_pic,
         "username": user.user.username,
-        "account": user.account
+        "account": user.account,
+        "channel_link": user.channel_link
     }
 }
 app.get("/", (req, res) => {
