@@ -202,7 +202,12 @@
     }
     WSconnect();
     function WSconnect() {
-        var ws = new WebSocket('ws://localhost:82/ws?group=stats');
+        if (window.location.origin.includes("https://")) {
+            var ws = new WebSocket(window.location.origin.replace("https://", "wss://") + '/ws?group=stats');
+        }
+        if (window.location.origin.includes("http://")) {
+            var ws = new WebSocket(window.location.origin.replace("http://", "ws://") + '/ws?group=stats');
+        }
         ws.onopen = function () {
             loggingPerm('Socket is connected to YTCR');
         };
