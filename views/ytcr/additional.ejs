@@ -62,9 +62,9 @@
                         <ol class="text-left px-7" style="list-style-type: decimal;">
                             <li>Top panel select <code class="ml-2">Docks > Custom Browser Docks</code></li>
                             <li>Dock Name: YTCR</li>
-                            <li>URL: Paste in your YTCR URL <btn id="clipboard-URL" class="bg-gray2 p-1 font-bold"
+                            <li>URL: <btn id="clipboard-URL" class="bg-gray2 p-1 font-bold"
                                     onclick="copyToClipboard(`${window.location.origin}/u/${user.channel_link}`)"
-                                    style="cursor: pointer;">Copy URL to clipboard</btn>
+                                    style="cursor: pointer;">Click me and paste into OBS</btn>
 
                                 <script>
                                     function copyToClipboard(url) {
@@ -76,7 +76,7 @@
                                                 button.textContent = 'Copied to clipboard';
                                                 setTimeout(() => {
                                                     button.classList.remove("bg-green-700");
-                                                    button.textContent = 'Copy URL to clipboard';
+                                                    button.textContent = 'Click me and paste into OBS';
                                                 }, 5000);
                                             })
                                             .catch((error) => {
@@ -85,7 +85,7 @@
                                     }
                                 </script>
                             </li>
-                            <li>Click Apply</li>
+                            <li>Click <code>Apply</code></li>
                         </ol>
                     </div>
                 </div>
