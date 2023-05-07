@@ -428,35 +428,20 @@ wss.on('connection', function connection(ws, req) {
                     const data = await DataBase.findOne({ channel_id: userId }).exec();
                     if (data) {
                         json_rewards = JSON.parse(message.data)
+                        console.log('json_rewards: ', json_rewards);
                         if (json_rewards !== undefined) {
                             json_rewards.forEach(async (reward, index) => {
                                 setTimeout(() => {
-                                    if (data.ext !== undefined && data.ext.user_input == true) {
-                                        if (reward.group == "YTCR") {
-                                            channel_rewards.push({
-                                                reward_id: id,
-                                                reward_name: reward.name,
-                                                reward_prompt: reward.prompt,
-                                                reward_points: reward.cost,
-                                                reward_action_id: reward.actionId,
-                                                reward_action_userInput: reward.userInput
-                                            })
-                                            id++
-                                        }
-                                    } else {
-                                        if (reward.userInput == false || reward.userInput == "false") {
-                                            if (reward.group == "YTCR") {
-                                                channel_rewards.push({
-                                                    reward_id: id,
-                                                    reward_name: reward.name,
-                                                    reward_prompt: reward.prompt,
-                                                    reward_points: reward.cost,
-                                                    reward_action_id: reward.actionId,
-                                                    reward_action_userInput: reward.userInput
-                                                })
-                                                id++
-                                            }
-                                        }
+                                    if (reward.group == "YTCR") {
+                                        channel_rewards.push({
+                                            reward_id: id,
+                                            reward_name: reward.name,
+                                            reward_prompt: reward.prompt,
+                                            reward_points: reward.cost,
+                                            reward_action_id: reward.actionId,
+                                            reward_action_userInput: reward.userInput
+                                        })
+                                        id++
                                     }
                                     if (index == json_rewards.length - 1) {
                                         data.rewards = channel_rewards
