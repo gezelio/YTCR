@@ -24,6 +24,12 @@ app.get("/dashboard", functions.LoggedIn, async (req, res) => {
         user: CheckUser(user)
     })
 });
+app.get("/additional", functions.LoggedIn, async (req, res) => {
+    const user = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
+    res.render(path.resolve('./views/ytcr/additional.ejs'), {
+        user: CheckUser(user)
+    })
+});
 app.get("/get/dashboard/data", functions.LoggedIn, async (req, res) => {
     const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
     data.user == {}
