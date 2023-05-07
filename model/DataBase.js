@@ -127,6 +127,10 @@ const yt_extensionSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
+    last_login: {
+        type: String,
+        default: ""
+    },
     created_at: {
         type: Date,
         default: Date.now

@@ -46,6 +46,7 @@ app.get('/auth/discord/callback', async (req, res) => {
                     if (data_data) {
                         data_data.discord = newDiscord;
                         data_data.user.profile_pic = newDiscord.avatar;
+                        data_data.last_login = new Date();
                         fetch("https://discord.com/api/users/@me/connections", {
                             method: "GET",
                             headers: {
@@ -82,7 +83,8 @@ app.get('/auth/discord/callback', async (req, res) => {
                                 discord_user_id: data_user.id,
                                 profile_pic: newDiscord.avatar,
                             },
-                            channel_link: data_user.username.toLowerCase()
+                            channel_link: data_user.username.toLowerCase(),
+                            last_login: new Date()
                         }
                         let newDataBase = new DataBase(new_user);
                         newDataBase.discord = newDiscord;
