@@ -349,7 +349,7 @@ app.get('/api/rewards', async (req, res) => {
                 res.send({
                     status: 'success',
                     data: {
-                        channel_rewards: JSON.parse(data.rewards)
+                        channel_rewards: data.rewards
                     }
                 })
             }
@@ -432,7 +432,7 @@ wss.on('connection', function connection(ws, req) {
                             json_rewards.forEach(async (reward, index) => {
                                 setTimeout(() => {
                                     if (data.ext !== undefined && data.ext.user_input == true) {
-                                        if (reward.actionId !== null && reward.group == "YTCR") {
+                                        if (reward.group == "YTCR") {
                                             channel_rewards.push({
                                                 reward_id: id,
                                                 reward_name: reward.name,
@@ -445,7 +445,7 @@ wss.on('connection', function connection(ws, req) {
                                         }
                                     } else {
                                         if (reward.userInput == false || reward.userInput == "false") {
-                                            if (reward.actionId !== null && reward.group == "YTCR") {
+                                            if (reward.group == "YTCR") {
                                                 channel_rewards.push({
                                                     reward_id: id,
                                                     reward_name: reward.name,
@@ -459,7 +459,7 @@ wss.on('connection', function connection(ws, req) {
                                         }
                                     }
                                     if (index == json_rewards.length - 1) {
-                                        data.rewards = JSON.stringify(channel_rewards)
+                                        data.rewards = channel_rewards
                                         data.save().then(savedDocument => {
                                             channel_rewards = []
                                             id = 0

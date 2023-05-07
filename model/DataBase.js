@@ -90,7 +90,7 @@ const yt_extensionSchema = mongoose.Schema({
         required: false
     },
     rewards: {
-        type: String,
+        type: Object,
         required: false
     },
     channel_options: {
