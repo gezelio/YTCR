@@ -46,12 +46,9 @@ async function get_channel_points() {
         Fetch.ChannelPoints(ytcr_broadcater_channel_id, channel_points, user_id_points, username_points).then(function (data) {
             if (data.status == "error") {
                 stop = true
-                Imports.notification_new(ytcr_image, "no_channel");
-                if (localStorage.getItem('ytcr-notification') != "no_channel_off") {
-                    setTimeout(() => {
-                        document.querySelector('.ytcr-notification').style.top = "0px"
-                        localStorage.setItem('ytcr-notification', "no_channel_off")
-                    }, 500);
+                if (!document.getElementById("YTCRMain")) {
+                    let elmnt_div = document.querySelector('yt-live-chat-renderer');
+                    elmnt_div.appendChild(Imports.notification_new())
                 }
                 return
             }
@@ -78,6 +75,84 @@ async function get_channel_points() {
         });
     }
 }
+async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_redeem, reward_info) {
+    if (document.querySelector('#ytcr_prompt') == null) {
+        document.getElementById("live-chat-message-input").style.display = "none";
+        let prompt = document.createElement("div");
+        prompt.id = "ytcr_prompt";
+        let prompt_content = document.createElement("div");
+        prompt_content.className = "p-2 rounded-xl flex flex-col text-center bg-gray1"
+        prompt_content.id = "ytcr_prompt_content";
+        let prompt_content_header = document.createElement("div");
+        prompt_content_header.className = "font-bold"
+        prompt_content_header.id = "ytcr_prompt_content_header";
+        prompt_content_header.innerText = reward_info.reward_name;
+        prompt_content.appendChild(prompt_content_header);
+        let prompt_content_body = document.createElement("div");
+        prompt_content_body.id = "ytcr_prompt_content_body";
+        prompt_content_body.className = "text-center flex flex-row gap-2"
+        let prompt_content_button = document.createElement("button");
+        prompt_content_button.className = "p-2 text-center rounded bg-[#485c39]"
+        prompt_content_button.id = "ytcr_prompt_button";
+        prompt_content_button.innerHTML = `Redeem for ${points_to_redeem}`
+        let prompt_button_close = document.createElement('button');
+        prompt_button_close.className = "ytcr_prompt_close";
+        prompt_button_close.className = "p-2 text-center rounded bg-[#843e37]"
+        prompt_button_close.innerHTML = `
+    <span class="ytcr_prompt_span">Cancel</span>
+    `;
+        prompt_content_button.onclick = () => {
+            document.getElementById("live-chat-message-input").style.display = "block";
+            document.getElementById("ytcr_prompt").remove();
+            Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback);
+            document.getElementById("YTCRDropdown").classList.toggle("hidden")
+        }
+        prompt_button_close.onclick = () => {
+            document.getElementById("live-chat-message-input").style.display = "block";
+            document.getElementById("ytcr_prompt").remove();
+            document.getElementById("YTCRDropdown").classList.toggle("hidden")
+        }
+        prompt_content_body.appendChild(prompt_content_button);
+        prompt_content_body.appendChild(prompt_button_close);
+        prompt_content.appendChild(prompt_content_body);
+        prompt.appendChild(prompt_content);
+        document.getElementById('input-panel').prepend(prompt);
+    }
+}
+async function ytcr_prompt_error(reward_info) {
+    if (document.querySelector('#ytcr_prompt') == null) {
+        document.getElementById("live-chat-message-input").style.display = "none";
+        let prompt = document.createElement("div");
+        prompt.id = "ytcr_prompt";
+        let prompt_content = document.createElement("div");
+        prompt_content.className = "p-2 rounded-xl flex flex-col text-center bg-gray1"
+        prompt_content.id = "ytcr_prompt_content";
+        let prompt_content_header = document.createElement("div");
+        prompt_content_header.className = "font-bold"
+        prompt_content_header.id = "ytcr_prompt_content_header";
+        prompt_content_header.innerText = "Not enough points"
+        prompt_content.appendChild(prompt_content_header);
+        let prompt_content_body = document.createElement("div");
+        prompt_content_body.id = "ytcr_prompt_content_body";
+        prompt_content_body.className = "text-center flex flex-row justify-center"
+        let prompt_button_close = document.createElement('button');
+        prompt_button_close.className = "ytcr_prompt_close";
+        prompt_button_close.className = "p-2 text-center rounded bg-[#843e37]"
+        prompt_button_close.innerHTML = `
+    <span class="ytcr_prompt_span">Cancel</span>
+    `;
+        prompt_button_close.onclick = () => {
+            document.getElementById("live-chat-message-input").style.display = "block";
+            document.getElementById("ytcr_prompt").remove();
+            document.getElementById("YTCRDropdown").classList.toggle("hidden")
+        }
+        prompt_content_body.appendChild(prompt_button_close);
+        prompt_content.appendChild(prompt_content_body);
+        prompt.appendChild(prompt_content);
+        document.getElementById('input-panel').prepend(prompt);
+    }
+}
+
 function update_cr_points_callback(data) {
     if (data.status == "success") {
         localStorage.setItem('channel_points', data.data.channel_points);
@@ -134,10 +209,18 @@ async function update_channel_points() {
     }
 }
 function send_claim_reward_popup(reward_id, channel_id, user_id, username, points_to_redeem, reward_info) {
-    Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback)
+    if (points_to_redeem <= localStorage.getItem('channel_points') || localStorage.getItem('channel_points') == "%") {
+        ytcr_prompt(reward_id, channel_id, user_id, username, points_to_redeem, reward_info)
+        document.getElementById("YTCRDropdown").classList.toggle("hidden")
+        // document.getElementsByClassName('ytcr_prompt')[0].remove()
+        // Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback)
+    } else {
+        ytcr_prompt_error(reward_id, channel_id, user_id, username, points_to_redeem, reward_info)
+        document.getElementById("YTCRDropdown").classList.toggle("hidden")
+    }
 }
 function connect() {
-    var ws = new WebSocket('ws://localhost:82/ws?group=ext');
+    var ws = new WebSocket('wss://ytcr.gezel.io/ws?group=ext');
     ws.onopen = function () {
         logging.perm('Socket is connected to YTCR');
     };

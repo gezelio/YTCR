@@ -13,7 +13,8 @@
   "permissions": [
     "webNavigation",
     "scripting",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "host_permissions": [
     "https://*.youtube.com/*"

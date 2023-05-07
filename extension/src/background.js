@@ -51,3 +51,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
+chrome.runtime.onInstalled.addListener(function (details) {
+  if (details.reason == "update") {
+    chrome.tabs.create({ "url": "https://releases.ytcr.gezel.io/docs/releases/v2.0.0/" })
+  }
+})

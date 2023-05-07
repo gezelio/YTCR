@@ -1,6 +1,6 @@
 import logging from './log.js';
 const ChannelPoints = async (channel_id, points, user_id_points, username) => {
-    const response = await fetch(`http://localhost:82/api/channel_points/?channel_id=${channel_id}&user_id=${user_id_points}&user=${username}`)
+    const response = await fetch(`https://ytcr.gezel.io/api/channel_points/?channel_id=${channel_id}&user_id=${user_id_points}&user=${username}`)
     if (response.status !== 200) {
         console.log('Looks like there was a problem. Status Code: ' + response.status);
         return;
@@ -15,7 +15,7 @@ const ChannelPoints = async (channel_id, points, user_id_points, username) => {
     return data
 }
 const Rewards = async (channel_id) => {
-    const response = await fetch(`http://localhost:82/api/rewards/?channel_id=${channel_id}`)
+    const response = await fetch(`https://ytcr.gezel.io/api/rewards/?channel_id=${channel_id}`)
     if (response.status !== 200) {
         console.log('Looks like there was a problem. Status Code: ' + response.status);
         return;
@@ -24,7 +24,7 @@ const Rewards = async (channel_id) => {
     return data
 }
 const ClaimRewards = async (reward_id, channel_id, user_id, username, points_to_redeem, reward_info, callback) => {
-    fetch(`http://localhost:82/api/claim_rewards/?channel_id=${channel_id}`, {
+    fetch(`https://ytcr.gezel.io/api/claim_rewards/?channel_id=${channel_id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const ClaimRewards = async (reward_id, channel_id, user_id, username, points_to_
         });
 }
 const Clip = async (channel_id, user_id, username) => {
-    fetch(`http://localhost:82/api/clip_that/?channel_id=${channel_id}`, {
+    fetch(`https://ytcr.gezel.io/api/clip_that/?channel_id=${channel_id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const Clip = async (channel_id, user_id, username) => {
         });
 }
 const UpdatePoints = async (channel_id, user_id, username, points, callback) => {
-    fetch(`http://localhost:82/api/update_points/?channel_id=${channel_id}`, {
+    fetch(`https://ytcr.gezel.io/api/update_points/?channel_id=${channel_id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

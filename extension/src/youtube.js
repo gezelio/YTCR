@@ -36,7 +36,7 @@ function set_top_nav() {
     ytcr_topnav_div.appendChild(ytcr_topnave_button)
     youtube_topnav.prepend(ytcr_topnav_div)
     IframeDivElement = document.createElement("div");
-    IframeDivElement.innerHTML = `<iframe id="ytcr_iframe_ytcr" src="https://beta.ytcr.gezel.io" style="width: 520px; height: 84vh; position: fixed; top: 56px; right: 0px; z-index: 9999; display: none;"></iframe>`
+    IframeDivElement.innerHTML = `<iframe id="ytcr_iframe_ytcr" src="https://ytcr.gezel.io" style="width: 520px; height: 84vh; position: fixed; top: 56px; right: 0px; z-index: 9999; display: none;"></iframe>`
     document.body.appendChild(IframeDivElement)
 }
 let indexfdsfdsfs = 0
@@ -57,7 +57,7 @@ window.addEventListener('message', function (event) {
             `
             document.getElementById("related").prepend(NewDiv)
         }
-        document.getElementById('ytcr_iframe_ytcr').src = 'http://localhost:82/u/' + event.data.data
+        document.getElementById('ytcr_iframe_ytcr').src = 'https://ytcr.gezel.io/u/' + event.data.data
         document.getElementById('ytcr_topnav_div').setAttribute('style', "filter: grayscale(0%);")
         document.getElementById('ytcr_topnave_button').onclick = function () {
             if (document.getElementById('ytcr_iframe_ytcr').style.display == 'none') {

@@ -39,11 +39,11 @@ function load() {
     script.src = chrome.runtime.getURL('main.js');
     script.id = 'gezel_youtube';
     head.appendChild(script);
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = chrome.runtime.getURL('reward.css');
-    css.id = 'gezel_youtube_css';
-    head.appendChild(css);
+    // const css = document.createElement('link');
+    // css.rel = 'stylesheet';
+    // css.href = chrome.runtime.getURL('reward.css');
+    // css.id = 'gezel_youtube_css';
+    // head.appendChild(css);
     const css_tailwind = document.createElement('link');
     css_tailwind.rel = 'stylesheet';
     css_tailwind.href = chrome.runtime.getURL('tailwind.css');
