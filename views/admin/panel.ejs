@@ -164,9 +164,6 @@
             <img id="id_${element.user.id}_img" src="${element.user.profile_pic}" class="ring-4 ring-red-200 hadow w-28 h-28 mb-3 align-middle shadow-xl rounded-full" onclick="open_img('${element.user.profile_pic}')">
         </div>
         <div class="UserCardDiv">
-            <span><i data-tippy-content="IMG Provider" class="fa fa-image" aria-hidden="true"></i> ${element.user.profile_pic.split("/")[2]}</span>    
-        </div>
-        <div class="UserCardDiv">
             <span><i data-tippy-content="Created" class="fa fa-calendar-plus" aria-hidden="true"></i> ${HumanTime(element.created_at)}</span>
         </div>
         <div class="UserCardDiv">
@@ -175,9 +172,6 @@
         <div class="UserCardDiv">
             <span><i data-tippy-content="UID" class="fa fa-id-badge" aria-hidden="true"></i> ${element.user.id}</span>
         </div>
-        <div class="UserCardDiv">
-            <span><i data-tippy-content="Email" class="fa fa-envelope" aria-hidden="true"></i> ${element.user.email}<span>
-        </span></span></div>
         <div class="UserCardDiv">
             <span><i data-tippy-content="Banned" class="fa fa-user-slash" aria-hidden="true"></i> ${element.ban.banned}</span>
         </div>

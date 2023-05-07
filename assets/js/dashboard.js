@@ -67,6 +67,10 @@ function UpdateSend(url, data) {
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
+        console.log('data: ', data);
+        if (data.status == "wipe") {
+            window.location.href = "/creds/logout";
+        }
         if (data.status == "success") {
             $('#toast-container-works').fadeIn(400, function () {
                 $(this).delay(5000).fadeOut(400);

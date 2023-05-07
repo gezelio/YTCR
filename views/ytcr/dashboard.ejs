@@ -120,13 +120,15 @@
                     <p class="mb-4">The great reset! This will wipe your users points from the system, starting everyone
                         back down at 0 points. <br>
                         This cannot be undone!</p>
-                    <a class="btn btn-block bg-myst_main border-0 text-white">Wipe user points</a>
+                    <a onclick="UpdateSend('/post/update/WipeUsers',[])"
+                        class="btn btn-block bg-myst_main border-0 text-white">Wipe user points</a>
                 </div>
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Wipe all data
                     </h2>
                     <p class="mb-4">Fully remove all traces of your information from our servers and database</p>
-                    <a class="btn btn-block bg-myst_main border-0 text-white">Fully remove yourself from YTCR</a>
+                    <a onclick="UpdateSend('/post/update/DeleteUser',[])"
+                        class="btn btn-block bg-myst_main border-0 text-white">Fully remove yourself from YTCR</a>
                 </div>
             </div>
         </div>

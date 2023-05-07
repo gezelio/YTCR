@@ -35,4 +35,28 @@ app.post('/post/update/ChannelAmount', async (req, res) => {
         res.send({ status: 'failed' })
     }
 });
+app.post('/post/update/DeleteUser', async (req, res) => {
+    const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
+    if (data) {
+        data.deleteOne({ 'user.id': req.session.user.user.id })
+        res.send({ status: 'wipe' })
+    } else {
+        res.send({ status: 'failed' })
+    }
+});
+app.post('/post/update/WipeUsers', async (req, res) => {
+    const data = await DataBase.findOne({ 'user.id': req.session.user.user.id }).exec();
+    if (data) {
+        data.users = []
+        data.save().then(savedDocument => {
+            req.session.user = data;
+            res.send({ status: 'success' })
+        }).catch(err => {
+            console.log('err: ', err)
+            res.send({ status: 'failed' })
+        });
+    } else {
+        res.send({ status: 'failed' })
+    }
+});
 module.exports = app;
