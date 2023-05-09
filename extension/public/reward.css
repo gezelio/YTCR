@@ -1,0 +1,230 @@
+.reward_span {
+    width: 100%;
+    color: var(--yt-spec-text-primary);
+}
+
+.ytd-masthead.ytcr-topnav-img {
+    width: 24px;
+}
+
+#channel_points_button {
+    height: fit-content;
+    border-radius: 4px;
+    min-width: 54px;
+    background: rgb(100, 100, 100)
+}
+
+/* #ytcr_settings_div {
+    display: none;
+    border-radius: 5px;
+    position: absolute;
+    color: var(--yt-spec-text-primary);
+    background-color: var(--yt-spec-general-background-a);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+} */
+#YTCR_MYSTLINK {
+    border-radius: 24px;
+    z-index: 601;
+    position: relative;
+    overflow: hidden;
+    display: flexbox;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ytcr notificaiton */
+.ytcr-notification {
+    display: flex;
+    position: absolute;
+    z-index: 99999999;
+    color: gainsboro;
+    background: rgb(137, 154, 177);
+    width: 60%;
+    border-radius: 4px;
+    transform: translate(30%);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    top: -100px;
+    -moz-transition: top 0.5s;
+    /* FF4+ */
+    -o-transition: top 0.5s;
+    /* Opera 10.5+ */
+    -webkit-transition: top 0.5s;
+    /* Saf3.2+, Chrome */
+    -ms-transition: top 0.5s;
+    /* IE10? */
+    transition: top 0.5s;
+    font-size: 18px;
+    user-select: none;
+    pointer-events: none
+}
+
+.ytcr-alert-icon {
+    width: 22px;
+    position: fixed;
+}
+
+.ytcr-alert-close {
+    position: fixed;
+    right: 2px;
+    top: -4px;
+    pointer-events: all;
+}
+
+.ytcr-alert-close:before {
+    content: "x";
+    font-style: normal;
+}
+
+.ytcr-alert-message-div {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    height: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ytcr-alert-message {
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ytcr notificaiton end */
+/* ytcr settings */
+
+#ytcr_channel_reward_settings_div>input {
+    margin-top: 5px;
+    background-color: var(--yt-live-chat-action-panel-background-color, var(--yt-deprecated-opalescence-soft-grey-opacity-lighten-1));
+    font-size: 13px;
+    color: var(--yt-spec-text-primary);
+}
+
+#ytcr_settings_text_box {
+    color: var(--yt-spec-text-primary);
+    background-color: transparent;
+}
+
+#settings_yt_ext_icon {
+    display: block !important;
+}
+
+#ytcr_settings_text_box {
+    max-width: 360px;
+    min-width: 80px;
+    width: 360px;
+    height: 101px;
+    min-height: 215px;
+}
+
+/* ytcr settings end */
+/* ytcr prompt  */
+#ytcr_prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--yt-live-chat-primary-text-color);
+    background-color: var(--yt-live-chat-action-panel-background-color, var(--yt-deprecated-opalescence-soft-grey-opacity-lighten-3));
+    border-radius: 5px;
+    padding: 16px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 99999999;
+    align-content: center;
+}
+
+#ytcr_prompt_content_header {
+    text-align: center;
+}
+
+#ytcr_prompt_content_body {
+    text-align: center;
+}
+
+.ytcr_prompt {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+.ytcr_prompt_content {
+    display: flex;
+    place-content: center;
+    align-items: center;
+    background: var(--yt-live-chat-action-panel-background-color, var(--yt-deprecated-opalescence-soft-grey-opacity-lighten-1));
+    border-radius: 13%;
+    text-align: center;
+    margin: 5px;
+    flex-flow: row wrap;
+    flex-direction: column;
+}
+
+.ytcr_prompt_button {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    align-items: center;
+    background: var(--yt-live-chat-action-panel-background-color, var(--yt-deprecated-opalescence-soft-grey-opacity-lighten-1));
+    border-radius: 13%;
+    text-align: center;
+    margin: 5px;
+    color: white;
+    border-color: white;
+}
+
+.ytcr_prompt_button_div {
+    display: flex;
+    flex-flow: row nowrap;
+    place-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ytcr_prompt_close {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    align-items: center;
+    background: var(--yt-live-chat-action-panel-background-color, var(--yt-deprecated-opalescence-soft-grey-opacity-lighten-1));
+    border-radius: 13%;
+    text-align: center;
+    margin: 5px;
+    color: white;
+    border-color: #d61a1a;
+}
+
+#ytcr_prompt_input {
+    width: 90%;
+    min-height: 18px;
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    outline: none;
+    word-break: break-word;
+    white-space: var(--yt-live-chat-text-input-field-white-space);
+    line-height: 18px;
+    padding: 2px 0;
+    color: var(--yt-live-chat-text-input-field-color, inherit);
+    text-shadow: var(--yt-live-chat-text-input-field-text-shadow);
+    background: transparent;
+}
+
+#ytcr_prompt_button {
+    background: transparent;
+    border: 0px;
+    width: 40px;
+}
+
+/* ytcr prompt end */

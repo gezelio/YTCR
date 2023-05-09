@@ -1,0 +1,21 @@
+name: Releases
+
+on: 
+  push:
+    paths:
+    - 'streamerbot/*.gezel'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ncipollo/release-action@v1
+      with:
+        tag: "vx.x.x"
+        artifacts: "streamerbot/*.gezel"
+        bodyFile: "streamerbot/README.md"
+        makeLatest: true

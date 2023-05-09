@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" class="dark bg-gray2 text-white">
+
+    <head>
+        <script>
+            let user = JSON.parse(`<%- JSON.stringify(user) %>`);
+            let current_channel_id = `<%- current_channel_id %>`;
+            let youtube_ids = JSON.parse('<%- JSON.stringify(youtube_ids) %>');
+        </script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
+        <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
+        <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846"
+            src="https://analytics-v2.gezel.io/script.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>
+            Pick Youtube Account
+        </title>
+        <meta name="description" content="Your one stop link, for all your social profiles with MystLink" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+        <!--Replace with your tailwind.css once created-->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+        <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <style>
+            .gradient {
+                background: linear-gradient(90deg, main_grey 50%, off_white 100%);
+            }
+        </style>
+        <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://api.gezel.io/js/tailwind_config.js"></script>
+        <script src="https://api.gezel.io/js/footer_new.js" defer></script>
+        <script src="/assets/js/navbar.js" defer></script>
+    </head>
+
+    <body>
+        <div id="main" class="mx-4 lg:m-10 m:m-5 mt-10">
+            <div id="main1" class="w-full" style="text-align: -webkit-center;">
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Channel Picker
+                    </h2>
+                    <div>
+                        <p class="bg-botred text-white p-2 rounded-lg"><i
+                                class="fa-solid fa-triangle-exclamation text-xl p-1"></i>
+                            <span class="font-bold">NOTE:</span> The YouTube channels listed here are the channels that
+                            are
+                            linked to your Discord account. If you're missing a channel, ensure it's connected to your
+                            Discord account via "Connections".
+                        </p>
+                    </div>
+                    <div id="users" class="mt-4 grid grid-cols-3 gap-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
+<script>
+    youtube_ids.forEach(function (data) {
+        color = "btn bg-green-500 text-white hover:bg-green-900 border-0"
+        text = "Select"
+        if (data.id == current_channel_id) {
+            color = "btn bg-green-900 text-white hover:bg-green-900 border-0 pointer-events-none"
+            text = "Already Selected"
+        }
+        document.getElementById('users').innerHTML += `
+        <div class="card w-96 bg-gray2 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title self-center">${data.name}</h2>
+                <div class="card-actions justify-center">
+                    <button onclick="click_youtube('${data.id}')" class="${color}">${text}</button >
+                </div >
+            </div >
+        </div >
+        `
+    });
+    function click_youtube(id) {
+        fetch('/post/dashboard/select/youtube', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: user.id,
+                youtube_id: id
+            })
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            if (data.status == "success") {
+                window.location.href = '/dashboard';
+            }
+        }).catch(function (error) {
+            console.log('error: ', error)
+        });
+    }
+</script>

@@ -43,11 +43,19 @@
     ·
     <a href="https://github.com/gezelio/YTCR/issues/new/choose">Report Bug</a>
     ·
-    <a href="https://github.com/orgs/gezelio/projects/5">RoadMap</a>
-    ·
     <a href="https://github.com/gezelio/ytcr/issues/new/choose">Request Feature</a>
+    ·
+    <a href="https://github.com/orgs/gezelio/projects/5">RoadMap</a>
   </p>
 </div>
+
+# This version is currently NOT in production, and is still in development. This banner will be removed when it is ready for production use.
+
+#### Note to contributors:
+Please ensure you are forking the `staging` branch, as this is where the most up to date code will live
+
+<!-- Download -->
+# [Download the latest release for StreamerBot](https://github.com/orgs/gezelio/packages?repo_name=YTCR)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -64,14 +72,14 @@ Why we built this:
 
 #### Prerequisites
 
-- [Streamer.Bot](https://streamer.bot) v0.1.16 or newer
-- An affiliated Twitch channel (is needed to create channel rewards in Streamer.Bot)
-- 
+- [Streamer.Bot](https://streamer.bot) - v0.1.16 or newer
+- An affiliated Twitch channel - needed to create channel rewards in Streamer.Bot
+- A YouTube channel that is connected to your Discord - needed for [step 4](https://github.com/gezelio/YTCR#4-the-ytcr-dashboard)
 ## 1. Streamerbot configuration
 ---
 ### Initial setup
 
-1. Download `YTCR_{version}.gezel` from our [Releases Page]().
+1. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/orgs/gezelio/packages?repo_name=YTCR).
 2. Launch Streamer.Bot and select `Import` and drag the file into the `Import String` box.
    - Confirm you see the following `Actions`:
      - Clipping Tool
@@ -127,6 +135,8 @@ It's likely you've set up channel points with StreamerBot before for your Twitch
     - This is to allow you to quickly enable/disable points that may not be working on your side, or are not fully complete.
 - User Input Required
   - Any reward that requires a user input will also automatically not be added to the extension, as this is a Twitch feature that currently cannot be replicated with our extension (yet).
+- Action
+  - Ensure you have an action set in order for this to work! You must create a new action, and have a sub action inside to link. (This will be resolved in v2.0.0)
 
 > The cost of a channel point inside StreamerBot will also be the cost of the action inside YouTube. Users generate points every 5 minutes, so be sure you set these fair with how many points you offer every 5 minutes from the [Dashboard](https://ytcr.gezel.io).
 
