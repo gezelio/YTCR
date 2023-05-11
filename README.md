@@ -77,7 +77,7 @@ Why we built this:
 ---
 ### Initial setup
 
-1. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/orgs/gezelio/packages?repo_name=YTCR).
+1. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/gezelio/YTCR/releases).
 2. Launch Streamer.Bot and select `Import` and drag the file into the `Import String` box.
    - Confirm you see the following `Actions`:
      - Clipping Tool
