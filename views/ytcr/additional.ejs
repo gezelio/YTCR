@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="dark bg-gray2 text-white">
-
     <head>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
         </script>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
-            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
-        <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846"
-            src="https://analytics-v2.gezel.io/script.js"></script>
+        <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846" src="https://analytics-v2.gezel.io/script.js"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>
-            YTCR | Additional things
-        </title>
+        <title>YTCR | Additional things</title>
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
@@ -31,11 +23,9 @@
         <!--Replace with your tailwind.css once created-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
         <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <style>
             .gradient {
@@ -51,70 +41,66 @@
 
     <body>
         <div id="main" class="mx-4 lg:m-10 m:m-5 mt-10">
-            <div id="main" class="w-full" style="text-align: -webkit-center;">
+            <div id="main" class="w-full" style="text-align: -webkit-center">
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                    <h2 class="text-2xl font-bold text-left">OBS Dock
-                    </h2>
+                    <h2 class="text-2xl font-bold text-left">OBS Dock</h2>
                     <div class="p-2">
-                        <p class="text-white rounded-lg text-left">
-                            View your uesrs points from inside your OBS by creating a custom dock.
-                        </p>
-                        <ol class="text-left px-7" style="list-style-type: decimal;">
-                            <li>Top panel select <code class="ml-2">Docks > Custom Browser Docks</code></li>
+                        <p class="text-white rounded-lg text-left">View your uesrs points from inside your OBS by creating a custom dock.</p>
+                        <ol class="text-left px-7" style="list-style-type: decimal">
+                            <li>
+                                Top panel select
+                                <code class="ml-2">Docks > Custom Browser Docks</code>
+                            </li>
                             <li>Dock Name: YTCR</li>
-                            <li>URL: <btn id="clipboard-URL" class="bg-gray2 p-1 font-bold"
-                                    onclick="copyToClipboard(`${window.location.origin}/u/${user.channel_link}`)"
-                                    style="cursor: pointer;">Click me and paste into OBS</btn>
+                            <li>
+                                URL:
+                                <btn id="clipboard-URL" class="bg-gray2 p-1 font-bold" onclick="copyToClipboard(`${window.location.origin}/u/${user.channel_link}`)" style="cursor: pointer">Click me and paste into OBS</btn>
 
                                 <script>
                                     function copyToClipboard(url) {
-                                        navigator.clipboard.writeText(url)
+                                        navigator.clipboard
+                                            .writeText(url)
                                             .then(() => {
-                                                console.log('URL copied to clipboard');
-                                                const button = document.getElementById('clipboard-URL');
-                                                button.classList.add("bg-green-700")
-                                                button.textContent = 'Copied to clipboard';
+                                                console.log("URL copied to clipboard");
+                                                const button = document.getElementById("clipboard-URL");
+                                                button.classList.add("bg-green-700");
+                                                button.textContent = "Copied to clipboard";
                                                 setTimeout(() => {
                                                     button.classList.remove("bg-green-700");
-                                                    button.textContent = 'Click me and paste into OBS';
+                                                    button.textContent = "Click me and paste into OBS";
                                                 }, 5000);
                                             })
                                             .catch((error) => {
-                                                console.error('Failed to copy URL: ', error);
+                                                console.error("Failed to copy URL: ", error);
                                             });
                                     }
                                 </script>
                             </li>
-                            <li>Click <code>Apply</code></li>
+                            <li>
+                                Click
+                                <code>Apply</code>
+                            </li>
                         </ol>
                     </div>
                 </div>
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                    <h2 class="text-2xl font-bold text-left">Mystlink Connection
-                    </h2>
+                    <h2 class="text-2xl font-bold text-left">Mystlink Connection</h2>
                     <div class="p-2">
                         <p class="text-white rounded-lg text-left">
-                            <a href="https://mystl.ink/?ref=ytcr" class="underline text-myst_main">Mystlink</a> is our
-                            one
-                            link to rule them all. It allows you to link all your socials and other links in one place.
-                            You
-                            can also use it to link to your YTCR profile, and show all your social links on the side of
-                            your
-                            YouTube stream!
+                            <a href="https://mystl.ink/?ref=ytcr" class="underline text-myst_main">Mystlink</a>
+                            is our one link to rule them all. It allows you to link all your socials and other links in one place. You can also use it to link to your YTCR profile, and show all your social links on the side of your YouTube stream!
                         </p>
                         <p class="rounded-lg bg-myst_main text-white text-xl p-2 m-2">Coming soon</p>
                         <div class="text-left">
                             <!-- <btn class="btn bg-myst_main align-left text-white border-0 hover:bg-myst_dark">Connect Mystlink account</btn> -->
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
         <div id="main" class="m-5">
-            <h1 style="color: white;">Choose Your Youtube channel</h1>
+            <h1 style="color: white">Choose Your Youtube channel</h1>
             <div id="youtube_select" class="flex flex-col gap-3"></div>
         </div>
     </body>
-
 </html>

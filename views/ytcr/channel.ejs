@@ -1,10 +1,9 @@
 <html class="bg-[#0f0f0f] text-white">
-
     <head>
         <script>
-            let channel_name = JSON.parse(`<%- JSON.stringify(channel_name) %>`)
-            let users = JSON.parse(`<%- JSON.stringify(users) %>`)
-            let channel_link = JSON.parse(`<%- JSON.stringify(link) %>`)
+            let channel_name = JSON.parse(`<%- JSON.stringify(channel_name) %>`);
+            let users = JSON.parse(`<%- JSON.stringify(users) %>`);
+            let channel_link = JSON.parse(`<%- JSON.stringify(link) %>`);
         </script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://api.gezel.io/js/tailwind_config.js"></script>
@@ -15,11 +14,8 @@
     <body class="p-4">
         <h1 class="text-2xl font-bold mb-4"><%- channel_name %></h1>
         <div class="flex gap-2 mb-4">
-            <button id="sortByName"
-                class="p-1 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg cursor-pointer">A -
-                Z</button>
-            <button id="sortByPoints"
-                class="px-1 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg cursor-pointer">Sort</button>
+            <button id="sortByName" class="p-1 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg cursor-pointer">A - Z</button>
+            <button id="sortByPoints" class="px-1 bg-[#fc2a1b] hover:bg-[af1d12] text-white font-bold text-xs rounded-lg cursor-pointer">Sort</button>
         </div>
         <table class="w-full border-collapse">
             <thead>
@@ -28,9 +24,7 @@
                     <th class="px-4 py-2 text-left border border-[#1f2428]">Points</th>
                 </tr>
             </thead>
-            <tbody id="users">
-            </tbody>
+            <tbody id="users"></tbody>
         </table>
     </body>
-
 </html>
