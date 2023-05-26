@@ -1,41 +1,24 @@
 {
-  "manifest_version": 3,
-  "name": "Youtube Channel Rewards",
-  "version": "2.0.0",
-  "description": "Unleash channel points on YouTube, just like how you do on Twitch with our powerful extension!",
-  "background": {
-    "service_worker": "background.js"
-  },
-  "icons": {
-    "56": "icons/ytcr.png"
-  },
-  "author": "Gezel.io",
-  "permissions": [
-    "webNavigation",
-    "scripting",
-    "activeTab",
-    "tabs"
-  ],
-  "host_permissions": [
-    "https://*.youtube.com/*"
-  ],
-  "externally_connectable": {
-    "matches": [
-      "https://*.youtube.com/*"
+    "manifest_version": 3,
+    "name": "Youtube Channel Rewards",
+    "version": "2.0.0",
+    "description": "Unleash channel points on YouTube, just like how you do on Twitch with our powerful extension!",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "56": "icons/ytcr.png"
+    },
+    "author": "Gezel.io",
+    "permissions": ["webNavigation", "scripting", "activeTab", "tabs"],
+    "host_permissions": ["https://*.youtube.com/*"],
+    "externally_connectable": {
+        "matches": ["https://*.youtube.com/*"]
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["main.js", "reward.css", "tailwind.css", "icons/*", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"],
+            "matches": ["https://www.youtube.com/*"]
+        }
     ]
-  },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "main.js",
-        "reward.css",
-        "tailwind.css",
-        "icons/*",
-        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      ],
-      "matches": [
-        "https://www.youtube.com/*"
-      ]
-    }
-  ]
 }

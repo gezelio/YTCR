@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-require('dotenv').config()
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 const conn = mongoose.createConnection(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -13,7 +13,7 @@ const yt_extensionSchema = mongoose.Schema({
     channel_link: {
         type: String,
         required: false,
-        default: 'default'
+        default: "default"
     },
     account: {
         type: {
@@ -45,26 +45,26 @@ const yt_extensionSchema = mongoose.Schema({
     },
     discord: {
         id: {
-            type: String,
+            type: String
         },
         access_token: {
-            type: String,
+            type: String
         },
         username: {
-            type: String,
+            type: String
         },
         discriminator: {
-            type: String,
+            type: String
         },
         avatar: {
-            type: String,
+            type: String
         },
         email: {
-            type: String,
+            type: String
         },
         connections: {
-            type: Array,
-        },
+            type: Array
+        }
     },
     channel_id: {
         type: String,
@@ -102,11 +102,11 @@ const yt_extensionSchema = mongoose.Schema({
     user: {
         id: {
             type: String,
-            unique: true,
+            unique: true
         },
         discord_user_id: {
             type: String,
-            unique: true,
+            unique: true
         },
         username: {
             type: String,
@@ -120,7 +120,7 @@ const yt_extensionSchema = mongoose.Schema({
         profile_pic: {
             type: String,
             required: true,
-            default: 'https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png'
+            default: "https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png"
         }
     },
     verified: {
@@ -145,11 +145,11 @@ const yt_extensionSchema = mongoose.Schema({
             default: false
         }
     }
-})
+});
 
 yt_extensionSchema.pre("save", function (next) {
     next();
 });
-const yt_extensionModel = conn.model('users', yt_extensionSchema);
+const yt_extensionModel = conn.model("users", yt_extensionSchema);
 
 module.exports = yt_extensionModel;

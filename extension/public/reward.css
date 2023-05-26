@@ -11,7 +11,7 @@
     height: fit-content;
     border-radius: 4px;
     min-width: 54px;
-    background: rgb(100, 100, 100)
+    background: rgb(100, 100, 100);
 }
 
 /* #ytcr_settings_div {
@@ -60,7 +60,7 @@
     transition: top 0.5s;
     font-size: 18px;
     user-select: none;
-    pointer-events: none
+    pointer-events: none;
 }
 
 .ytcr-alert-icon {
@@ -99,7 +99,7 @@
 /* ytcr notificaiton end */
 /* ytcr settings */
 
-#ytcr_channel_reward_settings_div>input {
+#ytcr_channel_reward_settings_div > input {
     margin-top: 5px;
     background-color: var(--yt-live-chat-action-panel-background-color, var(--yt-deprecated-opalescence-soft-grey-opacity-lighten-1));
     font-size: 13px;

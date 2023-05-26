@@ -1,11 +1,10 @@
-var ytcr_image = localStorage.getItem('ytcr_image');
+var ytcr_image = localStorage.getItem("ytcr_image");
 
 const new_button = () => {
     let button = document.createElement("button");
     button.id = "channel_points_button";
     button.setAttribute("class", "yt-icon-button bg-blue-500 w-5 px-1");
     button.onclick = () => {
-
         let div = document.querySelector("#channel_points_div");
         let clip_div = document.querySelector("#channel_points_div_clip");
         let clip_div_button = document.querySelector("#channel_points_button_clip");
@@ -16,22 +15,23 @@ const new_button = () => {
                 clip_div.style.display = "flex";
                 clip_div_button.style.display = "block";
             }
-        }
-        else {
+        } else {
             div.style.display = "none";
             if (clip_div) {
                 clip_div.style.display = "none";
                 clip_div_button.style.display = "none";
             }
-        };
+        }
     };
     return button;
-}
+};
 const new_div = () => {
     let div = document.createElement("div");
     div.id = "channel_points_div";
     div.setAttribute("class", "yt-uix-button-group");
-    div.setAttribute("style", `
+    div.setAttribute(
+        "style",
+        `
     display: none !important;
     border-radius: 5px;
     position: relative;
@@ -43,12 +43,14 @@ const new_div = () => {
     `
     );
     return div;
-}
+};
 const clip_button_div = () => {
     let div = document.createElement("div");
     div.id = "channel_points_div_clip";
     div.setAttribute("class", "yt-uix-button-group");
-    div.setAttribute("style", `
+    div.setAttribute(
+        "style",
+        `
     border-radius: 5px;
     position: relative;
     height: auto;
@@ -59,10 +61,10 @@ const clip_button_div = () => {
     `
     );
     return div;
-}
+};
 const notification = (img, type) => {
     var message_notification = "none";
-    if (type = "no_channel") {
+    if ((type = "no_channel")) {
         message_notification = "This channel does not have YTCR points yet.";
     }
     let notification = document.createElement("div");
@@ -92,7 +94,7 @@ const notification = (img, type) => {
     notification.appendChild(notification_close);
     notification.appendChild(notification_text_div);
     document.body.prepend(notification);
-}
+};
 export const add_button_new = new_button;
 export const add_div_new = new_div;
 export const notification_new = notification;

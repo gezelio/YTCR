@@ -1,16 +1,16 @@
-var ytcr_image = localStorage.getItem('ytcr_image');
+var ytcr_image = localStorage.getItem("ytcr_image");
 const notification_new = () => {
     let div = document.createElement("div");
-    div.className = "text-center break-words p-2"
-    div.id = "YTCRMain"
-    div.innerHTML = `This streamer doesn't use YTCR. If you want to inform them about the extension, send them over to <a href="https://github.com/gezelio/ytcr" class="underline">our GitHub</a>`
+    div.className = "text-center break-words p-2";
+    div.id = "YTCRMain";
+    div.innerHTML = `This streamer doesn't use YTCR. If you want to inform them about the extension, send them over to <a href="https://github.com/gezelio/ytcr" class="underline">our GitHub</a>`;
     return div;
-}
+};
 
 const AddDiv = (points) => {
     let div = document.createElement("div");
-    div.className = "text-center break-words p-2"
-    div.id = "YTCRMain"
+    div.className = "text-center break-words p-2";
+    div.id = "YTCRMain";
     div.innerHTML = `
         <div id ="buttons">
             <div class="flex justify-between">
@@ -20,7 +20,7 @@ const AddDiv = (points) => {
         </div >
     <div id="YTCRDropdown" class="py-3 mt-2 grid grid-cols-4 gap-2">
     </div>
-`
+`;
     return div;
-}
-export default { AddDiv, notification_new }
+};
+export default { AddDiv, notification_new };

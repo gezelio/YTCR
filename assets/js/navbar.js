@@ -1,34 +1,34 @@
 var nav_links = [
     {
-        "id": 0,
-        "name": "Settings",
-        "link": "/dashboard",
-        "disabled": false,
-        "current": false
+        id: 0,
+        name: "Settings",
+        link: "/dashboard",
+        disabled: false,
+        current: false
     },
     {
-        "id": 1,
-        "name": "Additional Settings",
-        "link": "/additional",
-        "disabled": false,
-        "current": false
-    },
-        {
-        "id": 2,
-        "name": "Change Channel",
-        "link": "/dashboard/select/youtube",
-        "disabled": false,
-        "current": false
+        id: 1,
+        name: "Additional Settings",
+        link: "/additional",
+        disabled: false,
+        current: false
     },
     {
-        "id": 3,
-        "name": "Staff Panel",
-        "link": "/dashboard/staff",
-        "disabled": false,
-        "current": false,
-        "type": "staff"
+        id: 2,
+        name: "Change Channel",
+        link: "/dashboard/select/youtube",
+        disabled: false,
+        current: false
     },
-]
+    {
+        id: 3,
+        name: "Staff Panel",
+        link: "/dashboard/staff",
+        disabled: false,
+        current: false,
+        type: "staff"
+    }
+];
 let nav1 = document.createElement("div");
 nav1.className = "navbar bg-gray2";
 nav1.innerHTML = `
@@ -55,44 +55,48 @@ let nav = document.createElement("div");
 nav.className = "bg-gray1 p-2 px-4";
 nav.innerHTML = `
 <div class="grid md:flex flex-row gap-4 text-lg md:text-md font-bold">
-    ${nav_links.map(link => {
-    if (link.disabled) {
-        return
-    }
-    if (account.type == "staff" && link?.type == "staff") {
-        if (window.location.pathname == link.link) {
-            link.current = true;
-        }
-        if (!link.current) {
-            return `
+    ${nav_links
+        .map((link) => {
+            if (link.disabled) {
+                return;
+            }
+            if (account.type == "staff" && link?.type == "staff") {
+                if (window.location.pathname == link.link) {
+                    link.current = true;
+                }
+                if (!link.current) {
+                    return `
         <a class="text-white hover:text-myst_main" href="${link.link}">${link.name}</a>
-        `    } else {
-            return `
+        `;
+                } else {
+                    return `
         <a class="text-myst_main" href="${link.link}">${link.name}</a>
-        `
-        }
-    } else if (!link?.type) {
-        if (window.location.pathname == link.link) {
-            link.current = true;
-        }
-        if (!link.current) {
-            return `
+        `;
+                }
+            } else if (!link?.type) {
+                if (window.location.pathname == link.link) {
+                    link.current = true;
+                }
+                if (!link.current) {
+                    return `
         <a class="text-white hover:text-myst_main" href="${link.link}">${link.name}</a>
-        `    } else {
-            return `
+        `;
+                } else {
+                    return `
         <a class="text-myst_main" href="${link.link}">${link.name}</a>
-        `
-        }
-    }
-}).join("")}
+        `;
+                }
+            }
+        })
+        .join("")}
 </div >
     `;
 document.documentElement.prepend(nav);
 document.documentElement.prepend(nav1);
 
 (async () => {
-    const response = await fetch(user.profile_pic)
+    const response = await fetch(user.profile_pic);
     if (!response.ok) {
-        document.getElementById('user_profile_header').src = "https://img.mystl.ink/profile_pics/default.png";
+        document.getElementById("user_profile_header").src = "https://img.mystl.ink/profile_pics/default.png";
     }
-})()
+})();
