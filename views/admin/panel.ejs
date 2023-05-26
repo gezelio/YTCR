@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;">
-
+<html style="font-size: 16px">
     <head>
         <script src="/assets/js/logging.js"></script>
         <script>
@@ -8,12 +7,8 @@
         </script>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
-            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
         <script src="https://unpkg.com/@popperjs/core@2"></script>
         <script src="https://unpkg.com/tippy.js@6"></script>
@@ -24,9 +19,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>
-            Admin
-        </title>
+        <title>Admin</title>
         <meta name="description" content="Your one stop link, for all your social profiles with MystLink" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
@@ -34,11 +27,9 @@
         <!--Replace with your tailwind.css once created-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
         <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <style>
             .gradient {
@@ -87,29 +78,33 @@
             <div class="container bg-[#2b3036] p-4 rounded-lg shadow-xl col-span-full">
                 <h1 class="font-black mb-2 text-center">Totals</h1>
                 <div class="grid lg:grid-cols-3 justify-center">
-                    <div class="tooltip" data-tip="Showcases the total amount of users"><i
-                            class="fa-solid fa-circle text-white mr-2"></i>Total users: <span id="all"></span>
+                    <div class="tooltip" data-tip="Showcases the total amount of users">
+                        <i class="fa-solid fa-circle text-white mr-2"></i>
+                        Total users:
+                        <span id="all"></span>
                     </div>
-                    <div class="tooltip" data-tip="Users active with EXT"><i
-                            class="fa-solid fa-circle text-red-400 mr-2"></i>Active EXT: <span id="extStats"></span>
+                    <div class="tooltip" data-tip="Users active with EXT">
+                        <i class="fa-solid fa-circle text-red-400 mr-2"></i>
+                        Active EXT:
+                        <span id="extStats"></span>
                     </div>
-                    <div class="tooltip" data-tip="Users active with SB"><i
-                            class="fa-solid fa-circle text-purple-400 mr-2"></i>Active SB: <span id="sbStats"></span>
+                    <div class="tooltip" data-tip="Users active with SB">
+                        <i class="fa-solid fa-circle text-purple-400 mr-2"></i>
+                        Active SB:
+                        <span id="sbStats"></span>
                     </div>
                 </div>
             </div>
             <div id="main">
-                <div class="grid lg:grid-cols-6 md:grid-cols-3 gap-2 mx-4 mb-9" id="data">
-
-                </div>
+                <div class="grid lg:grid-cols-6 md:grid-cols-3 gap-2 mx-4 mb-9" id="data"></div>
             </div>
         </div>
     </body>
-
 </html>
 <script>
+    let sbStats = [];
     function open_img(URL) {
-        window.open(URL, '_blank');
+        window.open(URL, "_blank");
     }
     function dynamicSort(property) {
         var sortOrder = 1;
@@ -118,50 +113,59 @@
             property = property.substr(1);
         }
         return function (b, a) {
-            /* next line works with strings and numbers, 
+            /* next line works with strings and numbers,
              * and you may want to customize it to your needs
              */
-            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
             return result * sortOrder;
-        }
+        };
     }
     function checkimg(data) {
         data.map(function (item, index) {
-            fetch(item.user.profile_pic)
-                .then((data1) => {
-                    if (!data1.ok) {
-                        document.getElementById(`id_${item.user.id}_img`).src = "https://img.mystl.ink/profile_pics/default.png"
-                    }
-                });
+            fetch(item.user.profile_pic).then((data1) => {
+                if (!data1.ok) {
+                    document.getElementById(`id_${item.user.id}_img`).src = "https://img.mystl.ink/profile_pics/default.png";
+                }
+            });
         });
     }
     function HumanTime(time) {
-        return new Date(time).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })
+        return new Date(time).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric" });
     }
-    fetch('/get-admin/all', {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(function (response) {
-        return response.json();
-    }).then(function (data) {
-        logging({ 'Users': data });
-        show(data)
-    }).catch(function (error) {
-        loggingPerm({ "error get-admin": error })
-    });
+    GetUsers();
+    function GetUsers() {
+        fetch("/get-admin/all", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                logging({ Users: data });
+                show(data);
+            })
+            .catch(function (error) {
+                loggingPerm({ "error get-admin": error });
+            });
+    }
     function show(data) {
-        document.getElementById("all").innerHTML = data.length
+        document.getElementById("data").innerHTML = "";
+        document.getElementById("all").innerHTML = data.length;
         data.sort(dynamicSort("created_at"));
         data.forEach(function (element, index) {
             document.getElementById("data").innerHTML += `
     <div class="bg-nav_bar p-4 rounded-lg">
         <div class="flex flex-row place-content-between content-center UserCardTop">
-            <a data-tippy-content="Go to user profile" class="underline hover:text-myst_main" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>            
+            <a data-tippy-content="Go to user profile" class="underline hover:text-myst_main" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>
+        </div>
+        <div class="UserCardDiv">
+            <span id="id_${element.channel_id}_sb"></span>
         </div>
         <div class="relative ml-3">
-            <img id="id_${element.user.id}_img" src="${element.user.profile_pic}" class="ring-4 ring-red-200 hadow w-28 h-28 mb-3 align-middle shadow-xl rounded-full" onclick="open_img('${element.user.profile_pic}')">
+            <img id="id_${element.user.id}_img" src="${element.user.profile_pic}" class="ring-4 ring-red-200 w-28 h-28 mb-3 align-middle shadow-xl rounded-full" onclick="open_img('${element.user.profile_pic}')">
         </div>
         <div class="UserCardDiv">
             <span><i data-tippy-content="Created" class="fa fa-calendar-plus" aria-hidden="true"></i> ${HumanTime(element.created_at)}</span>
@@ -185,42 +189,53 @@
             <span><i data-tippy-content="Discord UserID" class="fa-brands fa-discord"></i> ${element.user.discord_user_id}</span>
         </div>
     </div>
-            `
+            `;
             if (data.length - 1 == index) {
-                tippy('[data-tippy-content]', {
+                tippy("[data-tippy-content]", {
                     arrow: true
                 });
-                checkimg(data)
+                checkimg(data);
+                sbStats.map(function (element) {
+                    console.log("element: ", element);
+                    document.getElementById(`id_${element}_sb`).innerHTML = `
+                    <img data-tippy-content="SB Open and running" src="https://streamer.bot/logo.png" class="w-8 h-8 mb-3 align-middle shadow-xl rounded-full">
+                    `;
+                    tippy("[data-tippy-content]", {
+                        arrow: true
+                    });
+                });
             }
         });
     }
     WSconnect();
     function WSconnect() {
         if (window.location.origin.includes("https://")) {
-            var ws = new WebSocket(window.location.origin.replace("https://", "wss://") + '/ws?group=stats');
+            var ws = new WebSocket(window.location.origin.replace("https://", "wss://") + "/ws?group=stats");
         }
         if (window.location.origin.includes("http://")) {
-            var ws = new WebSocket(window.location.origin.replace("http://", "ws://") + '/ws?group=stats');
+            var ws = new WebSocket(window.location.origin.replace("http://", "ws://") + "/ws?group=stats");
         }
         ws.onopen = function () {
-            loggingPerm('Socket is connected to YTCR');
+            loggingPerm("Socket is connected to YTCR");
         };
         ws.onmessage = function (e) {
             var data = JSON.parse(e.data);
-            logging({ "WS": "Message", data });
+            logging({ WS: "Message", data });
             if (data.type == "stats") {
-                document.getElementById("extStats").innerHTML = data.ext == undefined ? 0 : data.ext
-                document.getElementById("sbStats").innerHTML = data.sb
+                GetUsers();
+                document.getElementById("extStats").innerHTML = data.ext == undefined ? 0 : data.ext;
+                document.getElementById("sbStats").innerHTML = data.sb.length;
+                sbStats = data.sb;
             }
         };
         ws.onclose = function (e) {
-            loggingPerm('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+            loggingPerm("Socket is closed. Reconnect will be attempted in 1 second.", e.reason);
             setTimeout(function () {
                 WSconnect();
             }, 1000);
         };
         ws.onerror = function (err) {
-            console.error('Socket encountered error: ', err.message, 'Closing socket');
+            console.error("Socket encountered error: ", err.message, "Closing socket");
             ws.close();
         };
     }
