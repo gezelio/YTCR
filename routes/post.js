@@ -73,7 +73,6 @@ app.post("/youtube/post", (req, res) => {
             })
             .then(function (html) {
                 if (html.includes("hqdefault_live.jpg")) {
-                    console.log("test");
                     res.send({
                         status: "live"
                     });

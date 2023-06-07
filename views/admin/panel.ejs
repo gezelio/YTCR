@@ -200,7 +200,6 @@
                 });
                 checkimg(data);
                 sbStats.map(function (element) {
-                    console.log("element: ", element);
                     document.getElementById(`id_${element}_sb`).innerHTML = `
                     <img data-tippy-content="SB Open and running" src="https://streamer.bot/logo.png" class="w-8 h-8 mb-3 align-middle shadow-xl rounded-full">
                     `;
@@ -244,7 +243,6 @@
         };
     }
     async function GetYoutube(channel_id) {
-        console.log("channel_id: ", channel_id);
         await fetch("/youtube/post", {
             method: "POST",
             headers: {
