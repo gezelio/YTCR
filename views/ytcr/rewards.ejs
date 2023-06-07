@@ -46,7 +46,7 @@
         <div class="relative toast rounded bg-green-500 text-white">
             <div class="toast-header">
                 <i class="fas fa-check-circle me-2"></i>
-                <strong class="me-auto">Updated</strong>
+                <strong id="toast-container-works-message" class="me-auto">Updated</strong>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <div class="relative toast rounded bg-red-500 text-white">
             <div class="toast-header">
                 <i class="fas fa-check-circle me-2"></i>
-                <strong class="me-auto">Error</strong>
+                <strong id="toast-container-fail-message" class="me-auto">Error</strong>
             </div>
         </div>
     </div>
@@ -66,15 +66,20 @@
                 <div class="mb-4 bg-botred p-4 rounded-lg shadow-xl">
                     <p>
                         <span class="font-bold">Alpha Warning:</span>
-                    This is in alpha so expect bugs! If you find any, please report them to our <a class="font-bold underline" href="https://github.com/gezelio/YTCR/issues/new/choose">GitHub</a>!
-                </p>
+                        This is in alpha so expect bugs! If you find any, please report them to our
+                        <a class="font-bold underline" href="https://github.com/gezelio/YTCR/issues/new/choose">GitHub</a>
+                        !
+                    </p>
                 </div>
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Create Reward</h2>
                     <div class="grid grid-cols-3 gap-2">
-                        <input id="reward_name" type="text" placeholder="My Reward *" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="This is the name of your reward"/>
+                        <input id="reward_name" type="text" placeholder="My Reward *" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="This is the name of your reward" />
                         <input id="reward_cost" type="number" placeholder="100 *" class="input bg-gray2 border-0 w-full max-w-xs" min="0" data-tippy-content="Cost of your reward for a user to redeem" />
-                        <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
+                        <div>
+                            <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
+                            <label class="text-xs mx-2"><a href="https://releases.ytcr.gezel.io/docs/ActionID/" class="hover:underline">What is an Action-ID?</a></label>
+                        </div>
                     </div>
                     <div class="flex gap-2 mt-4">
                         <button id="create-btn" onclick="Create()" class="hidden bg-green-500 btn btn-block text-white w-1/4 border-0">Create</button>
@@ -91,11 +96,26 @@
                                 <!-- head -->
                                 <thead>
                                     <tr class="text-white">
-                                        <th class="bg-botred" data-tippy-content="This is the name of your reward">Reward <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span></th>
-                                        <th class="bg-botred" data-tippy-content="Cost of your reward for a user to redeem">Cost <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span></th>
-                                        <th class="bg-botred" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">Action <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span></th>
-                                        <th class="bg-botred" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">Tool <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span></th>
-                                        <th class="bg-botred" data-tippy-content="Edit your existing actions. Only works for rewards built from the dashboard">Edit <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span></th>
+                                        <th class="bg-botred" data-tippy-content="This is the name of your reward">
+                                            Reward
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Cost of your reward for a user to redeem">
+                                            Cost
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
+                                            Action
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
+                                            Tool
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Edit your existing actions. Only works for rewards built from the dashboard">
+                                            Edit
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="reward-table"></tbody>
