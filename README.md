@@ -91,15 +91,15 @@ Why we built this:
 ---
 
 ### Initial setup
-
-1. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/gezelio/YTCR/releases).
-2. Launch Streamer.Bot and select `Import` and drag the file into the `Import String` box.
+1. Ensure you're logged in to your YouTube account on StreamerBot under `Platforms` 
+2. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/gezelio/YTCR/releases).
+3. Launch Streamer.Bot and select `Import` and drag the file into the `Import String` box.
     - Confirm you see the following `Actions`:
         - Clipping Tool
         - Execute Channel Reward Redeem
         - Set Channel Rewards
     - Once confirmed, you can click `Import`.
-3. Click the `Set Channel Rewards` action and you should see two Sub-Actions. Double click `Set global "youtube_channel_id"`.
+4. Click the `Set Channel Rewards` action and you should see two Sub-Actions. Double click `Set global "youtube_channel_id"`.
    Where it says `CHANGEME` beside `value`, update this to your YouTube channel ID. You can get that [here](https://www.youtube.com/account_advanced) if you aren't aware of it.
 
 ---
