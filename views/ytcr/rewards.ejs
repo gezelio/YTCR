@@ -10,6 +10,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
         <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846" src="https://analytics-v2.gezel.io/script.js"></script>
@@ -70,6 +72,10 @@
                     </p>
                     <input id="reward_name" type="text" placeholder="My Reward" class="input bg-gray2 border-0 w-full max-w-xs" />
                     <input id="reward_cost" type="number" placeholder="100" class="input bg-gray2 border-0 w-full max-w-xs" min="0" />
+                    <input id="reward_action" type="text" placeholder="numbers-numbers-numbers-numbers-numbers" class="input bg-gray2 border-0 w-full max-w-xs" />
+                    <button id="create-btn" onclick="Create()" class="hidden bg-green-500 btn btn-block text-white w-1/4">Create</button>
+                    <button id="edit-btn" onclick="EditSend()" class="hidden bg-green-500 btn btn-block text-white w-1/4">update</button>
+                    <button id="clear-btn" onclick="RefreshData()" class="hidden bg-red-500 btn btn-block text-white w-1/4">Clear</button>
                 </div>
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Current Rewards</h2>
@@ -82,7 +88,9 @@
                                     <tr>
                                         <th class="bg-botred">Reward Name</th>
                                         <th class="bg-botred">Cost</th>
+                                        <th class="bg-botred">Action ID</th>
                                         <th class="bg-botred">Built From</th>
+                                        <th class="bg-botred">Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody id="reward-table"></tbody>

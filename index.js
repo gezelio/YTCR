@@ -14,6 +14,8 @@ const session = require("express-session");
 var WebSocketServer = require("ws").Server;
 var favicon = require("serve-favicon");
 const { error } = require("console");
+const { v4: uuidv4 } = require("uuid");
+
 const port = 82;
 var wss = new WebSocketServer({ server });
 app.set("view engine", "ejs");
@@ -367,6 +369,11 @@ app.get("/api/rewards", async (req, res) => {
     if (req.query.channel_id !== undefined && req.query.channel_id) {
         const data = await DataBase.findOne({ channel_id: req.query.channel_id }).exec();
         if (data != null) {
+            if (data.user_rewards.length != 0) {
+                data.user_rewards.forEach((data1) => {
+                    data.rewards.push(data1);
+                });
+            }
             if (data.rewards !== undefined) {
                 res.send({
                     status: "success",
@@ -382,23 +389,6 @@ app.get("/api/rewards", async (req, res) => {
             message: "channel_id is required"
         });
     }
-});
-
-app.use(function (req, res, next) {
-    res.status(404);
-    // respond with html page
-    if (req.accepts("html")) {
-        res.render(path.resolve("./views/404.ejs"));
-        return;
-    }
-
-    // respond with json
-    if (req.accepts("json")) {
-        res.send({ error: "Not found" });
-        return;
-    }
-    // default to plain-text. send()
-    res.type("txt").send("Not found");
 });
 var channel_rewards = [];
 var id = 0;
@@ -538,6 +528,114 @@ wss.on("connection", function connection(ws, req) {
         ws.close();
     }
 });
+app.post("/post/update/rewards/create", async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        data.user_rewards.push({
+            reward_id: uuidv4(),
+            reward_name: req.body.data.name,
+            reward_prompt: req.body.data.name,
+            reward_points: parseInt(req.body.data.points),
+            reward_action_id: req.body.data.action_id.length == 0 ? null : req.body.data.action_id,
+            reward_action_userInput: false
+        });
+        DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
+            .then((savedDocument) => {
+                req.session.user = data;
+                let clients = groups.get("ext");
+                if (clients) {
+                    for (const otherClient of clients) {
+                        if (otherClient !== ws) {
+                            otherClient.send(
+                                JSON.stringify({
+                                    type: "refresh rewards",
+                                    channel_id: data.channel_id
+                                })
+                            );
+                        }
+                    }
+                }
+                res.send({ status: "success" });
+            })
+            .catch((err) => {
+                console.log("err: ", err);
+                res.send({ status: "failed" });
+            });
+    } else {
+        res.send({ status: "failed" });
+    }
+});
+app.post("/post/update/rewards/edit", async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_name = req.body.data.name;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_prompt = req.body.data.name;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_points = parseInt(req.body.data.points);
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_action_id = req.body.data.action_id.length == 0 ? null : req.body.data.action_id;
+            DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
+                .then((savedDocument) => {
+                    req.session.user = data;
+                    let clients = groups.get("ext");
+                    if (clients) {
+                        for (const otherClient of clients) {
+                            if (otherClient !== ws) {
+                                otherClient.send(
+                                    JSON.stringify({
+                                        type: "refresh rewards",
+                                        channel_id: data.channel_id
+                                    })
+                                );
+                            }
+                        }
+                    }
+                    res.send({ status: "success" });
+                })
+                .catch((err) => {
+                    console.log("err: ", err);
+                    res.send({ status: "failed" });
+                });
+        }
+    } else {
+        res.send({ status: "failed" });
+    }
+});
+app.post("/post/update/rewards/delete", async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
+            let RewardFound = data.user_rewards.find((data) => data.reward_id == req.body.data.id);
+            console.log("RewardFound: ", RewardFound);
+            if (data.user_rewards.indexOf(RewardFound) > -1) {
+                data.user_rewards.splice(data.user_rewards.indexOf(RewardFound), 1);
+            }
+            DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
+                .then((savedDocument) => {
+                    req.session.user = data;
+                    let clients = groups.get("ext");
+                    if (clients) {
+                        for (const otherClient of clients) {
+                            if (otherClient !== ws) {
+                                otherClient.send(
+                                    JSON.stringify({
+                                        type: "refresh rewards",
+                                        channel_id: data.channel_id
+                                    })
+                                );
+                            }
+                        }
+                    }
+                    res.send({ status: "success" });
+                })
+                .catch((err) => {
+                    console.log("err: ", err);
+                    res.send({ status: "failed" });
+                });
+        }
+    } else {
+        res.send({ status: "failed" });
+    }
+});
 setInterval(() => {
     wss.clients.forEach(function each(client) {
         client.send(
@@ -590,6 +688,22 @@ wss.on("close", function (error) {
 });
 wss.on("listening", () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `wss is listening on ${port}`);
+});
+app.use(function (req, res, next) {
+    res.status(404);
+    // respond with html page
+    if (req.accepts("html")) {
+        res.render(path.resolve("./views/404.ejs"));
+        return;
+    }
+
+    // respond with json
+    if (req.accepts("json")) {
+        res.send({ error: "Not found" });
+        return;
+    }
+    // default to plain-text. send()
+    res.type("txt").send("Not found");
 });
 server.listen(port, () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `URL is running on port ${port}`);
