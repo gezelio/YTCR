@@ -23,6 +23,6 @@ jobs:
           column-field: Status
           label-to-column-map: |
             {
-              "Suggestion": "Suggestions",
+              "Suggestions": "Suggestions",
               "Bug": "User Reported Bugs"
             }
