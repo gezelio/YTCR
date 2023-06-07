@@ -43,6 +43,12 @@ nav1.innerHTML = `
     <a href="/dashboard" class="btn btn-ghost normal-case text-xl text-white"><img src="/favicon.ico" class="mr-4 h-9 sm:h-9" alt="YTCR Logo">YTCR</a>
 </div>
 <div class="flex-none">
+<a href="https://gezel.io/discord"
+                        class="btn bg-discord border-0 text-white hover:bg-discord2 mx-4"><i
+                            class="fa-brands fa-discord"></i></a>
+                            <a href="https://github.com/gezelio/ytcr"
+                        class="btn bg-gray1 border-0 text-white hover:bg-gray2 mx-4"><i
+                            class="fa-brands fa-github"></i></a>
     <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
