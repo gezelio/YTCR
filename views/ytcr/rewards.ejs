@@ -76,7 +76,10 @@
                     <div class="grid grid-cols-3 gap-2">
                         <input id="reward_name" type="text" placeholder="My Reward *" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="This is the name of your reward" />
                         <input id="reward_cost" type="number" placeholder="100 *" class="input bg-gray2 border-0 w-full max-w-xs" min="0" data-tippy-content="Cost of your reward for a user to redeem" />
-                        <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
+                        <div>
+                            <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
+                            <label class="text-xs mx-2"><a href="https://releases.ytcr.gezel.io/docs/ActionID/" class="hover:underline">What is an Action-ID?</a></label>
+                        </div>
                     </div>
                     <div class="flex gap-2 mt-4">
                         <button id="create-btn" onclick="Create()" class="hidden bg-green-500 btn btn-block text-white w-1/4 border-0">Create</button>
