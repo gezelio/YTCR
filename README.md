@@ -50,7 +50,7 @@
 
 #### Note to contributors:
 
-Please ensure you are forking the `staging` branch, as this is where the most up to date code will live
+Please ensure you are forking the `staging` branch, as this is where the most up to date code will live. The `main` branch is used for releases only.
 
 <!-- Download -->
 
@@ -72,11 +72,19 @@ Why we built this:
 
 # How to set up YouTube Channel Rewards as a streamer
 
+## Getting Started
+1. Sign into [YTCR Dashboard](https://ytcr.gezel.io) with your Discord account (this will make sense later)
+2. Select your YouTube channel
+    - This will only show YouTube channels connected to your Discord account. If you don't see the channel you want, add the YouTube channel to your Discord account and refresh the page.
+3. Head over to the settings page and adjust them to your needs
+4. Head over to Rewards to start creating your rewards for your viewers!
+
+
 #### Prerequisites
 
 -   [Streamer.Bot](https://streamer.bot) - v0.1.16 or newer
--   An affiliated Twitch channel - needed to create channel rewards in Streamer.Bot
--   A YouTube channel that is connected to your Discord - needed for [step 4](https://github.com/gezelio/YTCR#4-the-ytcr-dashboard)
+-   A YouTube channel that is connected to your Discord
+-   An affitiated Twitch channel is **no longer required** to use this service
 
 ## 1. Streamerbot configuration
 
@@ -126,55 +134,33 @@ Right click and select ‘Add’ and insert the following:
 
 ---
 
-### 3. Setting up channel rewards
-
-It's likely you've set up channel points with StreamerBot before for your Twitch, but if you haven't, you can watch IRLCreates video [here](https://www.youtube.com/watch?v=nlNkGBWA1A0). This should give you an idea on how to get started.
-
-**The channel points used will be the ones under the “Twitch category” on StreamerBot:**
-
-#### **You add your rewards in `Platforms > Twitch > Channel Point Rewards` inside Streamerbot.**
-
-**NOTE:** There are some important things to know what we will pull into the YouTube Channel Points that you should pay attention to:
-
--   Group
-    -   The channel rewards you want on YouTube should be under a group called `YTCR`
-        -   You can add rewards to a group by double clicking on one, and under ‘group’ type `YTCR`
-        -   Any other channel points you want to add to the group can be done by right clicking and under group select `YTCR`
--   The 'Enabled' status
-    -   Any channel rewards with the ‘enabled’ setting set to ‘no’ will automatically be not pulled to the extension
-        -   This is to allow you to quickly enable/disable points that may not be working on your side, or are not fully complete.
--   User Input Required
-    -   Any reward that requires a user input will also automatically not be added to the extension, as this is a Twitch feature that currently cannot be replicated with our extension (yet).
--   Action
-    -   Ensure you have an action set in order for this to work! You must create a new action, and have a sub action inside to link. (This will be resolved in v2.0.0)
-
-> The cost of a channel point inside StreamerBot will also be the cost of the action inside YouTube. Users generate points every 5 minutes, so be sure you set these fair with how many points you offer every 5 minutes from the [Dashboard](https://ytcr.gezel.io).
-
----
-
-### 4. The YTCR Dashboard
+### 3. The YTCR Dashboard
 
 Before going forward, it's good to confirm that your YouTube channel is linked to your Discord account. If you do not have a YouTube channel linked to your Discord, YTCR won't be able to find your channel as we use Discord as our sign in method. Once you've added your YouTube channel to your Discord's `Connections` (can be found in User Settings):
 
 1.  Sign in to [https://ytcr.gezel.io](http://ytcr.gezel.io/creds/login)
-2.  Authenticate with Discord (the only sign in method)
+2.  Authenticate with Discord
 3.  Choose your YouTube channel
+4. Adjust your settings to your liking
 
-After this, you can do things like set the amount of points you'd like your viewers to earn each interval (which is roughly 5 minutes) and much more!
+---
+### 4. Setting up channel rewards
 
-> **Tip:** You can actually add a custom dock on your OBS to see how many points each user has! If you click `View Profile` on the YTCR site, you can see your username in the URL bar like this:
-> `ytcr.gezel.io/u/USERNAME`.\
-> Add the following URL (and update your username) to a `custom dock` inside `OBS > Docks > Custom Browser Docks` to see this from there;
-> ` https://ytcr.gezel.io/obs/USERNAME?darkmode=true&refresh=true`
+Head over to the [YTCR Dashboard](https://ytcr.gezel.io) and click on `Rewards`.
+##### Fields:
+| **Reward Name** | **Cost** | **Action ID** |
+| --- | --- | --- |
+| The name of your reward | The cost of your reward | The ID of the action you want to run. This is only required if you wish to pair it with an action you built on StreamerBot, such as controlling something on your OBS, for example |
+
+This is the new primary way going forward with building actions, as it cuts out the requirement of needing an affiliated Twitch account in previous iterations.
 
 ---
 
 ### 5. Clipping tool
+> **If you don't plan on using Clipping Tool, you can disable it in the YTCR Dashboard and ignore all of this.**
 
 The Clipping Tool is a feature that adds a clipping feature to your stream. This utilizes the OBS `Replay Buffer` feature and would require additional setup.
 We made this because YouTube's clipping feature doesn't actually create a downloadable clip to post on other social media platforms, so we hope this will be a good alternative to Twitch's clip feature.
-
-> **If you don't plan on using Clipping Tool, you can disable it in the YTCR Dashboard and ignore all of this.**
 
 #### How does it work?
 
