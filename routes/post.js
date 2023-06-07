@@ -65,4 +65,31 @@ app.post("/post/update/WipeUsers", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
+app.post("/youtube/post", (req, res) => {
+    if (req.body?.channel_id) {
+        fetch(`https://www.youtube.com/channel/${req.body.channel_id}/live`)
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (html) {
+                if (html.includes("hqdefault_live.jpg")) {
+                    console.log("test");
+                    res.send({
+                        status: "live"
+                    });
+                } else {
+                    res.send({
+                        status: "not live"
+                    });
+                }
+            })
+            .catch(function (err) {
+                console.log("Something went wrong", err);
+            });
+    } else {
+        res.send({
+            status: "not live"
+        });
+    }
+});
 module.exports = app;
