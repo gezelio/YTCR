@@ -43,12 +43,14 @@ function UpdateSend(url, data) {
         .then(function (data) {
             console.log("data: ", data);
             if (data.status == "success") {
+                $("#toast-container-works-message").html("Updated");
                 $("#toast-container-works").fadeIn(400, function () {
                     $(this).delay(5000).fadeOut(400);
                 });
                 RefreshData();
             }
             if (data.status == "fail") {
+                $("#toast-container-fail-message").html("Error");
                 $("#toast-container-fail").fadeIn(400, function () {
                     $(this).delay(5000).fadeOut(400);
                 });
@@ -56,6 +58,7 @@ function UpdateSend(url, data) {
         })
         .catch(function (error) {
             loggingPerm({ "error UpdateSend": error });
+            $("#toast-container-fail-message").html("Error");
             $("#toast-container-fail").fadeIn(400, function () {
                 $(this).delay(5000).fadeOut(400);
             });
@@ -114,7 +117,27 @@ function CheckInputs() {
         document.getElementById("create-btn").classList.remove("hidden");
     }
 }
+function validateString(str) {
+    var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    return regex.test(str);
+}
+function CheckActionID(inputString) {
+    if (inputString.length == 0) {
+        return true;
+    }
+    if (inputString.length === 36 && inputString.split("-").length - 1 === 4 && validateString(inputString)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 function Create() {
+    if (!CheckActionID(document.getElementById("reward_action").value)) {
+        $("#toast-container-fail-message").html(`Error Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>`);
+        return $("#toast-container-fail").fadeIn(400, function () {
+            $(this).delay(5000).fadeOut(400);
+        });
+    }
     UpdateSend("/post/update/rewards/create", {
         name: document.getElementById("reward_name").value,
         points: document.getElementById("reward_cost").value,
@@ -133,6 +156,12 @@ function Edit(id) {
     document.getElementById("clear-btn").classList.remove("hidden");
 }
 function EditSend() {
+    if (!CheckActionID(document.getElementById("reward_action").value)) {
+        $("#toast-container-fail-message").html(`Error Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>`);
+        return $("#toast-container-fail").fadeIn(400, function () {
+            $(this).delay(5000).fadeOut(400);
+        });
+    }
     UpdateSend("/post/update/rewards/edit", {
         id: edit.id,
         name: document.getElementById("reward_name").value,
