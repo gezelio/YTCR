@@ -28,7 +28,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/gezelio/ytcr">
-    <img src="https://cdn.discordapp.com/attachments/866875090221924382/1098250954484228187/new_ytcr.png" alt="Logo" width="80" height="80">
+    <img src="https://s6.imgcdn.dev/vj9Qa.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">YouTube Channel Rewards</h3>
