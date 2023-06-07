@@ -99,7 +99,8 @@ function ShowData(data) {
         `;
     });
     tippy("[data-tippy-content]", {
-        arrow: true
+        arrow: true,
+        allowHTML: true
     });
 }
 document.getElementById("reward_name").addEventListener("input", function () {
