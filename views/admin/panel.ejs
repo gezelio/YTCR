@@ -127,6 +127,7 @@
                     document.getElementById(`id_${item.user.id}_img`).src = "https://img.mystl.ink/profile_pics/default.png";
                 }
             });
+            GetYoutube(item.channel_id);
         });
     }
     function HumanTime(time) {
@@ -155,11 +156,14 @@
         document.getElementById("data").innerHTML = "";
         document.getElementById("all").innerHTML = data.length;
         data.sort(dynamicSort("created_at"));
-        data.forEach(function (element, index) {
+        data.forEach(async function (element, index) {
             document.getElementById("data").innerHTML += `
     <div class="bg-nav_bar p-4 rounded-lg">
         <div class="flex flex-row place-content-between content-center UserCardTop">
             <a data-tippy-content="Go to user profile" class="underline hover:text-myst_main" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>
+        </div>
+        <div class="UserCardDiv">
+            <span id="id_${element.channel_id}_youtube"></span>
         </div>
         <div class="UserCardDiv">
             <span id="id_${element.channel_id}_sb"></span>
@@ -180,7 +184,7 @@
             <span><i data-tippy-content="Banned" class="fa fa-user-slash" aria-hidden="true"></i> ${element.ban.banned}</span>
         </div>
         <div class="UserCardDiv">
-            <span><i data-tippy-content="Youtube Channel" class="fa-brands fa-youtube" aria-hidden="true"></i> ${element.channel_id}</span>
+            <span><i data-tippy-content="Youtube Channel" class="fa-brands fa-youtube" aria-hidden="true"></i> <a class="underline hover:text-myst_main" target="_blank" href="https://www.youtube.com/channel/${element.channel_id}/live">${element.channel_id}</a></span>
         </div>
         <div class="UserCardDiv">
             <span><i data-tippy-content="Users" class="fa fa-users" aria-hidden="true"></i> ${element.users.length}</span>
@@ -196,7 +200,6 @@
                 });
                 checkimg(data);
                 sbStats.map(function (element) {
-                    console.log("element: ", element);
                     document.getElementById(`id_${element}_sb`).innerHTML = `
                     <img data-tippy-content="SB Open and running" src="https://streamer.bot/logo.png" class="w-8 h-8 mb-3 align-middle shadow-xl rounded-full">
                     `;
@@ -238,5 +241,29 @@
             console.error("Socket encountered error: ", err.message, "Closing socket");
             ws.close();
         };
+    }
+    async function GetYoutube(channel_id) {
+        await fetch("/youtube/post", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                channel_id: channel_id
+            })
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(async function (youtube_data) {
+                if (youtube_data.status == "live") {
+                    document.getElementById(`id_${channel_id}_youtube`).innerHTML = `
+                    <i data-tippy-content="Live" class="fa-brands fa-youtube w-8 h-8 mb-3 align-middle shadow-xl rounded-full"/>
+                    `;
+                    tippy("[data-tippy-content]", {
+                        arrow: true
+                    });
+                }
+            });
     }
 </script>

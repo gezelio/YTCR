@@ -25,6 +25,12 @@ app.get("/dashboard", functions.LoggedIn, async (req, res) => {
         user: CheckUser(user)
     });
 });
+app.get("/dashboard/rewards", functions.LoggedIn, async (req, res) => {
+    const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    res.render(path.resolve("./views/ytcr/rewards.ejs"), {
+        user: CheckUser(user)
+    });
+});
 app.get("/additional", functions.LoggedIn, async (req, res) => {
     const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     res.render(path.resolve("./views/ytcr/additional.ejs"), {
@@ -36,7 +42,6 @@ app.get("/get/dashboard/data", functions.LoggedIn, async (req, res) => {
     data.user == {};
     res.send({ status: "success", data: data });
 });
-
 app.get("/dashboard/select/youtube", functions.LoggedIn, async (req, res) => {
     var youtube_ids_push = [];
     const data_data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
