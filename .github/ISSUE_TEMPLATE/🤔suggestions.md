@@ -1,8 +1,8 @@
 ---
-name: "\U0001F914 Suggestions"
+name: "Suggestion"
 about: Have an idea for YTCR? Let us know!
 title: "[SUG] {ISSUE_HERE}"
-labels: "\U0001F914 Suggestion"
+labels: "Suggestion"
 assignees: trent-gezel, tommerty
 
 ---
