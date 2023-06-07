@@ -26,7 +26,7 @@ app.get("/auth/discord/callback", async (req, res) => {
     })
         .then((response) => response.json())
         .then((data_token) => {
-            console.log("data_token: ", data_token);
+            // console.log("data_token: ", data_token);
             D_access_token = data_token.access_token;
             fetch("https://discord.com/api/users/@me", {
                 method: "GET",
@@ -60,7 +60,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                 if (data_connections != null) {
                                     data_data.discord.connections = data_connections;
                                     let good = data_connections.find((x) => x.id === data_data.channel_id);
-                                    console.log("connection no: ", good);
+                                    // console.log("connection no: ", good);
                                     data_data.verified = false;
                                     data_data
                                         .save()
@@ -108,7 +108,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                 if (data_connections != null) {
                                     newDataBase.discord.connections = data_connections;
                                     let good = data_connections.find((x) => x.id === newDataBase.channel_id);
-                                    console.log("connection no: ", good);
+                                    // console.log("connection no: ", good);
                                     newDataBase.verified = false;
                                     newDataBase
                                         .save()

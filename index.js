@@ -405,7 +405,6 @@ var id = 0;
 
 //ANCHOR - WebSocket
 wss.on("connection", function connection(ws, req) {
-    console.log("req.url: ", req.url);
     const url = new URL(req.url, `http://${req.headers.host}`);
     const groupName = url.searchParams.get("group");
     if (req.url == "/ws" || req.url == "/ws/" || req.url == "/ws?group=ext" || req.url == "/ws?group=stats") {
@@ -452,7 +451,6 @@ wss.on("connection", function connection(ws, req) {
                     const data = await DataBase.findOne({ channel_id: userId }).exec();
                     if (data) {
                         json_rewards = JSON.parse(message.data);
-                        console.log("json_rewards: ", json_rewards);
                         if (json_rewards !== undefined) {
                             json_rewards.forEach(async (reward, index) => {
                                 setTimeout(() => {
@@ -550,7 +548,7 @@ setInterval(() => {
     });
     let users = [];
     for (let key in UserConnections) {
-        users.push(Object.keys(UserConnections)[0]);
+        users.push(key);
     }
     if (groups.get("stats")) {
         for (const otherClient of groups.get("stats")) {
