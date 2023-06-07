@@ -1,8 +1,8 @@
 ---
-name: "Suggestion"
+name: "Suggestions"
 about: Have an idea for YTCR? Let us know!
 title: "[SUG] {ISSUE_HERE}"
-labels: "Suggestion"
+labels: "Suggestions"
 assignees: trent-gezel, tommerty
 
 ---
