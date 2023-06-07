@@ -78,9 +78,9 @@ function ShowData(data) {
         <tr>
             <th class="bg-gray2">${reward.reward_name}</th>
             <td class="bg-gray2">${reward.reward_points}</td>
-            <td class="bg-gray2">${reward.reward_action_id == null ? "No ID" : reward.reward_action_id}</td>
+            <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
             <td class="bg-gray2" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
-            <td class="bg-gray2">StreamerBot Edit</td>
+            <td class="bg-gray2">N/A</td>
         </tr>
         `;
     });
@@ -89,9 +89,9 @@ function ShowData(data) {
         <tr>
             <th class="bg-gray2">${reward.reward_name}</th>
             <td class="bg-gray2">${reward.reward_points}</td>
-            <td class="bg-gray2">${reward.reward_action_id == null ? "No ID" : reward.reward_action_id}</td>
+            <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
             <td class="bg-gray2">YTCR</td>
-            <td class="bg-gray2">
+            <td class="bg-gray2 flex gap-2">
                 <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn btn-block text-white w-1/2">Edit</button>
                 <button onclick="DeleteSend('${reward.reward_id}')" class="bg-red-500 btn btn-block text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
             </td>
