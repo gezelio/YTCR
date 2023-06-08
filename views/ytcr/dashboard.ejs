@@ -39,6 +39,7 @@
         <script src="https://api.gezel.io/js/footer_new.js" defer></script>
         <script src="/assets/js/navbar.js" defer></script>
         <script src="/assets/js/dashboard.js" defer></script>
+        <script src="/assets/js/connectionDiv.js" defer></script>
     </head>
     <div style="display: none" id="toast-container-works" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
         <div class="relative toast rounded bg-green-500 text-white">
@@ -60,23 +61,6 @@
     <body class="relative h-screen">
         <div class="flex justify-center w-full pt-4">
             <div id="main" class="">
-                <div id="connection" class="grid p-4 my-4 container bg-neutral-900 rounded-lg">
-                    <p class="font-bold">
-                        StreamerBot:
-                        <span class="text-green-600 font-bold">Connected</span>
-                        /
-                        <span class="text-botred font-bold">Disconnected</span>
-                    </p>
-                    <!-- if disconnected, also show: -->
-                    <p>
-                        StreamerBot is currently not connected so YTCR will not act as expected. Please ensure you connect to the websocket and have the actions provided. If you need assistance, please jump into our
-                        <a href="https://gezel.io/discord" class="text-discord hover:text-discord2 hover:underline">Discord</a>
-                    </p>
-                    <!-- if connected, show: -->
-                    <p>Last update from StreamerBot: %x_minutes_ago%</p>
-                    <!-- Last update to show the last time the user basically pressed "save" and pushed new rewards to the dashboard. This should help with figuring out why actions may not be coming through, etc -->
-                    <!-- @trent, once the backend work is done, copy this to the same place on all pages. This should be visible from everywhere -->
-                </div>
                 <h1 class="font-bold text-4xl mb-2">Settings</h1>
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Points per interval</h2>

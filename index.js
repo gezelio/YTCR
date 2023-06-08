@@ -444,6 +444,7 @@ wss.on("connection", function connection(ws, req) {
                         if (json_rewards !== undefined) {
                             if (json_rewards.length == 0) {
                                 data.rewards = [];
+                                data.reward_updated = new Date();
                                 data.save()
                                     .then((savedDocument) => {
                                         channel_rewards = [];
@@ -500,6 +501,7 @@ wss.on("connection", function connection(ws, req) {
                                     }
                                     if (index == json_rewards.length - 1) {
                                         data.rewards = channel_rewards;
+                                        data.reward_updated = new Date();
                                         data.save()
                                             .then((savedDocument) => {
                                                 channel_rewards = [];
@@ -681,6 +683,27 @@ app.post("/post/update/rewards/delete", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
+app.get("/get/check/connection", async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        const searchValue = data.channel_id;
+        let found = false;
+        for (let key in UserConnections) {
+            if (key === searchValue) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            return res.send({ reward_updated: data.reward_updated, sb: true });
+        } else {
+            return res.send({ reward_updated: data.reward_updated, sb: false });
+        }
+    } else {
+        res.send({ status: "failed" });
+    }
+});
+
 setInterval(() => {
     wss.clients.forEach(function each(client) {
         client.send(
