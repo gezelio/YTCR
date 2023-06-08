@@ -442,6 +442,48 @@ wss.on("connection", function connection(ws, req) {
                     if (data) {
                         json_rewards = JSON.parse(message.data);
                         if (json_rewards !== undefined) {
+                            if (json_rewards.length == 0) {
+                                data.rewards = [];
+                                data.save()
+                                    .then((savedDocument) => {
+                                        channel_rewards = [];
+                                        id = 0;
+                                        if (message.v != "2.0.0") {
+                                            console.log("found");
+                                            UserConnections[userId]?.send(
+                                                JSON.stringify({
+                                                    type: "rewards",
+                                                    channel_id: userId,
+                                                    reward_id: "0",
+                                                    reward_name: "0dsdsdsdsdsdsdsdsd_DSDADSADASDASDSD",
+                                                    reward_action_id: "0",
+                                                    reward_action_userInput: false,
+                                                    reward_action_message: "",
+                                                    reward_action_clip: false
+                                                })
+                                            );
+                                        }
+                                        setTimeout(() => {
+                                            let clients = groups.get("ext");
+                                            if (clients) {
+                                                for (const otherClient of clients) {
+                                                    if (otherClient !== ws) {
+                                                        otherClient.send(
+                                                            JSON.stringify({
+                                                                type: "refresh rewards",
+                                                                channel_id: data.channel_id
+                                                            })
+                                                        );
+                                                    }
+                                                }
+                                            }
+                                        }, 2000);
+                                    })
+                                    .catch((err) => {
+                                        // handle error
+                                    });
+                                return;
+                            }
                             json_rewards.forEach(async (reward, index) => {
                                 setTimeout(() => {
                                     if (reward.group == "YTCR") {
