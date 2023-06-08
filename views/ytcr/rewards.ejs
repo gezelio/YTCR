@@ -82,6 +82,7 @@
                             <label class="text-xs mx-2"><a href="https://releases.ytcr.gezel.io/docs/ActionID/" class="hover:underline">What is an Action-ID?</a></label>
                         </div>
                         <input id="reward_folder" type="text" placeholder="Folder Name" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Folder name is not required" />
+                        <input id="reward_color" type="color" placeholder="Reward Color" value="#24292e" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Reward Color" />
                     </div>
                     <div class="flex gap-2 mt-4">
                         <button id="create-btn" onclick="Create()" class="hidden bg-green-500 btn btn-block text-white w-1/4 border-0">Create</button>
@@ -116,6 +117,10 @@
                                         </th>
                                         <th class="bg-botred" data-tippy-content="Folder Name">
                                             Folder
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Button Color">
+                                            color
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
                                         <th class="bg-botred" data-tippy-content="Edit your existing actions. Only works for rewards built from the dashboard">

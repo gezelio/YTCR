@@ -73,6 +73,7 @@ function ShowData(data) {
     document.getElementById("reward_cost").value = "";
     document.getElementById("reward_action").value = "";
     document.getElementById("reward_folder").value = "";
+    document.getElementById("reward_color").value = "#24292e";
     document.getElementById("create-btn").classList.add("hidden");
     document.getElementById("edit-btn").classList.add("hidden");
     document.getElementById("clear-btn").classList.add("hidden");
@@ -85,6 +86,7 @@ function ShowData(data) {
             <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
             <td class="bg-gray2" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
             <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
+            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9 bg-[${reward?.reward_color?.background}]"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
             <td class="bg-gray2">N/A</td>
         </tr>
         `;
@@ -97,6 +99,7 @@ function ShowData(data) {
             <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
             <td class="bg-gray2">YTCR</td>
             <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
+            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9 bg-[${reward?.reward_color?.background}]"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
             <td class="bg-gray2 flex gap-2">
                 <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn btn-block text-white w-1/2">Edit</button>
                 <button onclick="DeleteSend('${reward.reward_id}')" class="bg-red-500 btn btn-block text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
@@ -145,7 +148,8 @@ function Create() {
         name: document.getElementById("reward_name").value,
         points: document.getElementById("reward_cost").value,
         action_id: document.getElementById("reward_action").value,
-        folder: document.getElementById("reward_folder").value
+        folder: document.getElementById("reward_folder").value,
+        color: document.getElementById("reward_color").value
     });
 }
 function Edit(id) {
@@ -157,6 +161,7 @@ function Edit(id) {
     document.getElementById("reward_cost").value = found.reward_points;
     document.getElementById("reward_action").value = found.reward_action_id;
     document.getElementById("reward_folder").value = found.reward_folder == undefined ? "" : found.reward_folder;
+    document.getElementById("reward_color").value = found.reward_color?.background || "#24292e";
     document.getElementById("edit-btn").classList.remove("hidden");
     document.getElementById("clear-btn").classList.remove("hidden");
 }
@@ -172,7 +177,8 @@ function EditSend() {
         name: document.getElementById("reward_name").value,
         points: document.getElementById("reward_cost").value,
         action_id: document.getElementById("reward_action").value,
-        folder: document.getElementById("reward_folder").value
+        folder: document.getElementById("reward_folder").value,
+        color: document.getElementById("reward_color").value
     });
 }
 function DeleteSend(id) {
