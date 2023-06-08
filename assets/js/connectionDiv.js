@@ -44,8 +44,9 @@ function CheckSBConnection() {
             document.getElementById("main").prepend(connectionDiv);
         })
         .catch(function (error) {
+            console.error("error: ", error);
             loggingPerm({ "error UpdateSend": error });
-            $("#toast-container-fail-message").html("Error");
+            $("#toast-container-fail-message").html(error);
             $("#toast-container-fail").fadeIn(400, function () {
                 $(this).delay(5000).fadeOut(400);
             });
