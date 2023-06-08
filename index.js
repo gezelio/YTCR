@@ -30,6 +30,42 @@ cors({
 });
 app.use(cors());
 app.use(express.json());
+var sitmap_info = require("./sitemap.json");
+const { SitemapStream, streamToPromise } = require("sitemap");
+const { createGzip } = require("zlib");
+let sitemap;
+app.get("/robots.txt", function (req, res) {
+    res.type("text/plain");
+    res.send(`User-agent: *
+    \nAllow: /
+    \nSitemap: https://ytcr.gezel.io/sitemap.xml
+    \nCrawl-delay: 10
+    `);
+});
+app.get("/sitemap.xml", function (req, res) {
+    res.header("Content-Type", "application/xml");
+    res.header("Content-Encoding", "gzip");
+    // if we have a cached entry send it
+    if (sitemap) {
+        res.send(sitemap);
+        return;
+    }
+    try {
+        const smStream = new SitemapStream({ hostname: "https://ytcr.gezel.io/" });
+        const pipeline = smStream.pipe(createGzip());
+        sitmap_info.forEach((data) => {
+            smStream.write(data);
+        });
+        streamToPromise(pipeline).then((sm) => (sitemap = sm));
+        smStream.end();
+        pipeline.pipe(res).on("error", (e) => {
+            throw e;
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(500).end();
+    }
+});
 const isLoggedIn = (req, res, next) => {
     if (req.session.user) {
         next();
@@ -573,7 +609,7 @@ wss.on("connection", function connection(ws, req) {
         ws.close();
     }
 });
-app.post("/post/update/rewards/create", async (req, res) => {
+app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         data.user_rewards.push({
@@ -612,7 +648,7 @@ app.post("/post/update/rewards/create", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/rewards/edit", async (req, res) => {
+app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
@@ -649,7 +685,7 @@ app.post("/post/update/rewards/edit", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/rewards/delete", async (req, res) => {
+app.post("/post/update/rewards/delete", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
@@ -685,7 +721,7 @@ app.post("/post/update/rewards/delete", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.get("/get/check/connection", async (req, res) => {
+app.get("/get/check/connection", functions.LoggedIn, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         const searchValue = data.channel_id;
