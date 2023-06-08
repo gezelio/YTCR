@@ -180,7 +180,7 @@ async function get_channel_reawrds() {
                     document.getElementById("YTCRDropdown").innerHTML += `
                     <btn id="YTCRbuttonFolder_${element.reward_folder}" data-folder="${element.reward_folder}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center bg-gray1 text-white aspect-w-2 aspect-h-2 cursor-pointer">
                         <i class="fa-solid fa-folder text-4xl"></i>
-                        <div id="cost" class="font-bold bg-off_white text-gray2 p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_name}</div>
+                        <div id="cost" class="font-bold bg-off_white text-gray2 p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_folder}</div>
                     </btn>
                     `;
                     return;
@@ -269,9 +269,14 @@ function send_claim_reward_popup(reward_id, channel_id, user_id, username, point
     }
 }
 function connect() {
-    var ws = new WebSocket("ws://localhost:82/ws?group=ext");
+    var ws = new WebSocket("wss://ytcr.gezel.io/ws?group=ext");
     ws.onopen = function () {
         logging.perm("Socket is connected to YTCR");
+        setTimeout(() => {
+            document.getElementById("PointsButton").classList.remove("pointer-events-none");
+            document.getElementById("button-points").classList.remove("hidden");
+            document.getElementById("button-loading").classList.add("hidden");
+        }, 2000);
     };
     ws.onmessage = function (e) {
         var data = JSON.parse(e.data);
