@@ -73,7 +73,7 @@ function ShowData(data) {
     document.getElementById("reward_cost").value = "";
     document.getElementById("reward_action").value = "";
     document.getElementById("reward_folder").value = "";
-    document.getElementById("reward_color").value = "#24292e";
+    document.getElementById("reward_color").value = "#c9574e";
     document.getElementById("create-btn").classList.add("hidden");
     document.getElementById("edit-btn").classList.add("hidden");
     document.getElementById("clear-btn").classList.add("hidden");
@@ -161,7 +161,7 @@ function Edit(id) {
     document.getElementById("reward_cost").value = found.reward_points;
     document.getElementById("reward_action").value = found.reward_action_id;
     document.getElementById("reward_folder").value = found.reward_folder == undefined ? "" : found.reward_folder;
-    document.getElementById("reward_color").value = found.reward_color?.background || "#24292e";
+    document.getElementById("reward_color").value = found.reward_color?.background || "#c9574e";
     document.getElementById("edit-btn").classList.remove("hidden");
     document.getElementById("clear-btn").classList.remove("hidden");
 }
