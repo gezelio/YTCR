@@ -1,0 +1,32 @@
+[
+    {
+        "url": "",
+        "changefreq": "daily",
+        "priority": 0.9,
+        "img": "https://cdn.gezel.io/logos/transparent/gezel.png"
+    },
+    {
+        "url": "tos",
+        "changefreq": "daily",
+        "priority": 0.8,
+        "img": "https://cdn.gezel.io/logos/transparent/gezel.png"
+    },
+    {
+        "url": "privacy-policy",
+        "changefreq": "daily",
+        "priority": 0.8,
+        "img": "https://cdn.gezel.io/logos/transparent/gezel.png"
+    },
+    {
+        "url": "conduct-rules",
+        "changefreq": "daily",
+        "priority": 0.8,
+        "img": "https://cdn.gezel.io/logos/transparent/gezel.png"
+    },
+    {
+        "url": "teams",
+        "changefreq": "daily",
+        "priority": 0.8,
+        "img": "https://cdn.gezel.io/logos/transparent/gezel.png"
+    }
+]

@@ -6,7 +6,7 @@ const functions = require("../lib/functions");
 const DataBase = require("../model/DataBase");
 const fetch = require("node-fetch");
 
-app.post("/post/dashboard/select/youtube", async (req, res) => {
+app.post("/post/dashboard/select/youtube", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         data.channel_id = req.body.youtube_id;
@@ -24,7 +24,7 @@ app.post("/post/dashboard/select/youtube", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/ChannelAmount", async (req, res) => {
+app.post("/post/update/ChannelAmount", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         data.channel_options.channel_amount = req.body.data;
@@ -41,7 +41,7 @@ app.post("/post/update/ChannelAmount", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/DeleteUser", async (req, res) => {
+app.post("/post/update/DeleteUser", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         data.deleteOne({ "user.id": req.session.user.user.id });
@@ -50,7 +50,7 @@ app.post("/post/update/DeleteUser", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/WipeUsers", async (req, res) => {
+app.post("/post/update/WipeUsers", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         data.users = [];
