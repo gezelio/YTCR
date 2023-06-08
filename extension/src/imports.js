@@ -13,12 +13,12 @@ const AddDiv = (points) => {
     div.id = "YTCRMain";
     div.innerHTML = `
         <div id ="buttons">
-            <div class="flex justify-between">
-                <btn id="PointsButton" class="p-2 bg-[#fc2a1b] hover:bg-[#af1d12] text-white font-bold rounded-lg cursor-pointer"><span id="ytcr_points_text">${points}</span> points</btn>
-                <button id="ClipButton" class="p-2 bg-[#fc2a1b] hover:bg-[#af1d12] text-white font-bold rounded-lg cursor-pointer disabled:bg-gray2 disabled:pointer-events-none"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</button>
+            <div class="flex justify-between p-2 col-span-full font-bold">
+                <btn id="PointsButton" class="bg-botred px-2 rounded-lg  hover cursor-pointer">${points} Points</btn>
+                <button id="ClipButton" class="bg-botred px-2 rounded-lg text-white hover cursor-pointer disabled:bg-gray2 disabled:pointer-events-none"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</button>
             </div>
         </div >
-    <div id="YTCRDropdown" class="py-3 mt-2 grid grid-cols-4 gap-2">
+    <div id="YTCRDropdown" class="m-2 col-span-full grid grid-cols-4 gap-3">
     </div>
 `;
     return div;
