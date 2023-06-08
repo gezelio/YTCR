@@ -163,10 +163,8 @@
             <a data-tippy-content="Go to user profile" class="underline hover:text-myst_main" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>
         </div>
         <div class="UserCardDiv">
-            <span id="id_${element.channel_id}_youtube"></span>
-        </div>
-        <div class="UserCardDiv">
             <span id="id_${element.channel_id}_sb"></span>
+            <span id="id_${element.channel_id}_youtube"></span>
         </div>
         <div class="relative ml-3">
             <img id="id_${element.user.id}_img" src="${element.user.profile_pic}" class="ring-4 ring-red-200 w-28 h-28 mb-3 align-middle shadow-xl rounded-full" onclick="open_img('${element.user.profile_pic}')">
