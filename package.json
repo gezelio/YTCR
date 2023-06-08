@@ -1,37 +1,42 @@
 {
-  "name": "ytcr",
-  "version": "2.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "debug": "cls && node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gezelio/YTCR.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gezelio/YTCR/issues"
-  },
-  "homepage": "https://github.com/gezelio/YTCR#readme",
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "mongoose": "^7.0.4",
-    "passport": "^0.6.0",
-    "serve-favicon": "^2.5.0",
-    "sitemap": "^7.1.1",
-    "uuid": "^9.0.0",
-    "ws": "^8.13.0"
-  }
+    "name": "ytcr",
+    "version": "2.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "debug": "cls && node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "tailwind": "npx tailwindcss -i tailwind/main.css -o assets/styles/tailwind.css --watch --minify"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gezelio/YTCR.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/gezelio/YTCR/issues"
+    },
+    "homepage": "https://github.com/gezelio/YTCR#readme",
+    "dependencies": {
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/typography": "^0.5.9",
+        "bcrypt": "^5.1.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "daisyui": "^3.0.20",
+        "dotenv": "^16.0.3",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "mongoose": "^7.0.4",
+        "passport": "^0.6.0",
+        "serve-favicon": "^2.5.0",
+        "sitemap": "^7.1.1",
+        "tailwindcss-animated": "^1.0.1",
+        "uuid": "^9.0.0",
+        "ws": "^8.13.0"
+    }
 }

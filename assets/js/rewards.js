@@ -99,10 +99,10 @@ function ShowData(data) {
             <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
             <td class="bg-gray2">YTCR</td>
             <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
-            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9 bg-[${reward?.reward_color?.background}]"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
+            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background}"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
             <td class="bg-gray2 flex gap-2">
                 <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn btn-block text-white w-1/2">Edit</button>
-                <button onclick="DeleteSend('${reward.reward_id}')" class="bg-red-500 btn btn-block text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
+                <button onclick="DeleteSend('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
             </td>
         </tr>
         `;
