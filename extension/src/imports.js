@@ -14,7 +14,7 @@ const AddDiv = (points) => {
     div.innerHTML = `
         <div id ="buttons">
             <div class="flex justify-between p-2 col-span-full font-bold">
-                <btn id="PointsButton" class="bg-botred px-2 rounded-lg  hover cursor-pointer">${points} Points</btn>
+                <btn id="PointsButton" class="bg-botred px-2 rounded-lg pointer-events-none hover cursor-pointer"><span id="button-points" class="hidden">${points}</span> <span id="button-loading" class="mt-1 mr-2 loading loading-spinner text-white"></span> Points</btn>
                 <button id="ClipButton" class="bg-botred px-2 rounded-lg text-white hover cursor-pointer disabled:bg-gray2 disabled:pointer-events-none"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</button>
             </div>
         </div >

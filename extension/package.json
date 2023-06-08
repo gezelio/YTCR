@@ -1,6 +1,6 @@
 {
     "name": "youtube-channel-points",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "YTCR: YouTube Channel Points",
     "private": true,
     "scripts": {
@@ -11,6 +11,7 @@
     "devDependencies": {
         "copy-webpack-plugin": "^6.4.1",
         "css-loader": "^4.3.0",
+        "daisyui": "^3.0.20",
         "file-loader": "^6.2.0",
         "mini-css-extract-plugin": "^0.10.1",
         "postcss-cli": "^10.1.0",
