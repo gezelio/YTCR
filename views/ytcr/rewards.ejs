@@ -80,6 +80,7 @@
                             <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
                             <label class="text-xs mx-2"><a href="https://releases.ytcr.gezel.io/docs/ActionID/" class="hover:underline">What is an Action-ID?</a></label>
                         </div>
+                        <input id="reward_folder" type="text" placeholder="Folder Name" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Folder name is not required" />
                     </div>
                     <div class="flex gap-2 mt-4">
                         <button id="create-btn" onclick="Create()" class="hidden bg-green-500 btn btn-block text-white w-1/4 border-0">Create</button>
@@ -110,6 +111,10 @@
                                         </th>
                                         <th class="bg-botred" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
                                             Tool
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Folder Name">
+                                            Folder
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
                                         <th class="bg-botred" data-tippy-content="Edit your existing actions. Only works for rewards built from the dashboard">

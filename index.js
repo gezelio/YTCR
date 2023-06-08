@@ -488,12 +488,13 @@ wss.on("connection", function connection(ws, req) {
                                 setTimeout(() => {
                                     if (reward.group == "YTCR") {
                                         channel_rewards.push({
-                                            reward_id: id,
+                                            reward_id: uuidv4(),
                                             reward_name: reward.name,
                                             reward_prompt: reward.prompt,
                                             reward_points: reward.cost,
                                             reward_action_id: reward.actionId,
-                                            reward_action_userInput: reward.userInput
+                                            reward_action_userInput: reward.userInput,
+                                            reward_folder: ""
                                         });
                                         id++;
                                     }
@@ -579,7 +580,8 @@ app.post("/post/update/rewards/create", async (req, res) => {
             reward_prompt: req.body.data.name,
             reward_points: parseInt(req.body.data.points),
             reward_action_id: req.body.data.action_id.length == 0 ? null : req.body.data.action_id,
-            reward_action_userInput: false
+            reward_action_userInput: false,
+            reward_folder: req.body.data.folder || ""
         });
         DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
             .then((savedDocument) => {
@@ -615,6 +617,7 @@ app.post("/post/update/rewards/edit", async (req, res) => {
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_prompt = req.body.data.name;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_points = parseInt(req.body.data.points);
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_action_id = req.body.data.action_id.length == 0 ? null : req.body.data.action_id;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_folder = req.body.data.folder || "";
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {
                     req.session.user = data;
