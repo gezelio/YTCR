@@ -23,8 +23,6 @@
         <meta name="description" content="Your one stop link, for all your social profiles with MystLink" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
-        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-        <!--Replace with your tailwind.css once created-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
         <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,7 +140,6 @@
                 return response.json();
             })
             .then(function (data) {
-                logging({ Users: data });
                 show(data);
             })
             .catch(function (error) {
@@ -167,6 +164,9 @@
             <img id="id_${element.user.id}_img" src="${element.user.profile_pic}" class="ring-4 ring-red-200 w-28 h-28 mb-3 align-middle shadow-xl rounded-full" onclick="open_img('${element.user.profile_pic}')">
         </div>
         <div class="UserCardDiv">
+            <span><i data-tippy-content="User Type" class="fa fa-user" aria-hidden="true"></i> ${element.account.type}</span>
+        </div>
+        <div class="UserCardDiv">
             <span><i data-tippy-content="Created" class="fa fa-calendar-plus" aria-hidden="true"></i> ${HumanTime(element.created_at)}</span>
         </div>
         <div class="UserCardDiv">
@@ -187,6 +187,9 @@
         <div class="UserCardDiv">
             <span><i data-tippy-content="Discord UserID" class="fa-brands fa-discord"></i> ${element.user.discord_user_id}</span>
         </div>
+        <div class="UserCardDiv">
+            <a class="underline hover:text-myst_main" href="/dashboard/staff/rewards_and_users/${element.user.id}" target="_blank"><i data-tippy-content="Discord UserID" class="fa fa-award"></i>${parseInt(element.rewards.length)+parseInt(element.user_rewards.length)} Rewards</a>
+        </div>
     </div>
             `;
             if (data.length - 1 == index) {
@@ -196,7 +199,7 @@
                 checkimg(data);
                 sbStats.map(function (element) {
                     document.getElementById(`id_${element}_sb`).innerHTML = `
-                    <img data-tippy-content="SB Open and running" src="https://streamer.bot/logo.png" class="w-8 h-8 mb-3 align-middle shadow-xl rounded-full">
+                    <img data-tippy-content="SB Open and running" src="https://streamer.bot/logo.png" class="w-6 h-6 align-middle shadow-xl rounded-full">
                     `;
                     tippy("[data-tippy-content]", {
                         arrow: true
@@ -218,7 +221,6 @@
         };
         ws.onmessage = function (e) {
             var data = JSON.parse(e.data);
-            logging({ WS: "Message", data });
             if (data.type == "stats") {
                 GetUsers();
                 document.getElementById("extStats").innerHTML = data.ext == undefined ? 0 : data.ext;
@@ -253,7 +255,7 @@
             .then(async function (youtube_data) {
                 if (youtube_data.status == "live") {
                     document.getElementById(`id_${channel_id}_youtube`).innerHTML = `
-                    <i data-tippy-content="Live" class="fa-brands fa-youtube w-8 h-8 mb-3 align-middle shadow-xl rounded-full"/>
+                    <i data-tippy-content="Live" class="fa-brands fa-youtube align-middle shadow-xl rounded-full"/>
                     `;
                     tippy("[data-tippy-content]", {
                         arrow: true

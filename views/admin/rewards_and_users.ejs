@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" class="dark bg-gray2 text-white">
+    <head>
+        <script src="/assets/js/logging.js" defer></script>
+        <script>
+            let user = JSON.parse(`<%- JSON.stringify(user) %>`);
+            let slug = JSON.parse(`<%- JSON.stringify(slug) %>`);
+        </script>
+        <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
+        <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
+        <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846" src="https://analytics-v2.gezel.io/script.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>YouTube Channel Rewards - Rewards</title>
+        <meta name="description" content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
+        <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
+        <meta name="author" content="gezel.io" />
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+        <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <style>
+            .gradient {
+                background: linear-gradient(90deg, main_grey 50%, off_white 100%);
+            }
+        </style>
+        <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+        <script src="/assets/js/navbar.js" defer></script>
+    </head>
+    <div style="display: none" id="toast-container-works" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
+        <div class="relative toast rounded bg-green-500 text-white">
+            <div class="toast-header">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong id="toast-container-works-message" class="me-auto">Updated</strong>
+            </div>
+        </div>
+    </div>
+    <div style="display: none" id="toast-container-fail" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
+        <div class="relative toast rounded bg-red-500 text-white">
+            <div class="toast-header">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong id="toast-container-fail-message" class="me-auto">Error</strong>
+            </div>
+        </div>
+    </div>
+    <body class="relative h-screen">
+        <div class="flex flex-wrap flex-row justify-center w-full pt-4">
+            <div id="main" class="">
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Current Rewards</h2>
+                    <div class="mx-auto w-full">
+                        <div class="overflow-x-auto">
+                            <table class="table w-full text-xs">
+                                <!-- head -->
+                                <thead>
+                                    <tr class="text-white">
+                                        <th class="bg-botred" data-tippy-content="This is the name of your reward">
+                                            Reward
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Cost of your reward for a user to redeem">
+                                            Cost
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
+                                            Action
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
+                                            Tool
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Folder Name">
+                                            Folder
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Button Color">
+                                            color
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reward-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="main1" class="">
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Current Users</h2>
+                    <div class="mx-auto w-full">
+                        <div class="overflow-x-auto">
+                            <table class="table w-full text-xs">
+                                <!-- head -->
+                                <thead>
+                                    <tr class="text-white">
+                                        <th class="bg-botred" data-tippy-content="This is the name of the user">
+                                            Name
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                        <th class="bg-botred" data-tippy-content="Points of the user">
+                                            Points
+                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="user-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    function dynamicSort(property, order) {
+        var sortOrder = 1;
+        if (property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        if (order == "asc")
+            return function (b, a) {
+                /* next line works with strings and numbers,
+                 * and you may want to customize it to your needs
+                 */
+                var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+                return result * sortOrder;
+            };
+        if (order == "desc")
+            return function (a, b) {
+                /* next line works with strings and numbers,
+                 * and you may want to customize it to your needs
+                 */
+                var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+                return result * sortOrder;
+            };
+    }
+    var Data = [];
+    RefreshData();
+    function RefreshData() {
+        fetch("/get-admin/reward/data", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                uid: slug
+            })
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.status == "success") {
+                    Data = data.data;
+                    ShowData(data.data);
+                }
+            })
+            .catch(function (error) {
+                console.error("error: ", error);
+                $("#toast-container-fail").fadeIn(400, function () {
+                    $(this).delay(5000).fadeOut(400);
+                });
+            });
+    }
+    function ShowData(data) {
+        document.getElementById("reward-table").innerHTML = "";
+        document.getElementById("user-table").innerHTML = "";
+        data.rewards.map(function (reward) {
+            document.getElementById("reward-table").innerHTML += `
+        <tr>
+            <th class="bg-gray2">${reward.reward_name}</th>
+            <td class="bg-gray2">${reward.reward_points}</td>
+            <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
+            <td class="bg-gray2" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
+            <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
+            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9 bg-[${reward?.reward_color?.background}]"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
+        </tr>
+        `;
+        });
+        data.user_rewards.map(function (reward) {
+            document.getElementById("reward-table").innerHTML += `
+        <tr>
+            <th class="bg-gray2">${reward.reward_name}</th>
+            <td class="bg-gray2">${reward.reward_points}</td>
+            <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
+            <td class="bg-gray2">YTCR</td>
+            <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
+            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background}"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
+        </tr>
+        `;
+        });
+        tippy("[data-tippy-content]", {
+            arrow: true,
+            allowHTML: true
+        });
+        data.users.forEach(function (element, index) {
+            element.points = parseInt(element.points);
+        });
+        data.users.sort(dynamicSort("points", "asc"));
+        data.users.forEach(function (element, index) {
+            if (isNaN(element.points)) {
+                points = `<i class="fa-solid fa-infinity"></i>`;
+            } else {
+                points = element.points;
+            }
+            document.getElementById("user-table").innerHTML += `
+                <tr>
+                    <td data-name="${element.user}" class="px-4 py-2 border border-[#1f2428]">${element.user}</td>
+                    <td data-points="${element.points}" class="px-4 py-2 border border-[#1f2428]">${points}</td>
+                </tr>
+                `;
+        });
+    }
+</script>
