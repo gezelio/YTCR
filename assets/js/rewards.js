@@ -127,17 +127,6 @@ function ShowData(data) {
         allowHTML: true
     });
 }
-document.getElementById("reward_name").addEventListener("input", function () {
-    CheckInputs();
-});
-document.getElementById("reward_cost").addEventListener("input", function () {
-    CheckInputs();
-});
-function CheckInputs() {
-    if (document.getElementById("reward_name").value.length != 0 && document.getElementById("reward_cost").value.length != 0 && !edit.edit) {
-        document.getElementById("create-btn").classList.remove("hidden");
-    }
-}
 function validateString(str) {
     var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
     return regex.test(str);
