@@ -6,7 +6,6 @@
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
         </script>
         <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@3.0.4/dist/full.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -23,7 +22,6 @@
         <meta name="description" content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
         <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
         <meta name="author" content="gezel.io" />
-        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
         <!--Replace with your tailwind.css once created-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
         <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
@@ -73,7 +71,7 @@
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold mb-2">Create Reward</h2>
                     <div class="grid grid-cols-4 gap-2">
-                            <input id="reward_name" type="text" placeholder="My Reward *" class="input bg-gray2 border-0 max-w-xs" data-tippy-content="This is the name of your reward" />
+                        <input id="reward_name" type="text" placeholder="My Reward *" class="input bg-gray2 border-0 max-w-xs" data-tippy-content="This is the name of your reward" />
                         <input id="reward_cost" type="number" placeholder="100 *" class="input bg-gray2 border-0 w-full max-w-xs" min="0" data-tippy-content="Cost of your reward for a user to redeem" />
                         <div class="flex flex-col">
                             <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
