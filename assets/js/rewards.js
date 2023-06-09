@@ -93,15 +93,19 @@ function ShowData(data) {
     });
     data.user_rewards.map(function (reward) {
         document.getElementById("reward-table").innerHTML += `
-        <tr>
-            <th class="bg-gray2">${reward.reward_name}</th>
-            <td class="bg-gray2">${reward.reward_points}</td>
+        <tr id="reward_${reward.reward_id}">
+            <td class="bg-gray2">
+                <input class="input bg-gray2 border-0 w-full max-w-xs" type="text" value="${reward.reward_name}"disabled></input>
+            </td>
+            <td class="bg-gray2">
+                <input class="input bg-gray2 border-0 w-full max-w-xs" type="number" min="0" value="${reward.reward_points}"disabled></input>
+            </td>
             <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
             <td class="bg-gray2">YTCR</td>
             <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
             <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background}"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
             <td class="bg-gray2 flex gap-2">
-                <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn btn-block text-white w-1/2">Edit</button>
+                <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn text-white w-1/2">Edit</button>
                 <button onclick="DeleteSend('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
             </td>
         </tr>
