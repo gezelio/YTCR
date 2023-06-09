@@ -649,6 +649,8 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
     }
 });
 app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) => {
+    console.log("req.body.data: ", req.body.data);
+
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {

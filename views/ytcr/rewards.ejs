@@ -68,24 +68,8 @@
                         !
                     </p>
                 </div>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                    <h2 class="text-2xl font-bold mb-2">Create Reward</h2>
-                    <div class="grid grid-cols-4 gap-2">
-                        <input id="reward_name" type="text" placeholder="My Reward *" class="input bg-gray2 border-0 max-w-xs" data-tippy-content="This is the name of your reward" />
-                        <input id="reward_cost" type="number" placeholder="100 *" class="input bg-gray2 border-0 w-full max-w-xs" min="0" data-tippy-content="Cost of your reward for a user to redeem" />
-                        <div class="flex flex-col">
-                            <input id="reward_action" type="text" placeholder="Action-ID" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>" />
-                            <a href="https://releases.ytcr.gezel.io/docs/ActionID/" class="hover:underline pl-2">What is an Action-ID?</a>
-                        </div>
-                        <input id="reward_folder" type="text" placeholder="Folder Name" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Folder name is not required" />
-                        <input id="reward_color" type="color" placeholder="Reward Color" value="#c9574e" class="input bg-gray2 border-0 w-full max-w-xs" data-tippy-content="Reward Color" />
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 mt-4">
-                        <button id="create-btn" onclick="Create()" class="hidden bg-green-500 btn btn-block text-white border-0">Create</button>
-                        <button id="edit-btn" onclick="EditSend()" class="hidden bg-green-500 btn btn-block text-white border-0">update</button>
-                        <button id="clear-btn" onclick="RefreshData()" class="hidden bg-gray2 btn btn-block text-white border-0">Cancel</button>
-                    </div>
-                </div>
+                <button id="create-btn" onclick="Create()" class="bg-green-500 btn btn-block text-white border-0">Create</button>
+
                 <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Current Rewards</h2>
                     <p class="mb-4">This currently only lists the rewards created from here, and not from StreamerBot</p>
