@@ -16,7 +16,7 @@ function CheckSBConnection() {
             if (document.getElementById("connectionSB")) document.getElementById("connectionSB").remove();
             connectionDiv = document.createElement("div");
             connectionDiv.id = "connectionSB";
-            connectionDiv.className = "grid p-4 my-4 container bg-neutral-900 rounded-lg";
+            connectionDiv.className = "grid p-4 my-4 container bg-accent rounded-lg";
             if (data.sb) {
                 // Convert the timestamp string to a Moment.js object
                 const timestamp = moment(data.reward_updated, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");

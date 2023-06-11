@@ -23,7 +23,17 @@ module.exports = {
                 input: "#404040",
                 discord: "#5165F6",
                 discord2: "#3244C9",
-                warship: "#abf6ff"
+                warship: "#abf6ff",
+                // YTCR Pallate
+                background: "#141416", //prev gray2
+                primary: "",
+                primaryhover: "",
+                secondary: "",
+                secondaryhover: "",
+                accent: "#1C1D21", //prev gray1
+                accenthover: "",
+                input: "#141416", 
+                text: "",
             }
         }
     },
