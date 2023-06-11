@@ -154,7 +154,7 @@
             document.getElementById("data").innerHTML += `
     <div class="bg-nav_bar p-4 rounded-lg">
         <div class="flex flex-row place-content-between content-center UserCardTop">
-            <a data-tippy-content="Go to user profile" class="underline hover:text-myst_main" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>
+            <a data-tippy-content="Go to user profile" class="underline hover:text-primary" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>
         </div>
         <div class="UserCardDiv">
             <span id="id_${element.channel_id}_sb"></span>
@@ -179,7 +179,7 @@
             <span><i data-tippy-content="Banned" class="fa fa-user-slash" aria-hidden="true"></i> ${element.ban.banned}</span>
         </div>
         <div class="UserCardDiv">
-            <span><i data-tippy-content="Youtube Channel" class="fa-brands fa-youtube" aria-hidden="true"></i> <a class="underline hover:text-myst_main" target="_blank" href="https://www.youtube.com/channel/${element.channel_id}/live">${element.channel_id}</a></span>
+            <span><i data-tippy-content="Youtube Channel" class="fa-brands fa-youtube" aria-hidden="true"></i> <a class="underline hover:text-primary" target="_blank" href="https://www.youtube.com/channel/${element.channel_id}/live">${element.channel_id}</a></span>
         </div>
         <div class="UserCardDiv">
             <span><i data-tippy-content="Users" class="fa fa-users" aria-hidden="true"></i> ${element.users.length}</span>
@@ -188,7 +188,7 @@
             <span><i data-tippy-content="Discord UserID" class="fa-brands fa-discord"></i> ${element.user.discord_user_id}</span>
         </div>
         <div class="UserCardDiv">
-            <a class="underline hover:text-myst_main" href="/dashboard/staff/rewards_and_users/${element.user.id}" target="_blank"><i data-tippy-content="Discord UserID" class="fa fa-award"></i>${parseInt(element.rewards.length)+parseInt(element.user_rewards.length)} Rewards</a>
+            <a class="underline hover:text-primary" href="/dashboard/staff/rewards_and_users/${element.user.id}" target="_blank"><i data-tippy-content="Discord UserID" class="fa fa-award"></i>${parseInt(element.rewards.length)+parseInt(element.user_rewards.length)} Rewards</a>
         </div>
     </div>
             `;

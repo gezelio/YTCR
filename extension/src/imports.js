@@ -14,8 +14,8 @@ const AddDiv = (points) => {
     div.innerHTML = `
         <div id ="buttons">
             <div class="flex justify-between p-2 col-span-full font-bold">
-                <btn id="PointsButton" class="bg-botred px-2 rounded-lg pointer-events-none hover cursor-pointer"><span id="button-points" class="hidden">${points}</span> <span id="button-loading" class="mt-1 mr-2 loading loading-spinner text-white"></span> Points</btn>
-                <button id="ClipButton" class="bg-botred px-2 rounded-lg text-white hover cursor-pointer disabled:bg-gray2 disabled:pointer-events-none"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</button>
+                <btn id="PointsButton" class="bg-primary px-2 rounded-lg pointer-events-none hover cursor-pointer"><span id="button-points" class="hidden">${points}</span> <span id="button-loading" class="mt-1 mr-2 loading loading-spinner text-white"></span> Points</btn>
+                <button id="ClipButton" class="bg-primary px-2 rounded-lg text-white hover cursor-pointer disabled:bg-background disabled:pointer-events-none"><i class="fa-solid fa-clapperboard mr-1"></i>Clip</button>
             </div>
         </div >
     <div id="YTCRDropdown" class="m-2 col-span-full grid grid-cols-4 gap-3">
