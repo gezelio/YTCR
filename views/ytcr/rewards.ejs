@@ -115,11 +115,14 @@
                     <!-- Open the modal using ID.showModal() method -->
                     <dialog id="delete_reward" class="modal">
                         <form method="dialog" class="modal-box bg-accent">
-                            <h3 class="font-bold text-lg"><i class="fa-solid fa-warning mr-1"></i>Warning</h3>
+                            <h3 class="font-bold text-lg">
+                                <i class="fa-solid fa-warning mr-1"></i>
+                                Warning
+                            </h3>
                             <p class="py-4">Are you sure you wish to delete this reward?</p>
                             <div class="modal-action">
                                 <!-- if there is a button in form, it will close the modal -->
-                                <button class="btn bg-primary text-white border-0" onclick="DeleteSend('${reward.reward_id}')">Delete Reward</button>
+                                <button id="DeleteButton" class="btn bg-primary text-white border-0" data-id="" onclick="DeleteSend(this)">Delete Reward</button>
                                 <button class="btn border-0">Cancel</button>
                             </div>
                         </form>

@@ -70,6 +70,7 @@ function ShowData(data) {
         edit: false,
         id: null
     };
+    document.getElementById("DeleteButton").dataset.id = "";
     document.getElementById("reward-table").innerHTML = "";
     data.rewards.map(function (reward) {
         document.getElementById("reward-table").innerHTML += `
@@ -115,7 +116,7 @@ function ShowData(data) {
             </td>
             <td class="bg-accent flex gap-2">
                 <button onclick="Edit(this)" class="bg-green-500 btn text-white w-1/2">Edit</button>
-                <button onclick="delete_reward.showModal()" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
+                <button onclick="DeleteReward('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
                 <button onclick="EditSave(this)" data-id="${reward.reward_id}" class="hidden bg-green-500 btn text-white w-1/2">Save</button>
                 <button onclick="RefreshData()" data-id="${reward.reward_id}" class="hidden bg-input btn text-white w-1/2">Cancel</button>
             </td>
@@ -202,8 +203,12 @@ function EditSave(element) {
     console.log(data);
     UpdateSend("/post/update/rewards/edit", data);
 }
-function DeleteSend(id) {
+function DeleteSend(data) {
     UpdateSend("/post/update/rewards/delete", {
-        id
+        id: data.dataset.id
     });
+}
+function DeleteReward(id) {
+    delete_reward.showModal();
+    document.getElementById("DeleteButton").dataset.id = id;
 }
