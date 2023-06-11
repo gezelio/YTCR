@@ -28,7 +28,6 @@ function RefreshData() {
         });
 }
 function UpdateSend(url, data) {
-    console.log("data: ", data);
     fetch(url, {
         method: "POST",
         headers: {
@@ -42,7 +41,6 @@ function UpdateSend(url, data) {
             return response.json();
         })
         .then(function (data) {
-            console.log("data: ", data);
             if (data.status == "success") {
                 $("#toast-container-works-message").html("Updated");
                 $("#toast-container-works").fadeIn(400, function () {
@@ -118,7 +116,7 @@ function ShowData(data) {
                 <button onclick="Edit(this)" class="bg-green-500 btn text-white w-1/2">Edit</button>
                 <button onclick="DeleteReward('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
                 <button onclick="EditSave(this)" data-id="${reward.reward_id}" class="hidden bg-green-500 btn text-white w-1/2">Save</button>
-                <button onclick="RefreshData()" data-id="${reward.reward_id}" class="hidden bg-input btn text-white w-1/2">Cancel</button>
+                <button onclick="Cancel()" data-id="${reward.reward_id}" class="hidden bg-input btn text-white w-1/2">Cancel</button>
             </td>
         </tr>
         `;
@@ -150,18 +148,32 @@ function Create() {
         folder: "",
         color: "#c9574e"
     });
+    setTimeout(() => {
+        let Element = document.getElementById("reward-table").children[document.getElementById("reward-table").children.length - 1];
+        Array.from(Element.children).forEach(function (childElement, length) {
+            if (!childElement.children[0]) return;
+            childElement.children[0].disabled = false;
+            if (length == 6) {
+                childElement.children[0].classList.add("hidden");
+                childElement.children[1].classList.add("hidden");
+                childElement.children[2].classList.remove("hidden");
+                childElement.children[3].classList.remove("hidden");
+            }
+        });
+    }, 1000);
+    document.getElementById("create-btn").classList.add("hidden");
 }
 function Edit(element) {
     let Element = element.parentElement;
-    console.log(Element.children);
     Element.children[0].classList.add("hidden");
     Element.children[1].classList.add("hidden");
     Element.children[2].classList.remove("hidden");
     Element.children[3].classList.remove("hidden");
     Array.from(Element.parentElement.children).forEach((childElement) => {
         if (!childElement.children[0]) return;
-        console.log("element: ", (childElement.children[0].disabled = false));
+        childElement.children[0].disabled = false;
     });
+    document.getElementById("create-btn").classList.add("hidden");
 }
 function EditSave(element) {
     data = {
@@ -173,7 +185,6 @@ function EditSave(element) {
         color: null
     };
     let Element = element.parentElement;
-    console.log(Element.children);
     data.id = element.dataset.id;
     Array.from(Element.parentElement.children).forEach((childElement) => {
         if (!childElement.children[0]) return;
@@ -200,8 +211,8 @@ function EditSave(element) {
             data.color = childElement.children[0].value;
         }
     });
-    console.log(data);
     UpdateSend("/post/update/rewards/edit", data);
+    document.getElementById("create-btn").classList.remove("hidden");
 }
 function DeleteSend(data) {
     UpdateSend("/post/update/rewards/delete", {
@@ -211,4 +222,8 @@ function DeleteSend(data) {
 function DeleteReward(id) {
     delete_reward.showModal();
     document.getElementById("DeleteButton").dataset.id = id;
+}
+function Cancel() {
+    document.getElementById("create-btn").classList.remove("hidden");
+    RefreshData();
 }
