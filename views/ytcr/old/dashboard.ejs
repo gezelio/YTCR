@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
@@ -41,7 +41,7 @@
 
     <body>
         <div style="display: none" id="toast-container-works" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
-            <div class="relative toast rounded bg-green-500 text-white">
+            <div class="relative toast rounded bg-secondary text-white">
                 <div class="toast-header">
                     <i class="fas fa-check-circle me-2"></i>
                     <strong class="me-auto">YTCR Updated</strong>
@@ -65,7 +65,7 @@
         <div class="">
             <h1 class="text-neutral-400 justify-center font-bold text-2xl mt-2 mb-1">General Settings</h1>
             <div class="card w-full bg-base-100 shadow-xl mb-2">
-                <div class="card-body bg-nav_bar">
+                <div class="card-body bg-input">
                     <h2 class="card-title text-white">
                         <i class="fa-solid fa-chart-line"></i>
                         Points Per Interval
@@ -75,11 +75,11 @@
                     <div class="">
                         <select id="select_points" class="rounded-lg select-bordered p-3 bg-input text-white font-bold"></select>
                     </div>
-                    <button id="update_button_id" class="hidden bg-botred py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700" onclick="update_points()">Save Changes</button>
+                    <button id="update_button_id" class="hidden bg-primary py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700" onclick="update_points()">Save Changes</button>
                 </div>
             </div>
             <div class="card w-full bg-base-100 shadow-xl mb-2">
-                <div class="card-body bg-nav_bar">
+                <div class="card-body bg-input">
                     <h2 class="card-title text-white">
                         <i class="fa-solid fa-add"></i>
                         Add/Remove Points from a user
@@ -102,11 +102,11 @@
                         <ul class="overflow-y-auto mt-2 rounded-lg px-3 pb-3 h-48 w-full bg-input text-sm text-gray-700 dark:text-gray-200 hidden" aria-labelledby="dropdownSearchButton" id="select_user_search_ul"></ul>
                         <input type="number" placeholder="Value: example:-300" id="user_points" class="input bg-input text-off_white w-full max-w-xs font-bold" />
                     </div>
-                    <button id="update_user_search_points" onclick="UpdateUserPoints()" class="hidden bg-botred py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700">Save Changes</button>
+                    <button id="update_user_search_points" onclick="UpdateUserPoints()" class="hidden bg-primary py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700">Save Changes</button>
                 </div>
             </div>
             <div class="card w-full bg-base-100 shadow-xl mb-2">
-                <div class="card-body bg-nav_bar">
+                <div class="card-body bg-input">
                     <h2 class="card-title text-white">
                         <i class="fa-solid fa-file-video"></i>
                         Clip Button
@@ -124,7 +124,7 @@
                         <div class="form-control">
                             <label class="label cursor-pointer">
                                 <span class="label-text">Enable</span>
-                                <input type="radio" id="clip_enable" name="radio-10" value="on" class="radio checked:bg-green-500" />
+                                <input type="radio" id="clip_enable" name="radio-10" value="on" class="radio checked:bg-secondary" />
                             </label>
                         </div>
                     </div>

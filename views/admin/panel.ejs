@@ -152,7 +152,7 @@
         data.sort(dynamicSort("created_at"));
         data.forEach(async function (element, index) {
             document.getElementById("data").innerHTML += `
-    <div class="bg-nav_bar p-4 rounded-lg">
+    <div class="bg-input p-4 rounded-lg">
         <div class="flex flex-row place-content-between content-center UserCardTop">
             <a data-tippy-content="Go to user profile" class="underline hover:text-myst_main" href="/u/${element.channel_link}" target="_blank">${element.user.username}</a>
         </div>

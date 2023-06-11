@@ -81,7 +81,7 @@ async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_r
         let prompt = document.createElement("div");
         prompt.id = "ytcr_prompt";
         let prompt_content = document.createElement("div");
-        prompt_content.className = "p-2 rounded-xl flex flex-col text-center bg-gray1";
+        prompt_content.className = "p-2 rounded-xl flex flex-col text-center bg-accent";
         prompt_content.id = "ytcr_prompt_content";
         let prompt_content_header = document.createElement("div");
         prompt_content_header.className = "font-bold";
@@ -125,7 +125,7 @@ async function ytcr_prompt_error(reward_info) {
         let prompt = document.createElement("div");
         prompt.id = "ytcr_prompt";
         let prompt_content = document.createElement("div");
-        prompt_content.className = "p-2 rounded-xl flex flex-col text-center bg-gray1";
+        prompt_content.className = "p-2 rounded-xl flex flex-col text-center bg-accent";
         prompt_content.id = "ytcr_prompt_content";
         let prompt_content_header = document.createElement("div");
         prompt_content_header.className = "font-bold";
@@ -178,7 +178,7 @@ async function get_channel_reawrds() {
                     if (YTCR_Folders.find((e) => e == element.reward_folder)) return;
                     YTCR_Folders.push(element.reward_folder);
                     document.getElementById("YTCRDropdown").innerHTML += `
-                    <btn id="YTCRbuttonFolder_${element.reward_folder}" data-folder="${element.reward_folder}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center bg-gray1 text-white aspect-w-2 aspect-h-2 cursor-pointer">
+                    <btn id="YTCRbuttonFolder_${element.reward_folder}" data-folder="${element.reward_folder}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center bg-accent text-white aspect-w-2 aspect-h-2 cursor-pointer">
                         <i class="fa-solid fa-folder text-4xl"></i>
                         <div id="cost" class="font-bold bg-off_white text-gray2 p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_folder}</div>
                     </btn>
@@ -188,7 +188,7 @@ async function get_channel_reawrds() {
                 document.getElementById("YTCRDropdown").innerHTML += `
                 <btn id="YTCRbutton_${element.reward_id}" data-points="${element.reward_points}" data-id="${element.reward_action_id}" data-name="${element.reward_name}" style="background:${element?.reward_color?.background || "#c9574e"};color:${element?.reward_color?.font || "white"}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer">
                     <div id="name" class="font-bold mb-4">${element.reward_name}</div>
-                    <div id="cost" class="font-bold bg-gray2 text-white p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_points}</div>
+                    <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_points}</div>
                 </btn>
                 `;
             });
@@ -207,7 +207,7 @@ async function get_channel_reawrds() {
                 document.getElementById("YTCRbuttonFolder_" + element.reward_folder).addEventListener("click", function () {
                     document.getElementById("YTCRDropdown").innerHTML = "";
                     document.getElementById("YTCRDropdown").innerHTML += `
-                    <btn id="YTCRFolder_back" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center bg-gray1 text-white aspect-w-2 aspect-h-2 cursor-pointer">
+                    <btn id="YTCRFolder_back" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center bg-accent text-white aspect-w-2 aspect-h-2 cursor-pointer">
                         <i class="fa-solid fa-arrow-left text-4xl"></i>
                     </btn>
                     `;
@@ -216,7 +216,7 @@ async function get_channel_reawrds() {
                             document.getElementById("YTCRDropdown").innerHTML += `
                             <btn id="YTCRbutton_${element1.reward_id}" data-points="${element1.reward_points}" data-id="${element1.reward_action_id}" data-name="${element1.reward_name}" style="background:${element1?.reward_color?.background || "#c9574e"};color:${element1?.reward_color?.font || "white"}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer">
                                 <div id="name" class="font-bold mb-4">${element1.reward_name}</div>
-                                <div id="cost" class="font-bold bg-gray2 text-white p-2 text-sm rounded-md shadow-md mt-auto">${element1.reward_points}</div>
+                                <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element1.reward_points}</div>
                             </btn>
                             `;
                             setTimeout(() => {

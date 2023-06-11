@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
@@ -40,10 +40,10 @@
     <body>
         <div id="main" class="mx-4 lg:m-10 m:m-5 mt-10">
             <div id="main1" class="w-full" style="text-align: -webkit-center">
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Channel Picker</h2>
                     <div>
-                        <p class="bg-botred text-white p-2 rounded-lg">
+                        <p class="bg-primary text-white p-2 rounded-lg">
                             <i class="fa-solid fa-triangle-exclamation text-xl p-1"></i>
                             <span class="font-bold">NOTE:</span>
                             The YouTube channels listed here are the channels that are linked to your Discord account. If you're missing a channel, ensure it's connected to your Discord account via "Connections".
@@ -57,14 +57,14 @@
 </html>
 <script>
     youtube_ids.forEach(function (data) {
-        color = "btn bg-green-500 text-white hover:bg-green-900 border-0";
+        color = "btn bg-secondary text-white hover:bg-green-900 border-0";
         text = "Select";
         if (data.id == current_channel_id) {
             color = "btn bg-green-900 text-white hover:bg-green-900 border-0 pointer-events-none";
             text = "Already Selected";
         }
         document.getElementById("users").innerHTML += `
-        <div class="card w-96 bg-gray2 shadow-xl">
+        <div class="card w-96 bg-background shadow-xl">
             <div class="card-body">
                 <h2 class="card-title self-center">${data.name}</h2>
                 <div class="card-actions justify-center">
