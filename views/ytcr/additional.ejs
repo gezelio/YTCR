@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
@@ -39,7 +39,7 @@
     <body>
         <div id="main" class="mx-4 lg:m-10 m:m-5 mt-10">
             <div id="main" class="w-full" style="text-align: -webkit-center">
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold text-left">OBS Dock</h2>
                     <div class="p-2">
                         <p class="text-white rounded-lg text-left">View your uesrs points from inside your OBS by creating a custom dock.</p>
@@ -51,7 +51,7 @@
                             <li>Dock Name: YTCR</li>
                             <li>
                                 URL:
-                                <btn id="clipboard-URL" class="bg-gray2 p-1 font-bold" onclick="copyToClipboard(`${window.location.origin}/u/${user.channel_link}`)" style="cursor: pointer">Click me and paste into OBS</btn>
+                                <btn id="clipboard-URL" class="bg-background p-1 font-bold" onclick="copyToClipboard(`${window.location.origin}/u/${user.channel_link}`)" style="cursor: pointer">Click me and paste into OBS</btn>
 
                                 <script>
                                     function copyToClipboard(url) {
@@ -80,16 +80,16 @@
                         </ol>
                     </div>
                 </div>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold text-left">Mystlink Connection</h2>
                     <div class="p-2">
                         <p class="text-white rounded-lg text-left">
-                            <a href="https://mystl.ink/?ref=ytcr" class="underline text-myst_main">Mystlink</a>
+                            <a href="https://mystl.ink/?ref=ytcr" class="underline text-primary">Mystlink</a>
                             is our one link to rule them all. It allows you to link all your socials and other links in one place. You can also use it to link to your YTCR profile, and show all your social links on the side of your YouTube stream!
                         </p>
-                        <p class="rounded-lg bg-myst_main text-white text-xl p-2 m-2">Coming soon</p>
+                        <p class="rounded-lg bg-primary text-white text-xl p-2 m-2">Coming soon</p>
                         <div class="text-left">
-                            <!-- <btn class="btn bg-myst_main align-left text-white border-0 hover:bg-myst_dark">Connect Mystlink account</btn> -->
+                            <!-- <btn class="btn bg-primary align-left text-white border-0 hover:bg-myst_dark">Connect Mystlink account</btn> -->
                         </div>
                     </div>
                 </div>

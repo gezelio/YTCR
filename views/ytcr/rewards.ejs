@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script src="/assets/js/logging.js" defer></script>
         <script>
@@ -60,7 +60,7 @@
         <div class="flex justify-center w-full pt-4">
             <div id="main" class="">
                 <h1 class="font-bold text-4xl mb-2">Rewards</h1>
-                <div class="mb-4 bg-botred p-4 rounded-lg shadow-xl">
+                <div class="mb-4 bg-primary p-4 rounded-lg shadow-xl">
                     <p>
                         <span class="font-bold">Alpha Warning:</span>
                         This is in alpha so expect bugs! If you find any, please report them to our
@@ -68,7 +68,7 @@
                         !
                     </p>
                 </div>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Current Rewards</h2>
                     <p class="mb-4">This currently only lists the rewards created from here, and not from StreamerBot</p>
                     <div class="mx-auto w-full">
@@ -77,31 +77,31 @@
                                 <!-- head -->
                                 <thead>
                                     <tr class="text-white">
-                                        <th class="bg-botred" data-tippy-content="This is the name of your reward">
+                                        <th class="bg-primary" data-tippy-content="This is the name of your reward">
                                             Reward
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Cost of your reward for a user to redeem">
+                                        <th class="bg-primary" data-tippy-content="Cost of your reward for a user to redeem">
                                             Cost
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
+                                        <th class="bg-primary" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
                                             Action
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
+                                        <th class="bg-primary" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
                                             Tool
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="If you want this reward to be inside a folder, you can name the folder here. <br>If you don't want this reward in a folder, leave blank">
+                                        <th class="bg-primary" data-tippy-content="If you want this reward to be inside a folder, you can name the folder here. <br>If you don't want this reward in a folder, leave blank">
                                             Folder
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Color of the reward inside the extension">
+                                        <th class="bg-primary" data-tippy-content="Color of the reward inside the extension">
                                             Button Color
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Edit your existing actions. Only works for rewards built from the dashboard">
+                                        <th class="bg-primary" data-tippy-content="Edit your existing actions. Only works for rewards built from the dashboard">
                                             Edit
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
@@ -113,14 +113,16 @@
                         </div>
                     </div>
                     <!-- Open the modal using ID.showModal() method -->
-                    <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
-                    <dialog id="my_modal_1" class="modal">
-                        <form method="dialog" class="modal-box bg-gray1">
-                            <h3 class="font-bold text-lg"><i class="fa-solid fa-warning mr-1"></i>Warning</h3>
+                    <dialog id="delete_reward" class="modal">
+                        <form method="dialog" class="modal-box bg-accent">
+                            <h3 class="font-bold text-lg">
+                                <i class="fa-solid fa-warning mr-1"></i>
+                                Warning
+                            </h3>
                             <p class="py-4">Are you sure you wish to delete this reward?</p>
                             <div class="modal-action">
                                 <!-- if there is a button in form, it will close the modal -->
-                                <button class="btn bg-botred text-white border-0">Delete Reward</button>
+                                <button id="DeleteButton" class="btn bg-primary text-white border-0" data-id="" onclick="DeleteSend(this)">Delete Reward</button>
                                 <button class="btn border-0">Cancel</button>
                             </div>
                         </form>

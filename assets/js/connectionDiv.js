@@ -16,7 +16,7 @@ function CheckSBConnection() {
             if (document.getElementById("connectionSB")) document.getElementById("connectionSB").remove();
             connectionDiv = document.createElement("div");
             connectionDiv.id = "connectionSB";
-            connectionDiv.className = "grid p-4 my-4 container bg-neutral-900 rounded-lg";
+            connectionDiv.className = "grid p-4 my-4 container bg-accent rounded-lg";
             if (data.sb) {
                 // Convert the timestamp string to a Moment.js object
                 const timestamp = moment(data.reward_updated, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
@@ -33,7 +33,7 @@ function CheckSBConnection() {
             } else {
                 connectionDiv.innerHTML = `
             <p class="font-bold">
-                StreamerBot: <span class="text-botred font-bold">Disconnected</span>
+                StreamerBot: <span class="text-primary font-bold">Disconnected</span>
             </p>
             <p>
                 StreamerBot is currently not connected so YTCR will not act as expected. Please ensure you connect to the websocket and have the actions provided. If you need assistance, please jump into our
