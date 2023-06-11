@@ -33,7 +33,7 @@ function CheckSBConnection() {
             } else {
                 connectionDiv.innerHTML = `
             <p class="font-bold">
-                StreamerBot: <span class="text-botred font-bold">Disconnected</span>
+                StreamerBot: <span class="text-primary font-bold">Disconnected</span>
             </p>
             <p>
                 StreamerBot is currently not connected so YTCR will not act as expected. Please ensure you connect to the websocket and have the actions provided. If you need assistance, please jump into our

@@ -26,8 +26,8 @@ module.exports = {
                 warship: "#abf6ff",
                 // YTCR Pallate
                 background: "#141416", //prev gray2
-                primary: "",
-                primaryhover: "",
+                primary: "#833232", //prev botred OR myst_main
+                primaryhover: "#5F2424",
                 secondary: "",
                 secondaryhover: "",
                 accent: "#1C1D21", //prev gray1
