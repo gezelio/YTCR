@@ -113,14 +113,14 @@
                         </div>
                     </div>
                     <!-- Open the modal using ID.showModal() method -->
-                    <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
-                    <dialog id="my_modal_1" class="modal">
+                    <button class="btn" onclick="delete_reward.showModal()">open modal</button>
+                    <dialog id="delete_reward" class="modal">
                         <form method="dialog" class="modal-box bg-gray1">
                             <h3 class="font-bold text-lg"><i class="fa-solid fa-warning mr-1"></i>Warning</h3>
                             <p class="py-4">Are you sure you wish to delete this reward?</p>
                             <div class="modal-action">
                                 <!-- if there is a button in form, it will close the modal -->
-                                <button class="btn bg-botred text-white border-0">Delete Reward</button>
+                                <button class="btn bg-botred text-white border-0" onclick="DeleteSend('${reward.reward_id}')">Delete Reward</button>
                                 <button class="btn border-0">Cancel</button>
                             </div>
                         </form>

@@ -115,7 +115,7 @@ function ShowData(data) {
             </td>
             <td class="bg-gray2 flex gap-2">
                 <button onclick="Edit(this)" class="bg-green-500 btn text-white w-1/2">Edit</button>
-                <button onclick="DeleteSend('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
+                <button onclick="delete_reward.showModal()" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
                 <button onclick="EditSave(this)" data-id="${reward.reward_id}" class="hidden bg-green-500 btn text-white w-1/2">Save</button>
                 <button onclick="RefreshData()" data-id="${reward.reward_id}" class="hidden bg-nav_bar btn text-white w-1/2">Cancel</button>
             </td>
