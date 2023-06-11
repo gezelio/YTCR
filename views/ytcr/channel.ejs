@@ -5,12 +5,10 @@
             let users = JSON.parse(`<%- JSON.stringify(users) %>`);
             let channel_link = JSON.parse(`<%- JSON.stringify(link) %>`);
         </script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://api.gezel.io/js/tailwind_config.js"></script>
+        <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
         <script src="/assets/js/channel.js" defer></script>
     </head>
-
     <body class="p-4">
         <h1 class="text-2xl font-bold mb-4"><%- channel_name %></h1>
         <div class="flex gap-2 mb-4">

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./*/*.{html,js}"],
+    content: ["./views/**/*", "./assets/js/*", "./assets/json/*"],
     theme: {
         extend: {
             colors: {
@@ -23,12 +23,9 @@ module.exports = {
                 input: "#404040",
                 discord: "#5165F6",
                 discord2: "#3244C9",
-                warship: "#abf6ff",
-                // Portfolio Cols
-                portfolio_main_col: "var(--portfolio_main_col)",
-                portfolio_main_text: "var(--portfolio_text_col)"
+                warship: "#abf6ff"
             }
         }
     },
-    plugins: [require("daisyui")]
+    plugins: [require("@tailwindcss/aspect-ratio"), require("daisyui"), require("@tailwindcss/typography"), require("tailwindcss-animated")]
 };

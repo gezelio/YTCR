@@ -30,6 +30,42 @@ cors({
 });
 app.use(cors());
 app.use(express.json());
+var sitmap_info = require("./sitemap.json");
+const { SitemapStream, streamToPromise } = require("sitemap");
+const { createGzip } = require("zlib");
+let sitemap;
+app.get("/robots.txt", function (req, res) {
+    res.type("text/plain");
+    res.send(`User-agent: *
+    \nAllow: /
+    \nSitemap: https://ytcr.gezel.io/sitemap.xml
+    \nCrawl-delay: 10
+    `);
+});
+app.get("/sitemap.xml", function (req, res) {
+    res.header("Content-Type", "application/xml");
+    res.header("Content-Encoding", "gzip");
+    // if we have a cached entry send it
+    if (sitemap) {
+        res.send(sitemap);
+        return;
+    }
+    try {
+        const smStream = new SitemapStream({ hostname: "https://ytcr.gezel.io/" });
+        const pipeline = smStream.pipe(createGzip());
+        sitmap_info.forEach((data) => {
+            smStream.write(data);
+        });
+        streamToPromise(pipeline).then((sm) => (sitemap = sm));
+        smStream.end();
+        pipeline.pipe(res).on("error", (e) => {
+            throw e;
+        });
+    } catch (e) {
+        console.error(e);
+        res.status(500).end();
+    }
+});
 const isLoggedIn = (req, res, next) => {
     if (req.session.user) {
         next();
@@ -444,6 +480,7 @@ wss.on("connection", function connection(ws, req) {
                         if (json_rewards !== undefined) {
                             if (json_rewards.length == 0) {
                                 data.rewards = [];
+                                data.reward_updated = new Date();
                                 data.save()
                                     .then((savedDocument) => {
                                         channel_rewards = [];
@@ -488,17 +525,19 @@ wss.on("connection", function connection(ws, req) {
                                 setTimeout(() => {
                                     if (reward.group == "YTCR") {
                                         channel_rewards.push({
-                                            reward_id: id,
+                                            reward_id: uuidv4(),
                                             reward_name: reward.name,
                                             reward_prompt: reward.prompt,
                                             reward_points: reward.cost,
                                             reward_action_id: reward.actionId,
-                                            reward_action_userInput: reward.userInput
+                                            reward_action_userInput: reward.userInput,
+                                            reward_folder: ""
                                         });
                                         id++;
                                     }
                                     if (index == json_rewards.length - 1) {
                                         data.rewards = channel_rewards;
+                                        data.reward_updated = new Date();
                                         data.save()
                                             .then((savedDocument) => {
                                                 channel_rewards = [];
@@ -570,7 +609,7 @@ wss.on("connection", function connection(ws, req) {
         ws.close();
     }
 });
-app.post("/post/update/rewards/create", async (req, res) => {
+app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         data.user_rewards.push({
@@ -579,7 +618,9 @@ app.post("/post/update/rewards/create", async (req, res) => {
             reward_prompt: req.body.data.name,
             reward_points: parseInt(req.body.data.points),
             reward_action_id: req.body.data.action_id.length == 0 ? null : req.body.data.action_id,
-            reward_action_userInput: false
+            reward_action_userInput: false,
+            reward_folder: req.body.data.folder || "",
+            reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color }
         });
         DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
             .then((savedDocument) => {
@@ -607,7 +648,9 @@ app.post("/post/update/rewards/create", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/rewards/edit", async (req, res) => {
+app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) => {
+    console.log("req.body.data: ", req.body.data);
+
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
@@ -615,6 +658,8 @@ app.post("/post/update/rewards/edit", async (req, res) => {
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_prompt = req.body.data.name;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_points = parseInt(req.body.data.points);
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_action_id = req.body.data.action_id.length == 0 ? null : req.body.data.action_id;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_folder = req.body.data.folder || "";
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_color = { font: chooseFontColor(req.body.data.color), background: req.body.data.color };
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {
                     req.session.user = data;
@@ -642,7 +687,7 @@ app.post("/post/update/rewards/edit", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
-app.post("/post/update/rewards/delete", async (req, res) => {
+app.post("/post/update/rewards/delete", functions.LoggedInPost, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
@@ -678,6 +723,27 @@ app.post("/post/update/rewards/delete", async (req, res) => {
         res.send({ status: "failed" });
     }
 });
+app.get("/get/check/connection", functions.LoggedIn, async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        const searchValue = data.channel_id;
+        let found = false;
+        for (let key in UserConnections) {
+            if (key === searchValue) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            return res.send({ reward_updated: data.reward_updated, sb: true });
+        } else {
+            return res.send({ reward_updated: data.reward_updated, sb: false });
+        }
+    } else {
+        res.send({ status: "failed" });
+    }
+});
+
 setInterval(() => {
     wss.clients.forEach(function each(client) {
         client.send(
@@ -750,3 +816,31 @@ app.use(function (req, res, next) {
 server.listen(port, () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `URL is running on port ${port}`);
 });
+function chooseFontColor(backgroundColor) {
+    // Convert the background color to RGB format
+    const rgb = hexToRgb(backgroundColor);
+
+    // Calculate the brightness of the background color
+    const brightness = calculateBrightness(rgb.r, rgb.g, rgb.b);
+
+    // Choose a font color based on the background brightness
+    if (brightness > 127) {
+        return "black"; // For bright backgrounds, use black font color
+    } else {
+        return "white"; // For dark backgrounds, use white font color
+    }
+}
+
+// Function to convert hexadecimal color to RGB format
+function hexToRgb(hex) {
+    const bigint = parseInt(hex.replace("#", ""), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return { r, g, b };
+}
+
+// Function to calculate the brightness of an RGB color
+function calculateBrightness(r, g, b) {
+    return (r * 299 + g * 587 + b * 114) / 1000;
+}

@@ -1,135 +1,110 @@
 <!DOCTYPE html>
 <html lang="en" class="dark bg-gray2 text-white">
-
-<head>
-    <script src="/assets/js/logging.js" defer></script>
-    <script>
-        let user = JSON.parse(`<%- JSON.stringify(user) %>`)
-    </script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
-    <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
-        integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
-    <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846"
-        src="https://analytics-v2.gezel.io/script.js"></script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>
-        YouTube Channel Rewards - Global Settings
-    </title>
-    <meta name="description"
-        content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
-    <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
-    <meta name="author" content="gezel.io" />
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-    <!--Replace with your tailwind.css once created-->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
-    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <style>
-        .gradient {
-            background: linear-gradient(90deg, main_grey 50%, off_white 100%);
-        }
-    </style>
-    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://api.gezel.io/js/tailwind_config.js"></script>
-    <script src="https://api.gezel.io/js/footer_new.js" defer></script>
-    <script src="/assets/js/navbar.js" defer></script>
-    <script src="/assets/js/dashboard.js" defer></script>
-</head>
-<div style="display: none;" id="toast-container-works" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
-    <div class="relative toast rounded bg-green-500 text-white">
-        <div class="toast-header">
-            <i class="fas fa-check-circle me-2"></i>
-            <strong class="me-auto">YTCR Updated</strong>
+    <head>
+        <script src="/assets/js/logging.js" defer></script>
+        <script>
+            let user = JSON.parse(`<%- JSON.stringify(user) %>`);
+        </script>
+        <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
+        <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
+        <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846" src="https://analytics-v2.gezel.io/script.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>YouTube Channel Rewards - Global Settings</title>
+        <meta name="description" content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
+        <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
+        <meta name="author" content="gezel.io" />
+        <!--Replace with your tailwind.css once created-->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+        <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <style>
+            .gradient {
+                background: linear-gradient(90deg, main_grey 50%, off_white 100%);
+            }
+        </style>
+        <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+        <script src="/assets/js/navbar.js" defer></script>
+        <script src="/assets/js/dashboard.js" defer></script>
+        <script src="/assets/js/connectionDiv.js" defer></script>
+    </head>
+    <div style="display: none" id="toast-container-works" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
+        <div class="relative toast rounded bg-green-500 text-white">
+            <div class="toast-header">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">YTCR Updated</strong>
+            </div>
         </div>
     </div>
-</div>
-<div style="display: none;" id="toast-container-fail" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
-    <div class="relative toast rounded bg-red-500 text-white">
-        <div class="toast-header">
-            <i class="fas fa-check-circle me-2"></i>
-            <strong class="me-auto">YTCR Error</strong>
+    <div style="display: none" id="toast-container-fail" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
+        <div class="relative toast rounded bg-red-500 text-white">
+            <div class="toast-header">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">YTCR Error</strong>
+            </div>
         </div>
     </div>
-</div>
 
-<body class="relative h-screen">
-    <div class="flex justify-center w-full pt-4">
-        <div id="main" class="">
-            <h1 class="font-bold text-4xl mb-2">Settings</h1>
-            <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                <h2 class="text-2xl font-bold">Points per interval
-                </h2>
-                <p class="mb-4">Choose how many points your viewers should get every 5 minutes</p>
-                <div class="dropdown dropdown-right">
-                    <label id="ytcr-setpoints-label" tabindex="0" class="btn bg-gray2 border-0 text-white"></label>
-                    <ul id="select_points" tabindex="0"
-                        class="dropdown-content  menu p-2 shadow bg-gray2 rounded-box w-52">
-                    </ul>
+    <body class="relative h-screen">
+        <div class="flex justify-center w-full pt-4">
+            <div id="main" class="">
+                <h1 class="font-bold text-4xl mb-2">Settings</h1>
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Points per interval</h2>
+                    <p class="mb-4">Choose how many points your viewers should get every 5 minutes</p>
+                    <div class="dropdown dropdown-right">
+                        <label id="ytcr-setpoints-label" tabindex="0" class="btn bg-gray2 border-0 text-white"></label>
+                        <ul id="select_points" tabindex="0" class="dropdown-content menu p-2 shadow bg-gray2 rounded-box w-52"></ul>
+                    </div>
+                </div>
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Add or remove points</h2>
+                    <p class="mb-4">Grant or remove points from specific users. Great for giving points to users manually, or refunding users for broken redeems</p>
+                    <input type="hidden" id="users_id" class="input bg-input text-off_white w-full max-w-xs font-bold" />
+                    <input id="user-search-input" type="text" placeholder="username" class="input bg-gray2 border-0 w-full max-w-xs" />
+                    <div id="user-search-results" class="relative top-full left-0 right-0 z-10" style="display: none">
+                        <ul id="user-list" class="bg-input text-off_white border rounded-b-lg shadow-md"></ul>
+                    </div>
+                    <input id="user_points" type="number" placeholder="points" class="input bg-gray2 border-0 w-full max-w-xs" />
+                    <button id="update_user_search_points" onclick="UpdateUserPoints()" class="hidden btn btn-block mt-4 bg-green-500 hover:bg-green-700 text-white border-0">Apply</button>
+                    <!-- should be hidden if no changes are applied-->
+                </div>
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Clipping</h2>
+                    <p class="mb-4">
+                        Choose if you wish to allow your viewers to create clips.
+                        <br />
+                        <a href="https://github.com/gezelio/YTCR#5-clipping-tool" class="text-sm underline">You need to have set this up prior!</a>
+                    </p>
+                    <input id="clip" type="checkbox" class="toggle toggle-success" value="false" />
+                    <!-- <p class="">You must restart your StreamerBot application to take affect</p> -->
+                </div>
+                <div class="divider"></div>
+                <h1 class="font-bold text-4xl mb-2">Data and privacy</h1>
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Reset user points</h2>
+                    <p class="mb-4">
+                        The great reset! This will wipe your users points from the system, starting everyone back down at 0 points.
+                        <br />
+                        This cannot be undone!
+                    </p>
+                    <a onclick="UpdateSend('/post/update/WipeUsers',[])" class="btn btn-block bg-myst_main border-0 text-white">Wipe user points</a>
+                </div>
+                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                    <h2 class="text-2xl font-bold">Wipe all data</h2>
+                    <p class="mb-4">Fully remove all traces of your information from our servers and database</p>
+                    <a onclick="UpdateSend('/post/update/DeleteUser',[])" class="btn btn-block bg-myst_main border-0 text-white">Fully remove yourself from YTCR</a>
                 </div>
             </div>
-            <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                <h2 class="text-2xl font-bold">Add or remove points
-                </h2>
-                <p class="mb-4">Grant or remove points from specific users. Great for giving points to users
-                    manually,
-                    or refunding users for broken redeems</p>
-                <input type="hidden" id="users_id" class="input bg-input text-off_white w-full max-w-xs font-bold" />
-                <input id="user-search-input" type="text" placeholder="username"
-                    class="input bg-gray2 border-0 w-full max-w-xs" />
-                <div id="user-search-results" class="relative top-full left-0 right-0 z-10" style="display:none;">
-                    <ul id="user-list" class="bg-input text-off_white border rounded-b-lg shadow-md">
-                    </ul>
-                </div>
-                <input id="user_points" type="number" placeholder="points"
-                    class="input bg-gray2 border-0 w-full max-w-xs" />
-                <button id="update_user_search_points" onclick="UpdateUserPoints()"
-                    class="hidden btn btn-block mt-4 bg-green-500 hover:bg-green-700 text-white border-0">Apply</button>
-                <!-- should be hidden if no changes are applied-->
-            </div>
-            <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                <h2 class="text-2xl font-bold">Clipping
-                </h2>
-                <p class="mb-4">Choose if you wish to allow your viewers to create clips. <br><a
-                        href="https://github.com/gezelio/YTCR#5-clipping-tool" class="text-sm underline">You need to
-                        have set this up prior!</a></p>
-                <input id="clip" type="checkbox" class="toggle toggle-success" value="false" />
-                <!-- <p class="">You must restart your StreamerBot application to take affect</p> -->
-            </div>
-            <div class="divider"></div>
-            <h1 class="font-bold text-4xl mb-2">Data and privacy</h1>
-            <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                <h2 class="text-2xl font-bold">Reset user points
-                </h2>
-                <p class="mb-4">The great reset! This will wipe your users points from the system, starting everyone
-                    back down at 0 points. <br>
-                    This cannot be undone!</p>
-                <a onclick="UpdateSend('/post/update/WipeUsers',[])"
-                    class="btn btn-block bg-myst_main border-0 text-white">Wipe user points</a>
-            </div>
-            <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
-                <h2 class="text-2xl font-bold">Wipe all data
-                </h2>
-                <p class="mb-4">Fully remove all traces of your information from our servers and database</p>
-                <a onclick="UpdateSend('/post/update/DeleteUser',[])"
-                    class="btn btn-block bg-myst_main border-0 text-white">Fully remove yourself from YTCR</a>
-            </div>
         </div>
-    </div>
-
+    </body>
 </html>

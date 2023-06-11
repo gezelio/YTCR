@@ -141,6 +141,10 @@ const yt_extensionSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    reward_updated: {
+        type: String,
+        default: ""
+    },
     ext: {
         user_input: {
             type: Boolean,

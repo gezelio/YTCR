@@ -6,7 +6,7 @@ var path = require("path");
 app.get("/assets/images/:file", (req, res) => {
     res.sendFile(path.resolve("./assets/images/" + req.params.file));
 });
-app.get("/assets/css/:file", (req, res) => {
+app.get("/assets/styles/:file", (req, res) => {
     res.sendFile(path.resolve("./assets/styles/" + req.params.file));
 });
 app.get("/assets/js/:file", (req, res) => {
