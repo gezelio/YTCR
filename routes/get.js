@@ -25,6 +25,12 @@ app.get("/dashboard", functions.LoggedIn, async (req, res) => {
         user: CheckUser(user)
     });
 });
+app.get("/dashboard/settings", functions.LoggedIn, async (req, res) => {
+    const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    res.render(path.resolve("./views/ytcr/settings.ejs"), {
+        user: CheckUser(user)
+    });
+});
 app.get("/dashboard/rewards", functions.LoggedIn, async (req, res) => {
     const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     res.render(path.resolve("./views/ytcr/rewards.ejs"), {
