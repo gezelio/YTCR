@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script src="/assets/js/logging.js" defer></script>
         <script>
@@ -56,7 +56,7 @@
     <body class="relative h-screen">
         <div class="flex flex-wrap flex-row justify-center w-full pt-4">
             <div id="main" class="">
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Current Rewards</h2>
                     <div class="mx-auto w-full">
                         <div class="overflow-x-auto">
@@ -64,27 +64,27 @@
                                 <!-- head -->
                                 <thead>
                                     <tr class="text-white">
-                                        <th class="bg-botred" data-tippy-content="This is the name of your reward">
+                                        <th class="bg-primary" data-tippy-content="This is the name of your reward">
                                             Reward
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Cost of your reward for a user to redeem">
+                                        <th class="bg-primary" data-tippy-content="Cost of your reward for a user to redeem">
                                             Cost
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
+                                        <th class="bg-primary" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
                                             Action
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
+                                        <th class="bg-primary" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
                                             Tool
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Folder Name">
+                                        <th class="bg-primary" data-tippy-content="Folder Name">
                                             Folder
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Button Color">
+                                        <th class="bg-primary" data-tippy-content="Button Color">
                                             color
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div id="main1" class="">
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Current Users</h2>
                     <div class="mx-auto w-full">
                         <div class="overflow-x-auto">
@@ -105,11 +105,11 @@
                                 <!-- head -->
                                 <thead>
                                     <tr class="text-white">
-                                        <th class="bg-botred" data-tippy-content="This is the name of the user">
+                                        <th class="bg-primary" data-tippy-content="This is the name of the user">
                                             Name
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-botred" data-tippy-content="Points of the user">
+                                        <th class="bg-primary" data-tippy-content="Points of the user">
                                             Points
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
@@ -182,24 +182,24 @@
         data.rewards.map(function (reward) {
             document.getElementById("reward-table").innerHTML += `
         <tr>
-            <th class="bg-gray2">${reward.reward_name}</th>
-            <td class="bg-gray2">${reward.reward_points}</td>
-            <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
-            <td class="bg-gray2" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
-            <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
-            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9 bg-[${reward?.reward_color?.background}]"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
+            <th class="bg-background">${reward.reward_name}</th>
+            <td class="bg-background">${reward.reward_points}</td>
+            <td class="bg-background">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
+            <td class="bg-background" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
+            <td class="bg-background">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
+            <td class="bg-background">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9 bg-[${reward?.reward_color?.background}]"></div>` : `<div class="rounded-full w-9 h-9 bg-primary"></div>`}</td>
         </tr>
         `;
         });
         data.user_rewards.map(function (reward) {
             document.getElementById("reward-table").innerHTML += `
         <tr>
-            <th class="bg-gray2">${reward.reward_name}</th>
-            <td class="bg-gray2">${reward.reward_points}</td>
-            <td class="bg-gray2">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
-            <td class="bg-gray2">YTCR</td>
-            <td class="bg-gray2">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
-            <td class="bg-gray2">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background}"></div>` : `<div class="rounded-full w-9 h-9 bg-botred"></div>`}</td>
+            <th class="bg-background">${reward.reward_name}</th>
+            <td class="bg-background">${reward.reward_points}</td>
+            <td class="bg-background">${reward.reward_action_id == null ? "N/A" : reward.reward_action_id}</td>
+            <td class="bg-background">YTCR</td>
+            <td class="bg-background">${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "N/A" : reward.reward_folder}</td>
+            <td class="bg-background">${reward?.reward_color?.background ? `<div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background}"></div>` : `<div class="rounded-full w-9 h-9 bg-primary"></div>`}</td>
         </tr>
         `;
         });

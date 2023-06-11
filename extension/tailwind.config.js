@@ -7,14 +7,14 @@ module.exports = {
                 // Main Cols
                 gezel: "#7EAAC8",
                 gezel2: "#486A90",
-                botred: "#c9574e",
-                myst_main: "#d94d49",
+                primary: "#c9574e",
+                primary: "#d94d49",
                 myst_dark: "#8c312f",
                 //   BG and asset Cols
                 bg: "#111f29",
                 navnav: "#1d2225",
-                gray1: "#24292e",
-                gray2: "#1f2428",
+                accent: "#24292e",
+                background: "#1f2428",
                 main: "#183748",
                 main_grey: "#232323",
                 off_white: "#EBEBEB",

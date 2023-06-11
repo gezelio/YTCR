@@ -71,15 +71,6 @@ Why we built this:
 <!-- GETTING STARTED -->
 
 # How to set up YouTube Channel Rewards as a streamer
-
-## Getting Started
-1. Sign into [YTCR Dashboard](https://ytcr.gezel.io) with your Discord account (this will make sense later)
-2. Select your YouTube channel
-    - This will only show YouTube channels connected to your Discord account. If you don't see the channel you want, add the YouTube channel to your Discord account and refresh the page.
-3. Head over to the settings page and adjust them to your needs
-4. Head over to Rewards to start creating your rewards for your viewers!
-
-
 #### Prerequisites
 
 -   [Streamer.Bot](https://streamer.bot) - v0.1.16 or newer

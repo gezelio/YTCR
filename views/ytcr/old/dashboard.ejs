@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
@@ -75,7 +75,7 @@
                     <div class="">
                         <select id="select_points" class="rounded-lg select-bordered p-3 bg-input text-white font-bold"></select>
                     </div>
-                    <button id="update_button_id" class="hidden bg-botred py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700" onclick="update_points()">Save Changes</button>
+                    <button id="update_button_id" class="hidden bg-primary py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700" onclick="update_points()">Save Changes</button>
                 </div>
             </div>
             <div class="card w-full bg-base-100 shadow-xl mb-2">
@@ -102,7 +102,7 @@
                         <ul class="overflow-y-auto mt-2 rounded-lg px-3 pb-3 h-48 w-full bg-input text-sm text-gray-700 dark:text-gray-200 hidden" aria-labelledby="dropdownSearchButton" id="select_user_search_ul"></ul>
                         <input type="number" placeholder="Value: example:-300" id="user_points" class="input bg-input text-off_white w-full max-w-xs font-bold" />
                     </div>
-                    <button id="update_user_search_points" onclick="UpdateUserPoints()" class="hidden bg-botred py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700">Save Changes</button>
+                    <button id="update_user_search_points" onclick="UpdateUserPoints()" class="hidden bg-primary py-2 px-4 text-center rounded shadow text-off_white font-bold text-bold hover:bg-red-700">Save Changes</button>
                 </div>
             </div>
             <div class="card w-full bg-base-100 shadow-xl mb-2">
@@ -112,7 +112,7 @@
                         Clip Button
                     </h2>
                     <p class="text-neutral-400">Enable/disable clip button from the extension</p>
-                    <span class="text-botred">NOTE: Changes to this feature requires you restart your Streamerbot application</span>
+                    <span class="text-primary">NOTE: Changes to this feature requires you restart your Streamerbot application</span>
                     <!-- dropdown -->
                     <div class="">
                         <div class="form-control">

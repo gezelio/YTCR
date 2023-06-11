@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-gray2 text-white">
+<html lang="en" class="dark bg-background text-white">
     <head>
         <script src="/assets/js/logging.js" defer></script>
         <script>
@@ -58,27 +58,27 @@
         <div class="flex justify-center w-full pt-4">
             <div id="main" class="">
                 <h1 class="font-bold text-4xl mb-2">Settings</h1>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Points per interval</h2>
                     <p class="mb-4">Choose how many points your viewers should get every 5 minutes</p>
                     <div class="dropdown dropdown-right">
-                        <label id="ytcr-setpoints-label" tabindex="0" class="btn bg-gray2 border-0 text-white"></label>
-                        <ul id="select_points" tabindex="0" class="dropdown-content menu p-2 shadow bg-gray2 rounded-box w-52"></ul>
+                        <label id="ytcr-setpoints-label" tabindex="0" class="btn bg-background border-0 text-white"></label>
+                        <ul id="select_points" tabindex="0" class="dropdown-content menu p-2 shadow bg-background rounded-box w-52"></ul>
                     </div>
                 </div>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Add or remove points</h2>
                     <p class="mb-4">Grant or remove points from specific users. Great for giving points to users manually, or refunding users for broken redeems</p>
                     <input type="hidden" id="users_id" class="input bg-input text-off_white w-full max-w-xs font-bold" />
-                    <input id="user-search-input" type="text" placeholder="username" class="input bg-gray2 border-0 w-full max-w-xs" />
+                    <input id="user-search-input" type="text" placeholder="username" class="input bg-background border-0 w-full max-w-xs" />
                     <div id="user-search-results" class="relative top-full left-0 right-0 z-10" style="display: none">
                         <ul id="user-list" class="bg-input text-off_white border rounded-b-lg shadow-md"></ul>
                     </div>
-                    <input id="user_points" type="number" placeholder="points" class="input bg-gray2 border-0 w-full max-w-xs" />
+                    <input id="user_points" type="number" placeholder="points" class="input bg-background border-0 w-full max-w-xs" />
                     <button id="update_user_search_points" onclick="UpdateUserPoints()" class="hidden btn btn-block mt-4 bg-green-500 hover:bg-green-700 text-white border-0">Apply</button>
                     <!-- should be hidden if no changes are applied-->
                 </div>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Clipping</h2>
                     <p class="mb-4">
                         Choose if you wish to allow your viewers to create clips.
@@ -90,19 +90,19 @@
                 </div>
                 <div class="divider"></div>
                 <h1 class="font-bold text-4xl mb-2">Data and privacy</h1>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Reset user points</h2>
                     <p class="mb-4">
                         The great reset! This will wipe your users points from the system, starting everyone back down at 0 points.
                         <br />
                         This cannot be undone!
                     </p>
-                    <a onclick="UpdateSend('/post/update/WipeUsers',[])" class="btn btn-block bg-myst_main border-0 text-white">Wipe user points</a>
+                    <a onclick="UpdateSend('/post/update/WipeUsers',[])" class="btn btn-block bg-primary hover:bg-primaryhover border-0 text-white">Wipe user points</a>
                 </div>
-                <div class="container bg-gray1 rounded-lg shadow-xl p-4 my-4">
+                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
                     <h2 class="text-2xl font-bold">Wipe all data</h2>
                     <p class="mb-4">Fully remove all traces of your information from our servers and database</p>
-                    <a onclick="UpdateSend('/post/update/DeleteUser',[])" class="btn btn-block bg-myst_main border-0 text-white">Fully remove yourself from YTCR</a>
+                    <a onclick="UpdateSend('/post/update/DeleteUser',[])" class="btn btn-block bg-primary hover:bg-primaryhover border-0 text-white">Fully remove yourself from YTCR</a>
                 </div>
             </div>
         </div>
