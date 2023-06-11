@@ -37,7 +37,7 @@ var nav_links = [
     }
 ];
 let nav1 = document.createElement("div");
-nav1.className = "navbar bg-gray2";
+nav1.className = "navbar bg-background";
 nav1.innerHTML = `
 <div class="flex-1">
     <a href="/dashboard" class="btn btn-ghost normal-case text-xl text-white"><img src="/favicon.ico" class="mr-4 h-9 sm:h-9" alt="YTCR Logo">YTCR</a>
@@ -47,7 +47,7 @@ nav1.innerHTML = `
                         class="btn bg-discord border-0 text-white hover:bg-discord2 mx-4"><i
                             class="fa-brands fa-discord"></i></a>
                             <a href="https://github.com/gezelio/ytcr"
-                        class="btn bg-gray1 border-0 text-white hover:bg-gray2 mx-4"><i
+                        class="btn bg-accent border-0 text-white hover:bg-background mx-4"><i
                             class="fa-brands fa-github"></i></a>
     <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -65,7 +65,7 @@ nav1.innerHTML = `
     `;
 var account = user.account;
 let nav = document.createElement("div");
-nav.className = "bg-gray1 p-2 px-4";
+nav.className = "bg-accent p-2 px-4";
 nav.innerHTML = `
 <div class="grid md:flex flex-row gap-4 text-lg md:text-md font-bold">
     ${nav_links

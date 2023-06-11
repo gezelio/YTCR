@@ -101,7 +101,7 @@ function ShowData(data) {
     Channel_points_template.map(function (item) {
         CLASS = "";
         if (item.points == data.channel_options.channel_amount) {
-            CLASS = "bg-botred";
+            CLASS = "bg-primary";
         }
         document.getElementById("select_points").innerHTML += `
         <li class="${CLASS}" onclick="UpdateSend('/post/update/ChannelAmount', ${item.points})"><a>${item.points}</a></li>

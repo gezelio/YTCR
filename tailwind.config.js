@@ -28,8 +28,8 @@ module.exports = {
                 background: "#141416", //prev gray2
                 primary: "#833232", //prev botred OR myst_main
                 primaryhover: "#5F2424",
-                secondary: "",
-                secondaryhover: "",
+                secondary: "#17803D",
+                secondaryhover: "#105C2C",
                 accent: "#1C1D21", //prev gray1
                 accenthover: "",
                 input: "#141416", 
