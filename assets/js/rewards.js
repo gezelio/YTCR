@@ -97,6 +97,9 @@ function ShowData(data) {
         document.getElementById("reward-table").innerHTML += `
         <tr id="reward_${reward.reward_id}">
             <td class="bg-accent">
+                <input class="toggle toggle-success bg-red-500 disabled:bg-transparent border-0 w-full max-w-xs" type="checkbox" name="Status" placeholder="" checked></input>
+            </td>
+            <td class="bg-accent">
                 <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="name" placeholder="My Reward *" value="${reward.reward_name}"disabled></input>
             </td>
             <td class="bg-accent">
@@ -112,6 +115,9 @@ function ShowData(data) {
             <td class="bg-accent">
                 <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}"disabled></input>
             </td>
+            <td class="bg-accent">
+                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="cooldown" placeholder="0" min="0" value="${reward.reward_cooldown}"disabled></input>
+        </td>
             <td class="bg-accent flex gap-2">
                 <button onclick="Edit(this)" class="bg-green-500 btn text-white w-1/2">Edit</button>
                 <button onclick="DeleteReward('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
