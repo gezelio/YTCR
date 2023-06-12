@@ -14,13 +14,6 @@ var nav_links = [
         current: false
     },
     {
-        id: 1,
-        name: "Additional Options",
-        link: "/dashboard/additional",
-        disabled: false,
-        current: false
-    },
-    {
         id: 2,
         name: "Change Channel",
         link: "/dashboard/select/youtube",
