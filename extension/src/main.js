@@ -159,7 +159,7 @@ function update_cr_points_callback(data) {
         if (data.data.channel_points == "%") {
             data.data.channel_points = `<i class="fa-solid fa-infinity"></i>`;
         }
-        document.querySelector("#ytcr_points_text").innerHTML = data.data.channel_points;
+        document.querySelector("#button-points").innerHTML = data.data.channel_points;
     }
 }
 var YTCR_Folders = [];
@@ -241,7 +241,7 @@ function update_points_callback(data) {
         if (data.points == "%") {
             data.points = `<i class="fa-solid fa-infinity"></i>`;
         }
-        document.querySelector("#ytcr_points_text").innerHTML = data.points;
+        document.querySelector("#button-points").innerHTML = data.points;
     }
 }
 function PointCheck(element) {
@@ -296,7 +296,7 @@ function connect() {
         if (data.type == "refresh user points") {
             if (data.user_id == user_id_points) {
                 localStorage.setItem("channel_points", data.points);
-                document.querySelector("#ytcr_points_text").innerText = data.points;
+                document.querySelector("#button-points").innerText = data.points;
                 get_channel_reawrds();
             }
             return;
