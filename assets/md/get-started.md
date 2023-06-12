@@ -1,4 +1,5 @@
 # How to set up YouTube Channel Rewards as a streamer
+
 #### Prerequisites
 
 -   [Streamer.Bot](https://streamer.bot) - v0.1.16 or newer
@@ -10,7 +11,8 @@
 ---
 
 ### Initial setup
-1. Ensure you're logged in to your YouTube account on StreamerBot under `Platforms` 
+
+1. Ensure you're logged in to your YouTube account on StreamerBot under `Platforms`
 2. Download `YTCR_{version}.gezel` from our [Releases Page](https://github.com/gezelio/YTCR/releases).
 3. Launch Streamer.Bot and select `Import` and drag the file into the `Import String` box.
     - Confirm you see the following `Actions`:
@@ -60,15 +62,18 @@ Before going forward, it's good to confirm that your YouTube channel is linked t
 1.  Sign in to [https://ytcr.gezel.io](http://ytcr.gezel.io/creds/login)
 2.  Authenticate with Discord
 3.  Choose your YouTube channel
-4. Adjust your settings to your liking
+4.  Adjust your settings to your liking
 
 ---
+
 ### 4. Setting up channel rewards
 
 Head over to the [YTCR Dashboard](https://ytcr.gezel.io) and click on `Rewards`.
+
 ##### Fields:
-| **Reward Name** | **Cost** | **Action ID** |
-| --- | --- | --- |
+
+| **Reward Name**         | **Cost**                | **Action ID**                                                                                                                                                                      |
+| ----------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | The name of your reward | The cost of your reward | The ID of the action you want to run. This is only required if you wish to pair it with an action you built on StreamerBot, such as controlling something on your OBS, for example |
 
 This is the new primary way going forward with building actions, as it cuts out the requirement of needing an affiliated Twitch account in previous iterations.
@@ -76,6 +81,7 @@ This is the new primary way going forward with building actions, as it cuts out 
 ---
 
 ### 5. Clipping tool
+
 > **If you don't plan on using Clipping Tool, you can disable it in the YTCR Dashboard and ignore all of this.**
 
 The Clipping Tool is a feature that adds a clipping feature to your stream. This utilizes the OBS `Replay Buffer` feature and would require additional setup.
