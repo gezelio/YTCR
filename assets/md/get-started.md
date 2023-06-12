@@ -6,6 +6,10 @@
 -   A YouTube channel that is connected to your Discord
 -   An affitiated Twitch channel is **no longer required** to use this service
 
+### Video tutorial
+(Thank you for creating this, @KiokuReign)
+[![Alt text](https://img.youtube.com/vi/ydQ6VQobQ0I/0.jpg)](https://www.youtube.com/watch?v=ydQ6VQobQ0I)
+
 ## 1. Streamerbot configuration
 
 ---
