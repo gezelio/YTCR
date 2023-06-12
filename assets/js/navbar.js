@@ -16,7 +16,7 @@ var nav_links = [
     {
         id: 1,
         name: "Additional Options",
-        link: "/additional",
+        link: "/dashboard/additional",
         disabled: false,
         current: false
     },

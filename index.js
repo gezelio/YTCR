@@ -95,6 +95,7 @@ app.use(async (req, res, next) => {
 app.use("/", require("./routes/discord_auth"));
 app.use("/", require("./routes/files"));
 app.use("/", require("./routes/get"));
+app.use("/dashboard", require("./routes/dashboard"));
 app.use("/", require("./routes/admin"));
 app.use("/", require("./routes/post"));
 
