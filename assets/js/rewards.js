@@ -97,7 +97,7 @@ function ShowData(data) {
         document.getElementById("reward-table").innerHTML += `
         <tr id="reward_${reward.reward_id}">
             <td class="bg-accent">
-                <input class="toggle toggle-success bg-red-500 disabled:bg-transparent border-0 w-full max-w-xs" type="checkbox" name="Status" placeholder="" checked></input>
+                <input class="toggle toggle-success bg-red-500 border-0 w-full max-w-xs" type="checkbox" name="active" placeholder="" data-id="${reward.reward_id}" ${reward.active == undefined ? "checked" : "" || reward.active ? "checked" : ""} onchange="activechange(this)" ></input>
             </td>
             <td class="bg-accent">
                 <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="name" placeholder="My Reward *" value="${reward.reward_name}"disabled></input>
@@ -152,14 +152,15 @@ function Create() {
         points: "",
         action_id: "",
         folder: "",
-        color: "#c9574e"
+        color: "#c9574e",
+        active: true
     });
     setTimeout(() => {
         let Element = document.getElementById("reward-table").children[document.getElementById("reward-table").children.length - 1];
         Array.from(Element.children).forEach(function (childElement, length) {
             if (!childElement.children[0]) return;
             childElement.children[0].disabled = false;
-            if (length == 6) {
+            if (length == 8) {
                 childElement.children[0].classList.add("hidden");
                 childElement.children[1].classList.add("hidden");
                 childElement.children[2].classList.remove("hidden");
@@ -188,7 +189,8 @@ function EditSave(element) {
         points: null,
         action_id: null,
         folder: null,
-        color: null
+        color: null,
+        cooldown: null
     };
     let Element = element.parentElement;
     data.id = element.dataset.id;
@@ -216,6 +218,9 @@ function EditSave(element) {
         if (childElement.children[0].name == "color") {
             data.color = childElement.children[0].value;
         }
+        if (childElement.children[0].name == "cooldown") {
+            data.cooldown = childElement.children[0].value;
+        }
     });
     UpdateSend("/post/update/rewards/edit", data);
     document.getElementById("create-btn").classList.remove("hidden");
@@ -224,6 +229,7 @@ function DeleteSend(data) {
     UpdateSend("/post/update/rewards/delete", {
         id: data.dataset.id
     });
+    document.getElementById("create-btn").classList.remove("hidden");
 }
 function DeleteReward(id) {
     delete_reward.showModal();
@@ -232,4 +238,11 @@ function DeleteReward(id) {
 function Cancel() {
     document.getElementById("create-btn").classList.remove("hidden");
     RefreshData();
+}
+function activechange(element) {
+    console.log("element: ", element.dataset.id);
+    UpdateSend("/post/update/rewards/active", {
+        id: element.dataset.id,
+        active: element.checked
+    });
 }

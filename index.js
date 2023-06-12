@@ -615,13 +615,15 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
     if (data) {
         data.user_rewards.push({
             reward_id: uuidv4(),
+            active: req.body.data.active,
             reward_name: req.body.data.name,
             reward_prompt: req.body.data.name,
             reward_points: parseInt(req.body.data.points),
             reward_action_id: req.body.data.action_id.length == 0 ? null : req.body.data.action_id,
             reward_action_userInput: false,
             reward_folder: req.body.data.folder || "",
-            reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color }
+            reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color },
+            reward_cooldown: req.body.data.cooldown
         });
         DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
             .then((savedDocument) => {
@@ -650,8 +652,6 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
     }
 });
 app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) => {
-    console.log("req.body.data: ", req.body.data);
-
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
@@ -661,6 +661,39 @@ app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) =
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_action_id = req.body.data.action_id.length == 0 ? null : req.body.data.action_id;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_folder = req.body.data.folder || "";
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_color = { font: chooseFontColor(req.body.data.color), background: req.body.data.color };
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown = req.body.data.cooldown;
+            DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
+                .then((savedDocument) => {
+                    req.session.user = data;
+                    let clients = groups.get("ext");
+                    if (clients) {
+                        for (const otherClient of clients) {
+                            if (otherClient !== ws) {
+                                otherClient.send(
+                                    JSON.stringify({
+                                        type: "refresh rewards",
+                                        channel_id: data.channel_id
+                                    })
+                                );
+                            }
+                        }
+                    }
+                    res.send({ status: "success" });
+                })
+                .catch((err) => {
+                    console.log("err: ", err);
+                    res.send({ status: "failed" });
+                });
+        }
+    } else {
+        res.send({ status: "failed" });
+    }
+});
+app.post("/post/update/rewards/active", functions.LoggedInPost, async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).active = req.body.data.active;
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {
                     req.session.user = data;
