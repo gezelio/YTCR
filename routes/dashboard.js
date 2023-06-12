@@ -17,6 +17,12 @@ app.get("/settings", functions.LoggedIn, async (req, res) => {
         user: functions.CheckUser(user)
     });
 });
+app.get("/privacy", functions.LoggedIn, async (req, res) => {
+    const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    res.render(path.resolve("./views/ytcr/privacy.ejs"), {
+        user: functions.CheckUser(user)
+    });
+});
 app.get("/rewards", functions.LoggedIn, async (req, res) => {
     const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     res.render(path.resolve("./views/ytcr/rewards.ejs"), {
