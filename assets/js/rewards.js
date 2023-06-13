@@ -90,6 +90,8 @@ function ShowData(data) {
                 <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}"disabled></input>
             </td>
             <td class="bg-accent">N/A</td>
+            <td class="bg-accent">N/A</td>
+            <td class="bg-accent">N/A</td>
         </tr>
         `;
     });
@@ -117,7 +119,10 @@ function ShowData(data) {
             </td>
             <td class="bg-accent">
                 <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="cooldown" placeholder="0" min="0" value="${reward.reward_cooldown}"disabled></input>
-        </td>
+            </td>
+            <td class="bg-accent">
+                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="per_stream" placeholder="0" min="0" value="${reward.per_stream}"disabled></input>
+            </td>
             <td class="bg-accent flex gap-2">
                 <button onclick="Edit(this)" class="bg-green-500 btn text-white w-1/2">Edit</button>
                 <button onclick="DeleteReward('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
@@ -160,7 +165,7 @@ function Create() {
         Array.from(Element.children).forEach(function (childElement, length) {
             if (!childElement.children[0]) return;
             childElement.children[0].disabled = false;
-            if (length == 8) {
+            if (length == 9) {
                 childElement.children[0].classList.add("hidden");
                 childElement.children[1].classList.add("hidden");
                 childElement.children[2].classList.remove("hidden");
@@ -190,7 +195,8 @@ function EditSave(element) {
         action_id: null,
         folder: null,
         color: null,
-        cooldown: null
+        cooldown: null,
+        per_stream: null
     };
     let Element = element.parentElement;
     data.id = element.dataset.id;
@@ -220,6 +226,9 @@ function EditSave(element) {
         }
         if (childElement.children[0].name == "cooldown") {
             data.cooldown = childElement.children[0].value;
+        }
+        if (childElement.children[0].name == "per_stream") {
+            data.per_stream = childElement.children[0].value;
         }
     });
     UpdateSend("/post/update/rewards/edit", data);

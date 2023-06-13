@@ -224,21 +224,35 @@ app.post("/api/claim_rewards", async (req, res) => {
                         return;
                     }
                     if (user_found_update.points >= req.body.points_to_redeem) {
+                        var per_stream_done = false;
                         new_points = user_found_update.points - req.body.points_to_redeem;
                         user_update = {
                             user_id: req.body.user_id,
                             user: req.body.username,
                             points: new_points
                         };
+                        found = data.user_rewards.find((e) => e.reward_id == req.body.reward_id);
+                        if (found) {
+                            if (parseInt(found.per_stream) > 0) {
+                                data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses += 1;
+                                per_stream_uses = parseInt(data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses);
+                                if (per_stream_uses >= parseInt(found.per_stream)) {
+                                    console.log("test");
+                                    data.user_rewards.find((e) => e.reward_id == req.body.reward_id).active = false;
+                                    data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses = 0;
+                                    per_stream_done = true;
+                                }
+                            }
+                        }
                         data.users.splice(data.users.indexOf(user_found_update), 1, user_update);
-                        data.save()
+                        DataBase.findOneAndUpdate({ channel_id: req.query.channel_id }, data)
                             .then((savedDocument) => {})
                             .catch((err) => {
                                 // handle error
                             });
                         res.send({
                             status: "success",
-                            data: { channel_points: new_points }
+                            data: { channel_points: new_points, per_stream_done }
                         });
                         UserConnections[req.query.channel_id]?.send(
                             JSON.stringify({
@@ -532,7 +546,11 @@ wss.on("connection", function connection(ws, req) {
                                             reward_points: reward.cost,
                                             reward_action_id: reward.actionId,
                                             reward_action_userInput: reward.userInput,
-                                            reward_folder: ""
+                                            reward_folder: "",
+                                            cooldown: 0,
+                                            active: true,
+                                            per_stream: "",
+                                            per_stream_uses: 0
                                         });
                                         id++;
                                     }
@@ -623,7 +641,9 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
             reward_action_userInput: false,
             reward_folder: req.body.data.folder || "",
             reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color },
-            reward_cooldown: req.body.data.cooldown
+            reward_cooldown: req.body.data.cooldown,
+            per_stream: req.body.data.per_stream,
+            per_stream_uses: 0
         });
         DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
             .then((savedDocument) => {
@@ -662,6 +682,7 @@ app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) =
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_folder = req.body.data.folder || "";
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_color = { font: chooseFontColor(req.body.data.color), background: req.body.data.color };
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown = req.body.data.cooldown;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream = req.body.data.per_stream;
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {
                     req.session.user = data;
