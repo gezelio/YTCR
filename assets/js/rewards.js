@@ -101,7 +101,7 @@ function ShowData(data) {
         document.getElementById("reward-table").innerHTML += `
         <tr id="reward_${reward.reward_id}">
             <td class="bg-accent">
-                <input class="toggle toggle-success bg-red-500 border-0 w-full max-w-xs" type="checkbox" name="active" placeholder="" data-id="${reward.reward_id}" ${reward.active == undefined ? "checked" : "" || reward.active ? "checked" : ""} onchange="activechange(this)" ></input>
+                <input class="toggle toggle-success bg-red-500 border-0" type="checkbox" name="active" placeholder="" data-id="${reward.reward_id}" ${reward.active == undefined ? "checked" : "" || reward.active ? "checked" : ""} onchange="activechange(this)" ></input>
             </td>
             <td class="bg-accent">
             ${reward.reward_name}
