@@ -73,6 +73,7 @@ function ShowData(data) {
     data.rewards.map(function (reward) {
         document.getElementById("reward-table").innerHTML += `
         <tr id="reward_${reward.reward_id}">
+            <td class="bg-accent">N/A</td>
             <td class="bg-accent">
                 <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="name" placeholder="My Reward *" value="${reward.reward_name}"disabled></input>
             </td>

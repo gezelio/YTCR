@@ -237,7 +237,6 @@ app.post("/api/claim_rewards", async (req, res) => {
                                 data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses += 1;
                                 per_stream_uses = parseInt(data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses);
                                 if (per_stream_uses >= parseInt(found.per_stream)) {
-                                    console.log("test");
                                     data.user_rewards.find((e) => e.reward_id == req.body.reward_id).active = false;
                                     data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses = 0;
                                     per_stream_done = true;
@@ -747,7 +746,6 @@ app.post("/post/update/rewards/delete", functions.LoggedInPost, async (req, res)
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
             let RewardFound = data.user_rewards.find((data) => data.reward_id == req.body.data.id);
-            console.log("RewardFound: ", RewardFound);
             if (data.user_rewards.indexOf(RewardFound) > -1) {
                 data.user_rewards.splice(data.user_rewards.indexOf(RewardFound), 1);
             }
