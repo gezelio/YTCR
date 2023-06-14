@@ -884,7 +884,7 @@ app.use(function (req, res, next) {
     // default to plain-text. send()
     res.type("txt").send("Not found");
 });
-server.listen(port, "10.0.0.51", () => {
+server.listen(port, () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `URL is running on port ${port}`);
 });
 function chooseFontColor(backgroundColor) {
