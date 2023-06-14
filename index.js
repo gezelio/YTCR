@@ -559,7 +559,7 @@ wss.on("connection", function connection(ws, req) {
                                     .then((savedDocument) => {
                                         channel_rewards = [];
                                         id = 0;
-                                        if (message.v != "2.0.0") {
+                                        if (message.v != "2.0.3") {
                                             console.log("found");
                                             UserConnections[userId]?.send(
                                                 JSON.stringify({
@@ -620,7 +620,7 @@ wss.on("connection", function connection(ws, req) {
                                             .then((savedDocument) => {
                                                 channel_rewards = [];
                                                 id = 0;
-                                                if (message.v != "2.0.0") {
+                                                if (message.v != "2.0.3") {
                                                     console.log("found");
                                                     UserConnections[userId]?.send(
                                                         JSON.stringify({
