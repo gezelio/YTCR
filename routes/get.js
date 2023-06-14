@@ -13,7 +13,7 @@ app.get("/get-started", (req, res) => {
 });
 
 app.get("/action-id", (req, res) => {
-    res.render(path.resolve("./views/ytcr/ytcr-docs/help/acionid.ejs"));
+    res.render(path.resolve("./views/ytcr/ytcr-docs/help/actionid.ejs"));
 });
 
 app.get("/get/dashboard/data", functions.LoggedIn, async (req, res) => {
