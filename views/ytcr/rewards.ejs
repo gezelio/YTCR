@@ -89,28 +89,8 @@
                                             Cost
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
-                                        <th class="bg-primary" data-tippy-content="This is only required if you wish to connect your reward to StreamerBot action. This is useful for 'interactive' streams">
-                                            Action
-                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                        </th>
-                                        <th class="bg-primary" data-tippy-content="Shows if you create the action on a third party tool or from this dashboard">
-                                            Tool
-                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                        </th>
-                                        <th class="bg-primary" data-tippy-content="If you want this reward to be inside a folder, you can name the folder here. <br>If you don't want this reward in a folder, leave blank">
-                                            Folder
-                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                        </th>
                                         <th class="bg-primary" data-tippy-content="Color of the reward inside the extension">
                                             Button Color
-                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                        </th>
-                                        <th class="bg-primary" data-tippy-content="Color of the reward inside the extension">
-                                            Cooldown (seconds)
-                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                        </th>
-                                        <th class="bg-primary" data-tippy-content="Color of the reward inside the extension">
-                                            Per Stream uses
                                             <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
                                         </th>
                                         <th class="bg-primary" data-tippy-content="How long before another user can redeem this reward">
@@ -121,7 +101,7 @@
                                 </thead>
                                 <tbody id="reward-table"></tbody>
                             </table>
-                            <button id="create-btn" onclick="createModal.showModal()" class="bg-green-700 btn btn-block text-white border-0">Add new reward</button>
+                            <button id="create-btn" onclick="Create()" class="bg-green-700 btn btn-block text-white border-0">Add new reward</button>
                         </div>
                     </div>
                     <!-- Open the modal using ID.showModal() method -->
@@ -140,82 +120,93 @@
                         </form>
                     </dialog>
                 </div>
-                <dialog id="createModal" class="modal">
-                <div class="modal-box grid grid-cols-2 gap-4 bg-accent rounded-lg shadow-lg py-3 px-6">
-                    <div class="col-span-full">
-                        <h1 class="font-bold text-2xl">Reward Builder</h1>
-                    </div>
-                    <h1 class="col-span-full font-bold">Basics</h1>
-                    <div class="col-span-full">
-                        <label class="block text-sm font-bold mb-2" for="reward_name">Reward Name *</label>
-                        <input class="input bg-input border-0 w-full " type="text" name="name" placeholder="My Reward" value="" required />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2" for="reward_name">
-                            <i class="fa-solid fa-coins mr-2"></i>
-                            Cost *
-                        </label>
-                        <input class="input bg-input disabled:bg-transparent border-0 max-w-xs w-full" type="number" name="points" placeholder="100" min="0" value="" required />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2" for="reward_name">
-                            <i class="fa-solid fa-paint-brush mr-2"></i>
-                            Background Color *
-                        </label>
-                        <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}" required />
-                    </div>
-                    <div class="divider col-span-full"></div>
-                    <h1 class="col-span-full font-bold">Cooldowns and limits</h1>
-                    <div>
-                        <label class="block text-sm font-bold mb-2" for="reward_name">
-                            <i class="fa-solid fa-clock-rotate-left mr-2"></i>
-                            <span>Cooldown (per user)</span><br>
-                            <span class="text-xs text-offtext font-normal">Limit how quickly a user can redeem this reward. This currently only works on a per-user level</span>
-                        </label>
-                        <div class="flex items-center">
-                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="cooldown" placeholder="0" min="0" value="${reward.reward_cooldown}" />
-                            <span class="ml-2">seconds</span>
+                <dialog id="Reward_modal" class="modal">
+                    <div class="modal-box grid grid-cols-2 gap-4 bg-accent rounded-lg shadow-lg py-3 px-6">
+                        <div class="col-span-full">
+                            <h1 class="font-bold text-2xl">Reward Builder</h1>
                         </div>
-                    </div>
-                    <div id="blank-for-spacing"></div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2" for="reward_name">
-                            <i class="fa-solid fa-hashtag mr-2"></i>
-                            <span>Per Stream</span><br>
-                            <span class="text-xs text-offtext font-normal">Limit the amount of times this reward can be redeemed per stream. <span class="font-bold">Once disabled, you must manually re-enable it</span></span>
-                        </label>
-                        <div class="flex items-center">
-                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="per_stream" placeholder="0" min="0" value="${reward.per_stream}" />
-                            <span class="ml-2">redeems per stream</span>
+                        <h1 class="col-span-full font-bold">Basics</h1>
+                        <div class="col-span-full">
+                            <label class="block text-sm font-bold mb-2" for="reward_name">Reward Name *</label>
+                            <input class="input bg-input border-0 w-full" type="text" name="name" placeholder="My Reward" value="" required />
                         </div>
-                    </div>
-                    <div class="divider col-span-full"></div>
-                    <h1 class="col-span-full font-bold">Advanced Settings</h1>
-                    <div>
-                        <label class="block text-sm font-bold mb-2" for="reward_name">
-                            <i class="fa-solid fa-folder mr-2"></i>
-                            <span>Folder</span><br>
-                            <span class="text-xs text-offtext font-normal">This can be left blank if you don't wish to place the reward inside a folder</span>
-                        </label>
-                        <div class="flex items-center"><input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="Folder Name" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"></div>
-                    </div>
-                    <div id="blank-for-spacing"></div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2" for="reward_name">
-                            <i class="fa-solid fa-robot mr-2"></i>
-                            <span>StreamerBot Action</span><br>
-                            <span class="text-xs text-offtext font-normal">Only required if you're linking this reward to an Action inside StreamerBot.<br> <a href="">Click here learn more</a></span>
-                        </label>
-                        <div class="flex items-center">
-                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="Action-ID" />
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-coins mr-2"></i>
+                                Cost *
+                            </label>
+                            <input class="input bg-input disabled:bg-transparent border-0 max-w-xs w-full" type="number" name="points" placeholder="100" min="0" value="" required />
                         </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-paint-brush mr-2"></i>
+                                Background Color *
+                            </label>
+                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}" required />
+                        </div>
+                        <div class="divider col-span-full"></div>
+                        <h1 class="col-span-full font-bold">Cooldowns and limits</h1>
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-clock-rotate-left mr-2"></i>
+                                <span>Cooldown (per user)</span>
+                                <br />
+                                <span class="text-xs text-offtext font-normal">Limit how quickly a user can redeem this reward. This currently only works on a per-user level</span>
+                            </label>
+                            <div class="flex items-center">
+                                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="cooldown" placeholder="0" min="0" value="${reward.reward_cooldown}" />
+                                <span class="ml-2">seconds</span>
+                            </div>
+                        </div>
+                        <div id="blank-for-spacing"></div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-hashtag mr-2"></i>
+                                <span>Per Stream</span>
+                                <br />
+                                <span class="text-xs text-offtext font-normal">
+                                    Limit the amount of times this reward can be redeemed per stream.
+                                    <span class="font-bold">Once disabled, you must manually re-enable it</span>
+                                </span>
+                            </label>
+                            <div class="flex items-center">
+                                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="per_stream" placeholder="0" min="0" value="${reward.per_stream}" />
+                                <span class="ml-2">redeems per stream</span>
+                            </div>
+                        </div>
+                        <div class="divider col-span-full"></div>
+                        <h1 class="col-span-full font-bold">Advanced Settings</h1>
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-folder mr-2"></i>
+                                <span>Folder</span>
+                                <br />
+                                <span class="text-xs text-offtext font-normal">This can be left blank if you don't wish to place the reward inside a folder</span>
+                            </label>
+                            <div class="flex items-center"><input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="Folder Name" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"></div>
+                        </div>
+                        <div id="blank-for-spacing"></div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-robot mr-2"></i>
+                                <span>StreamerBot Action</span>
+                                <br />
+                                <span class="text-xs text-offtext font-normal">
+                                    Only required if you're linking this reward to an Action inside StreamerBot.
+                                    <br />
+                                    <a href="">Click here learn more</a>
+                                </span>
+                            </label>
+                            <div class="flex items-center">
+                                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="Action-ID" />
+                            </div>
+                        </div>
+                        <form class="col-span-full grid grid-cols-2 gap-4" method="dialog">
+                            <button onclick="EditSave(this)" data-id="" class="btn bg-green-700 hover:bg-green-800 border-0 text-white">Save</button>
+                            <button onclick="Cancel(this)" data-id="" class="btn bg-neutral-700 hover:bg-neutral-800 border-0 text-white">Cancel</button>
+                        </form>
                     </div>
-                    <div class="col-span-full grid grid-cols-2 gap-4">
-                        <button class="btn bg-green-700 hover:bg-green-800 border-0 text-white">Save</button>
-                        <button class="btn bg-neutral-700 hover:bg-neutral-800 border-0 text-white">Cancel</button>
-                    </div>
-                </div>
-            </dialog>
+                </dialog>
             </div>
         </div>
     </body>
