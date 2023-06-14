@@ -559,7 +559,7 @@ wss.on("connection", function connection(ws, req) {
                                     .then((savedDocument) => {
                                         channel_rewards = [];
                                         id = 0;
-                                        if (message.v != "2.0.3") {
+                                        if (message.v < "2.0.3") {
                                             console.log("found");
                                             UserConnections[userId]?.send(
                                                 JSON.stringify({
@@ -570,9 +570,14 @@ wss.on("connection", function connection(ws, req) {
                                                     reward_action_id: "0",
                                                     reward_action_userInput: false,
                                                     reward_action_message: "",
-                                                    reward_action_clip: false
+                                                    reward_action_clip: false,
+                                                    reward_chat_command: false,
+                                                    reward_action_chat_message: ""
                                                 })
                                             );
+                                            UserConnections[userId].close();
+                                            delete UserConnections[userId];
+                                            console.log(`User ${userId} disconnected.`);
                                         }
                                         setTimeout(() => {
                                             let clients = groups.get("ext");
@@ -620,7 +625,7 @@ wss.on("connection", function connection(ws, req) {
                                             .then((savedDocument) => {
                                                 channel_rewards = [];
                                                 id = 0;
-                                                if (message.v != "2.0.3") {
+                                                if (message.v < "2.0.3") {
                                                     console.log("found");
                                                     UserConnections[userId]?.send(
                                                         JSON.stringify({
@@ -631,9 +636,14 @@ wss.on("connection", function connection(ws, req) {
                                                             reward_action_id: "0",
                                                             reward_action_userInput: false,
                                                             reward_action_message: "",
-                                                            reward_action_clip: false
+                                                            reward_action_clip: false,
+                                                            reward_chat_command: false,
+                                                            reward_action_chat_message: ""
                                                         })
                                                     );
+                                                    UserConnections[userId].close();
+                                                    delete UserConnections[userId];
+                                                    console.log(`User ${userId} disconnected.`);
                                                 }
                                                 setTimeout(() => {
                                                     let clients = groups.get("ext");
