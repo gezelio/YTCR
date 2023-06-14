@@ -3,6 +3,7 @@ var edit = {
     edit: false,
     id: null
 };
+var created = false;
 RefreshData();
 function RefreshData() {
     fetch("/get/dashboard/data", {
@@ -153,6 +154,7 @@ function Create() {
         Element.children[15].children[0].dataset.id = found.reward_id;
         Element.children[15].children[1].dataset.id = found.reward_id;
     }, 1000);
+    created = true;
 }
 function Edit(id) {
     Reward_modal.showModal();
@@ -198,6 +200,7 @@ function EditSave(element) {
     data.per_stream = Element.children[9].children[1].children[0].value;
     UpdateSend("/post/update/rewards/edit", data);
     document.getElementById("create-btn").classList.remove("hidden");
+    created = false;
 }
 function DeleteSend(data) {
     UpdateSend("/post/update/rewards/delete", {
@@ -210,6 +213,13 @@ function DeleteReward(id) {
     document.getElementById("DeleteButton").dataset.id = id;
 }
 function Cancel(element) {
+    if (created) {
+        UpdateSend("/post/update/rewards/delete", {
+            id: element.dataset.id
+        });
+        created = false;
+        return;
+    }
     document.getElementById("create-btn").classList.remove("hidden");
     RefreshData();
 }
