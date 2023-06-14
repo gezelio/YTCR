@@ -121,7 +121,7 @@
                                 </thead>
                                 <tbody id="reward-table"></tbody>
                             </table>
-                            <button id="create-btn" onclick="Create()" class="bg-green-700 btn btn-block text-white border-0">Add new reward</button>
+                            <button id="create-btn" onclick="createModal.showModal()" class="bg-green-700 btn btn-block text-white border-0">Add new reward</button>
                         </div>
                     </div>
                     <!-- Open the modal using ID.showModal() method -->
@@ -140,7 +140,8 @@
                         </form>
                     </dialog>
                 </div>
-                <div id="reward builder" class="container grid grid-cols-2 gap-4 bg-accent rounded-lg shadow-lg py-3 px-6">
+                <dialog id="createModal" class="modal">
+                <div class="modal-box grid grid-cols-2 gap-4 bg-accent rounded-lg shadow-lg py-3 px-6">
                     <div class="col-span-full">
                         <h1 class="font-bold text-2xl">Reward Builder</h1>
                     </div>
@@ -214,6 +215,7 @@
                         <button class="btn bg-neutral-700 hover:bg-neutral-800 border-0 text-white">Cancel</button>
                     </div>
                 </div>
+            </dialog>
             </div>
         </div>
     </body>
