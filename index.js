@@ -224,22 +224,50 @@ app.post("/api/claim_rewards", async (req, res) => {
                         return;
                     }
                     if (user_found_update.points >= req.body.points_to_redeem) {
+                        var per_stream_done = false;
                         new_points = user_found_update.points - req.body.points_to_redeem;
                         user_update = {
                             user_id: req.body.user_id,
                             user: req.body.username,
                             points: new_points
                         };
+                        found = data.user_rewards.find((e) => e.reward_id == req.body.reward_id);
+                        if (found) {
+                            if (parseInt(found.per_stream) > 0) {
+                                data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses += 1;
+                                per_stream_uses = parseInt(data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses);
+                                if (per_stream_uses >= parseInt(found.per_stream)) {
+                                    data.user_rewards.find((e) => e.reward_id == req.body.reward_id).active = false;
+                                    data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses = 0;
+                                    per_stream_done = true;
+                                }
+                            }
+                        }
                         data.users.splice(data.users.indexOf(user_found_update), 1, user_update);
-                        data.save()
+                        DataBase.findOneAndUpdate({ channel_id: req.query.channel_id }, data)
                             .then((savedDocument) => {})
                             .catch((err) => {
                                 // handle error
                             });
                         res.send({
                             status: "success",
-                            data: { channel_points: new_points }
+                            data: { channel_points: new_points, per_stream_done: false }
                         });
+                        if (per_stream_done) {
+                            let clients = groups.get("ext");
+                            if (clients) {
+                                for (const otherClient of clients) {
+                                    if (otherClient !== ws) {
+                                        otherClient.send(
+                                            JSON.stringify({
+                                                type: "refresh rewards",
+                                                channel_id: req.query.channel_id
+                                            })
+                                        );
+                                    }
+                                }
+                            }
+                        }
                         UserConnections[req.query.channel_id]?.send(
                             JSON.stringify({
                                 type: "rewards",
@@ -532,7 +560,11 @@ wss.on("connection", function connection(ws, req) {
                                             reward_points: reward.cost,
                                             reward_action_id: reward.actionId,
                                             reward_action_userInput: reward.userInput,
-                                            reward_folder: ""
+                                            reward_folder: "",
+                                            cooldown: 0,
+                                            active: true,
+                                            per_stream: "",
+                                            per_stream_uses: 0
                                         });
                                         id++;
                                     }
@@ -615,13 +647,18 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
     if (data) {
         data.user_rewards.push({
             reward_id: uuidv4(),
+            active: req.body.data.active,
             reward_name: req.body.data.name,
             reward_prompt: req.body.data.name,
             reward_points: parseInt(req.body.data.points),
             reward_action_id: req.body.data.action_id.length == 0 ? null : req.body.data.action_id,
             reward_action_userInput: false,
             reward_folder: req.body.data.folder || "",
-            reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color }
+            reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color },
+            reward_cooldown: req.body.data.cooldown,
+            reward_cooldown_g: req.body.data.cooldown_g,
+            per_stream: req.body.data.per_stream,
+            per_stream_uses: 0
         });
         DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
             .then((savedDocument) => {
@@ -650,8 +687,6 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
     }
 });
 app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) => {
-    console.log("req.body.data: ", req.body.data);
-
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
@@ -661,6 +696,42 @@ app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) =
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_action_id = req.body.data.action_id.length == 0 ? null : req.body.data.action_id;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_folder = req.body.data.folder || "";
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_color = { font: chooseFontColor(req.body.data.color), background: req.body.data.color };
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown = req.body.data.cooldown;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown_g = req.body.data.cooldown_g;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream = req.body.data.per_stream;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream_uses = 0;
+            DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
+                .then((savedDocument) => {
+                    req.session.user = data;
+                    let clients = groups.get("ext");
+                    if (clients) {
+                        for (const otherClient of clients) {
+                            if (otherClient !== ws) {
+                                otherClient.send(
+                                    JSON.stringify({
+                                        type: "refresh rewards",
+                                        channel_id: data.channel_id
+                                    })
+                                );
+                            }
+                        }
+                    }
+                    res.send({ status: "success" });
+                })
+                .catch((err) => {
+                    console.log("err: ", err);
+                    res.send({ status: "failed" });
+                });
+        }
+    } else {
+        res.send({ status: "failed" });
+    }
+});
+app.post("/post/update/rewards/active", functions.LoggedInPost, async (req, res) => {
+    const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    if (data) {
+        if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).active = req.body.data.active;
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {
                     req.session.user = data;
@@ -693,7 +764,6 @@ app.post("/post/update/rewards/delete", functions.LoggedInPost, async (req, res)
     if (data) {
         if (data.user_rewards.find((e) => e.reward_id == req.body.data.id)) {
             let RewardFound = data.user_rewards.find((data) => data.reward_id == req.body.data.id);
-            console.log("RewardFound: ", RewardFound);
             if (data.user_rewards.indexOf(RewardFound) > -1) {
                 data.user_rewards.splice(data.user_rewards.indexOf(RewardFound), 1);
             }

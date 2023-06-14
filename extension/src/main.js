@@ -5,6 +5,10 @@ import log from "./log.js";
 var username_points = "none";
 var user_id_points = "none";
 var ytcr_broadcater_channel_id = "none";
+var coooldowns_active = new Map();
+function secondsToMilliseconds(seconds) {
+    return seconds * 1000;
+}
 var ytcr_image = localStorage.getItem("ytcr_image");
 if (ytInitialData.continuationContents != undefined && ytInitialData.continuationContents.liveChatContinuation.viewerName != undefined && ytInitialData.continuationContents.liveChatContinuation.actionPanel.liveChatMessageInputRenderer.sendButton.buttonRenderer.serviceEndpoint.sendLiveChatMessageEndpoint.actions[0].addLiveChatTextMessageFromTemplateAction.template.liveChatTextMessageRenderer.authorExternalChannelId != undefined && parent.ytInitialData.contents != undefined && parent.ytInitialData.contents.twoColumnWatchNextResults != undefined) {
     username_points = ytInitialData.continuationContents.liveChatContinuation.viewerName;
@@ -75,7 +79,7 @@ async function get_channel_points() {
         });
     }
 }
-async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_redeem, reward_info) {
+async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, cooldown, color) {
     if (document.querySelector("#ytcr_prompt") == null) {
         document.getElementById("live-chat-message-input").style.display = "none";
         let prompt = document.createElement("div");
@@ -94,6 +98,7 @@ async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_r
         let prompt_content_button = document.createElement("button");
         prompt_content_button.className = "p-2 text-center rounded bg-[#485c39]";
         prompt_content_button.id = "ytcr_prompt_button";
+        prompt_content_button.dataset.id = reward_id;
         prompt_content_button.innerHTML = `Redeem for ${points_to_redeem}`;
         let prompt_button_close = document.createElement("button");
         prompt_button_close.className = "ytcr_prompt_close";
@@ -101,11 +106,25 @@ async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_r
         prompt_button_close.innerHTML = `
     <span class="ytcr_prompt_span">Cancel</span>
     `;
-        prompt_content_button.onclick = () => {
+        prompt_content_button.onclick = (event) => {
+            var pressedButton = event.target;
             document.getElementById("live-chat-message-input").style.display = "block";
             document.getElementById("ytcr_prompt").remove();
+            let id = pressedButton.dataset.id;
+            document.getElementById(`YTCRbutton_${id}`).classList.add("disabled");
+            document.getElementById(`YTCRbutton_${id}`).style.background = "#161616";
+            document.getElementById(`YTCRbutton_${id}`).style.color = "white";
+            coooldowns_active.set(id, true);
+            setTimeout(function () {
+                let element = document.getElementById(`YTCRbutton_${id}`);
+                coooldowns_active.delete(id);
+                element.style.background = element.dataset.bg;
+                element.style.color = element.dataset.font;
+                element.classList.remove("disabled");
+            }, secondsToMilliseconds(cooldown));
             Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback);
             document.getElementById("YTCRDropdown").classList.toggle("hidden");
+            get_channel_reawrds();
         };
         prompt_button_close.onclick = () => {
             document.getElementById("live-chat-message-input").style.display = "block";
@@ -119,7 +138,7 @@ async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_r
         document.getElementById("input-panel").prepend(prompt);
     }
 }
-async function ytcr_prompt_error(reward_info) {
+async function ytcr_prompt_error(text) {
     if (document.querySelector("#ytcr_prompt") == null) {
         document.getElementById("live-chat-message-input").style.display = "none";
         let prompt = document.createElement("div");
@@ -130,7 +149,7 @@ async function ytcr_prompt_error(reward_info) {
         let prompt_content_header = document.createElement("div");
         prompt_content_header.className = "font-bold";
         prompt_content_header.id = "ytcr_prompt_content_header";
-        prompt_content_header.innerText = "Not enough points";
+        prompt_content_header.innerText = text;
         prompt_content.appendChild(prompt_content_header);
         let prompt_content_body = document.createElement("div");
         prompt_content_body.id = "ytcr_prompt_content_body";
@@ -144,7 +163,6 @@ async function ytcr_prompt_error(reward_info) {
         prompt_button_close.onclick = () => {
             document.getElementById("live-chat-message-input").style.display = "block";
             document.getElementById("ytcr_prompt").remove();
-            document.getElementById("YTCRDropdown").classList.toggle("hidden");
         };
         prompt_content_body.appendChild(prompt_button_close);
         prompt_content.appendChild(prompt_content_body);
@@ -160,6 +178,11 @@ function update_cr_points_callback(data) {
             data.data.channel_points = `<i class="fa-solid fa-infinity"></i>`;
         }
         document.querySelector("#button-points").innerHTML = data.data.channel_points;
+        if (data.data.per_stream_done) {
+            setTimeout(() => {
+                get_channel_reawrds();
+            }, 200);
+        }
     }
 }
 var YTCR_Folders = [];
@@ -174,6 +197,8 @@ async function get_channel_reawrds() {
                 return a.reward_points - b.reward_points;
             });
             data.data.channel_rewards.forEach((element) => {
+                element.active == undefined ? (element.active = true) : element.active;
+                if (!element.active) return;
                 if (element.reward_folder) {
                     if (YTCR_Folders.find((e) => e == element.reward_folder)) return;
                     YTCR_Folders.push(element.reward_folder);
@@ -185,23 +210,37 @@ async function get_channel_reawrds() {
                     `;
                     return;
                 }
-                document.getElementById("YTCRDropdown").innerHTML += `
-                <btn id="YTCRbutton_${element.reward_id}" data-points="${element.reward_points}" data-id="${element.reward_action_id}" data-name="${element.reward_name}" style="background:${element?.reward_color?.background || "#c9574e"};color:${element?.reward_color?.font || "white"}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer">
-                    <div id="name" class="font-bold mb-4">${element.reward_name}</div>
-                    <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_points}</div>
-                </btn>
-                `;
+                let found = coooldowns_active.get(element.reward_id);
+                if (found) {
+                    document.getElementById("YTCRDropdown").innerHTML += `
+                    <btn id="YTCRbutton_${element.reward_id}" data-points="${element.reward_points}" data-bg="${element?.reward_color?.background || "#c9574e"}" data-font="${element?.reward_color?.font || "white"}" data-id="${element.reward_id}" data-name="${element.reward_name}" style="background:#161616; color:white" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer disabled">
+                        <div id="name" class="font-bold mb-4">${element.reward_name}</div>
+                        <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_points}</div>
+                    </btn>
+                    `;
+                } else {
+                    document.getElementById("YTCRDropdown").innerHTML += `
+                    <btn id="YTCRbutton_${element.reward_id}" data-points="${element.reward_points}" data-bg="${element?.reward_color?.background || "#c9574e"}" data-font="${element?.reward_color?.font || "white"}" data-id="${element.reward_id}" data-name="${element.reward_name}" style="background:${element?.reward_color?.background || "#c9574e"}; color:${element?.reward_color?.font || "white"}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer">
+                        <div id="name" class="font-bold mb-4">${element.reward_name}</div>
+                        <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element.reward_points}</div>
+                    </btn>
+                    `;
+                }
             });
             data.data.channel_rewards.forEach((element) => {
+                element.active == undefined ? (element.active = true) : element.active;
                 if (element.reward_folder) return;
+                if (!element.active) return;
                 document.getElementById("YTCRbutton_" + element.reward_id).addEventListener("click", function () {
                     logging.log("Button clicked!");
-                    send_claim_reward_popup(element.reward_id, ytcr_broadcater_channel_id, user_id_points, username_points, element.reward_points, { reward_name: element.reward_name, reward_description: element.reward_description, reward_action_id: element.reward_action_id, reward_action_userInput: element.reward_action_userInput, reward_action_message: "test" }, update_cr_points_callback);
+                    send_claim_reward_popup(element.reward_id, ytcr_broadcater_channel_id, user_id_points, username_points, element.reward_points, { reward_name: element.reward_name, reward_description: element.reward_description, reward_action_id: element.reward_action_id, reward_action_userInput: element.reward_action_userInput, reward_action_message: "test" }, element?.reward_cooldown, element?.reward_color?.background || "#c9574e", update_cr_points_callback);
                 });
                 PointCheck(element);
             });
             data.data.channel_rewards.forEach((element) => {
+                element.active == undefined ? (element.active = true) : element.active;
                 if (!element.reward_folder) return;
+                if (!element.active) return;
                 if (YTCR_FoldersChecked.find((e) => e == element.reward_folder)) return;
                 YTCR_FoldersChecked.push(element.reward_folder);
                 document.getElementById("YTCRbuttonFolder_" + element.reward_folder).addEventListener("click", function () {
@@ -212,17 +251,29 @@ async function get_channel_reawrds() {
                     </btn>
                     `;
                     data.data.channel_rewards.forEach((element1) => {
+                        element1.active == undefined ? (element1.active = true) : element1.active;
+                        if (!element1.active) return;
                         if (element1.reward_folder == this.dataset.folder) {
-                            document.getElementById("YTCRDropdown").innerHTML += `
-                            <btn id="YTCRbutton_${element1.reward_id}" data-points="${element1.reward_points}" data-id="${element1.reward_action_id}" data-name="${element1.reward_name}" style="background:${element1?.reward_color?.background || "#c9574e"};color:${element1?.reward_color?.font || "white"}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer">
+                            let found = coooldowns_active.get(element1.reward_id);
+                            if (found) {
+                                document.getElementById("YTCRDropdown").innerHTML += `
+                                <btn id="YTCRbutton_${element1.reward_id}" data-points="${element1.reward_points}" data-bg="${element1?.reward_color?.background || "#c9574e"}" data-font="${element1?.reward_color?.font || "white"}" data-id="${element1.reward_id}" data-name="${element1.reward_name}" style="background:#161616; color:white" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer disabled">
+                                    <div id="name" class="font-bold mb-4">${element1.reward_name}</div>
+                                    <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element1.reward_points}</div>
+                                </btn>
+                                `;
+                            } else {
+                                document.getElementById("YTCRDropdown").innerHTML += `
+                            <btn id="YTCRbutton_${element1.reward_id}" data-points="${element1.reward_points}" data-bg="${element1?.reward_color?.background || "#c9574e"}" data-font="${element1?.reward_color?.font || "white"}" data-id="${element1.reward_action_id}" data-name="${element1.reward_name}" style="background:${element1?.reward_color?.background || "#c9574e"};color:${element1?.reward_color?.font || "white"}" class="p-4 rounded-lg border-2 flex flex-col items-center justify-center aspect-w-2 aspect-h-2 cursor-pointer">
                                 <div id="name" class="font-bold mb-4">${element1.reward_name}</div>
                                 <div id="cost" class="font-bold bg-background text-white p-2 text-sm rounded-md shadow-md mt-auto">${element1.reward_points}</div>
                             </btn>
                             `;
+                            }
                             setTimeout(() => {
                                 document.getElementById("YTCRbutton_" + element1.reward_id).addEventListener("click", function () {
                                     logging.log("Button clicked!");
-                                    send_claim_reward_popup(element1.reward_id, ytcr_broadcater_channel_id, user_id_points, username_points, element1.reward_points, { reward_name: element1.reward_name, reward_description: element1.reward_description, reward_action_id: element1.reward_action_id, reward_action_userInput: element1.reward_action_userInput, reward_action_message: "test" }, update_cr_points_callback);
+                                    send_claim_reward_popup(element1.reward_id, ytcr_broadcater_channel_id, user_id_points, username_points, element1.reward_points, { reward_name: element1.reward_name, reward_description: element1.reward_description, reward_action_id: element1.reward_action_id, reward_action_userInput: element1.reward_action_userInput, reward_action_message: "test" }, element1?.reward_cooldown, element1?.reward_color?.background || "#c9574e", update_cr_points_callback);
                                 });
                             }, 500);
                         }
@@ -257,19 +308,24 @@ async function update_channel_points() {
         Fetch.UpdatePoints(ytcr_broadcater_channel_id, user_id_points, username_points, channel_points, update_points_callback);
     }
 }
-function send_claim_reward_popup(reward_id, channel_id, user_id, username, points_to_redeem, reward_info) {
+function send_claim_reward_popup(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, cooldown, color) {
     if (points_to_redeem <= localStorage.getItem("channel_points") || localStorage.getItem("channel_points") == "%") {
-        ytcr_prompt(reward_id, channel_id, user_id, username, points_to_redeem, reward_info);
+        if (document.getElementById(`YTCRbutton_${reward_id}`).classList.contains("disabled")) {
+            ytcr_prompt_error("Reward is on cooldown");
+            return;
+        }
+        ytcr_prompt(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, cooldown, color);
         document.getElementById("YTCRDropdown").classList.toggle("hidden");
         // document.getElementsByClassName('ytcr_prompt')[0].remove()
         // Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback)
     } else {
-        ytcr_prompt_error(reward_id, channel_id, user_id, username, points_to_redeem, reward_info);
+        ytcr_prompt_error("Not enough points");
         document.getElementById("YTCRDropdown").classList.toggle("hidden");
     }
 }
 function connect() {
     var ws = new WebSocket("wss://ytcr.gezel.io/ws?group=ext");
+    // var ws = new WebSocket("ws://localhost:82/ws?group=ext");
     ws.onopen = function () {
         logging.perm("Socket is connected to YTCR");
         setTimeout(() => {
