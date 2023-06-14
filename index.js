@@ -251,8 +251,23 @@ app.post("/api/claim_rewards", async (req, res) => {
                             });
                         res.send({
                             status: "success",
-                            data: { channel_points: new_points, per_stream_done }
+                            data: { channel_points: new_points, per_stream_done: false }
                         });
+                        if (per_stream_done) {
+                            let clients = groups.get("ext");
+                            if (clients) {
+                                for (const otherClient of clients) {
+                                    if (otherClient !== ws) {
+                                        otherClient.send(
+                                            JSON.stringify({
+                                                type: "refresh rewards",
+                                                channel_id: req.query.channel_id
+                                            })
+                                        );
+                                    }
+                                }
+                            }
+                        }
                         UserConnections[req.query.channel_id]?.send(
                             JSON.stringify({
                                 type: "rewards",
@@ -641,6 +656,7 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
             reward_folder: req.body.data.folder || "",
             reward_color: { font: chooseFontColor(req.body.data.color), background: req.body.data.color },
             reward_cooldown: req.body.data.cooldown,
+            reward_cooldown_g: req.body.data.cooldown_g,
             per_stream: req.body.data.per_stream,
             per_stream_uses: 0
         });
@@ -681,7 +697,9 @@ app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) =
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_folder = req.body.data.folder || "";
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_color = { font: chooseFontColor(req.body.data.color), background: req.body.data.color };
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown = req.body.data.cooldown;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown_g = req.body.data.cooldown_g;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream = req.body.data.per_stream;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream_uses = 0;
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {
                     req.session.user = data;
@@ -866,7 +884,7 @@ app.use(function (req, res, next) {
     // default to plain-text. send()
     res.type("txt").send("Not found");
 });
-server.listen(port, () => {
+server.listen(port, "10.0.0.51", () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `URL is running on port ${port}`);
 });
 function chooseFontColor(backgroundColor) {

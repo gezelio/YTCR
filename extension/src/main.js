@@ -197,6 +197,7 @@ async function get_channel_reawrds() {
                 return a.reward_points - b.reward_points;
             });
             data.data.channel_rewards.forEach((element) => {
+                element.active == undefined ? (element.active = true) : element.active;
                 if (!element.active) return;
                 if (element.reward_folder) {
                     if (YTCR_Folders.find((e) => e == element.reward_folder)) return;
@@ -227,6 +228,7 @@ async function get_channel_reawrds() {
                 }
             });
             data.data.channel_rewards.forEach((element) => {
+                element.active == undefined ? (element.active = true) : element.active;
                 if (element.reward_folder) return;
                 if (!element.active) return;
                 document.getElementById("YTCRbutton_" + element.reward_id).addEventListener("click", function () {
@@ -236,6 +238,7 @@ async function get_channel_reawrds() {
                 PointCheck(element);
             });
             data.data.channel_rewards.forEach((element) => {
+                element.active == undefined ? (element.active = true) : element.active;
                 if (!element.reward_folder) return;
                 if (!element.active) return;
                 if (YTCR_FoldersChecked.find((e) => e == element.reward_folder)) return;
@@ -248,6 +251,7 @@ async function get_channel_reawrds() {
                     </btn>
                     `;
                     data.data.channel_rewards.forEach((element1) => {
+                        element1.active == undefined ? (element1.active = true) : element1.active;
                         if (!element1.active) return;
                         if (element1.reward_folder == this.dataset.folder) {
                             let found = coooldowns_active.get(element1.reward_id);
@@ -320,9 +324,8 @@ function send_claim_reward_popup(reward_id, channel_id, user_id, username, point
     }
 }
 function connect() {
-    // var ws = new WebSocket("wss://ytcr.gezel.io/ws?group=ext");
-    var ws = new WebSocket("ws://localhost:82/ws?group=ext");
-
+    var ws = new WebSocket("wss://ytcr.gezel.io/ws?group=ext");
+    // var ws = new WebSocket("ws://localhost:82/ws?group=ext");
     ws.onopen = function () {
         logging.perm("Socket is connected to YTCR");
         setTimeout(() => {
