@@ -209,6 +209,26 @@ app.post("/api/claim_rewards", async (req, res) => {
                                 channel_points: "%"
                             }
                         });
+                        found = data.user_rewards.find((e) => e.reward_id == req.body.reward_id);
+                        if (found) {
+                            if (found.reward_action_chat_message?.length != 0) {
+                                UserConnections[req.query.channel_id]?.send(
+                                    JSON.stringify({
+                                        type: "rewards",
+                                        channel_id: req.query.channel_id,
+                                        username: req.body.username,
+                                        reward_name: req.body.reward_info.reward_name,
+                                        reward_action_id: req.body.reward_info.reward_action_id,
+                                        reward_action_userInput: req.body.reward_info.reward_action_userInput,
+                                        reward_action_message: req.body.reward_info.reward_action_message,
+                                        reward_action_clip: false,
+                                        reward_chat_command: true,
+                                        reward_action_chat_message: found.reward_action_chat_message
+                                    })
+                                );
+                                return;
+                            }
+                        }
                         UserConnections[req.query.channel_id]?.send(
                             JSON.stringify({
                                 type: "rewards",
@@ -218,7 +238,9 @@ app.post("/api/claim_rewards", async (req, res) => {
                                 reward_action_id: req.body.reward_info.reward_action_id,
                                 reward_action_userInput: req.body.reward_info.reward_action_userInput,
                                 reward_action_message: req.body.reward_info.reward_action_message,
-                                reward_action_clip: false
+                                reward_action_clip: false,
+                                reward_chat_command: false,
+                                reward_action_chat_message: ""
                             })
                         );
                         return;
@@ -235,7 +257,7 @@ app.post("/api/claim_rewards", async (req, res) => {
                         if (found) {
                             if (parseInt(found.per_stream) > 0) {
                                 data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses += 1;
-                                per_stream_uses = parseInt(data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses);
+                                let per_stream_uses = parseInt(data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses);
                                 if (per_stream_uses >= parseInt(found.per_stream)) {
                                     data.user_rewards.find((e) => e.reward_id == req.body.reward_id).active = false;
                                     data.user_rewards.find((e) => e.reward_id == req.body.reward_id).per_stream_uses = 0;
@@ -268,6 +290,27 @@ app.post("/api/claim_rewards", async (req, res) => {
                                 }
                             }
                         }
+                        found = data.user_rewards.find((e) => e.reward_id == req.body.reward_id);
+                        if (found) {
+                            if (found.reward_action_chat_message?.length != 0) {
+                                console.log("found.reward_action_chat_message: ", found.reward_action_chat_message);
+                                UserConnections[req.query.channel_id]?.send(
+                                    JSON.stringify({
+                                        type: "rewards",
+                                        channel_id: req.query.channel_id,
+                                        username: req.body.username,
+                                        reward_name: req.body.reward_info.reward_name,
+                                        reward_action_id: req.body.reward_info.reward_action_id,
+                                        reward_action_userInput: req.body.reward_info.reward_action_userInput,
+                                        reward_action_message: req.body.reward_info.reward_action_message,
+                                        reward_action_clip: false,
+                                        reward_chat_command: true,
+                                        reward_action_chat_message: found.reward_action_chat_message
+                                    })
+                                );
+                                return;
+                            }
+                        }
                         UserConnections[req.query.channel_id]?.send(
                             JSON.stringify({
                                 type: "rewards",
@@ -278,7 +321,9 @@ app.post("/api/claim_rewards", async (req, res) => {
                                 reward_action_id: req.body.reward_info.reward_action_id,
                                 reward_action_userInput: req.body.reward_info.reward_action_userInput,
                                 reward_action_message: req.body.reward_info.reward_action_message,
-                                reward_action_clip: false
+                                reward_action_clip: false,
+                                reward_chat_command: false,
+                                reward_action_chat_message: ""
                             })
                         );
                         return;
@@ -658,7 +703,8 @@ app.post("/post/update/rewards/create", functions.LoggedInPost, async (req, res)
             reward_cooldown: req.body.data.cooldown,
             reward_cooldown_g: req.body.data.cooldown_g,
             per_stream: req.body.data.per_stream,
-            per_stream_uses: 0
+            per_stream_uses: 0,
+            reward_action_chat_message: req.body.data.chat_message
         });
         DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
             .then((savedDocument) => {
@@ -699,6 +745,7 @@ app.post("/post/update/rewards/edit", functions.LoggedInPost, async (req, res) =
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown = req.body.data.cooldown;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_cooldown_g = req.body.data.cooldown_g;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream = req.body.data.per_stream;
+            data.user_rewards.find((e) => e.reward_id == req.body.data.id).reward_action_chat_message = req.body.data.chat_message;
             data.user_rewards.find((e) => e.reward_id == req.body.data.id).per_stream_uses = 0;
             DataBase.findOneAndUpdate({ "user.id": req.session.user.user.id }, data)
                 .then((savedDocument) => {

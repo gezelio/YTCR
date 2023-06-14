@@ -22,6 +22,7 @@ function RefreshData() {
             }
         })
         .catch(function (error) {
+            console.error("error: ", error);
             loggingPerm({ "error RefreshData": error });
             $("#toast-container-fail").fadeIn(400, function () {
                 $(this).delay(5000).fadeOut(400);
@@ -148,8 +149,9 @@ function Create() {
         Element.children[3].children[1].value = found.reward_points;
         Element.children[4].children[1].value = found.reward_color.background;
         Element.children[7].children[1].children[0].value = found.reward_cooldown || "";
-        Element.children[9].children[1].children[0].value = found.per_stream || "";
-        Element.children[12].children[1].children[0].value = found.reward_folder == undefined || found.reward_folder.length == 0 ? "" : found.reward_folder || "";
+        Element.children[8].children[1].children[0].value = found.per_stream || "";
+        Element.children[9].children[1].children[0].value = found.reward_folder == undefined || found.reward_folder.length == 0 ? "" : found.reward_folder || "";
+        Element.children[12].children[1].children[0].value = found.reward_action_chat_message == null ? "" : found.reward_action_chat_message;
         Element.children[14].children[1].children[0].value = found.reward_action_id == null ? "" : found.reward_action_id;
         Element.children[15].children[0].dataset.id = found.reward_id;
         Element.children[15].children[1].dataset.id = found.reward_id;
@@ -165,8 +167,9 @@ function Edit(id) {
     Element.children[3].children[1].value = found.reward_points;
     Element.children[4].children[1].value = found.reward_color.background;
     Element.children[7].children[1].children[0].value = found.reward_cooldown || "";
-    Element.children[9].children[1].children[0].value = found.per_stream || "";
-    Element.children[12].children[1].children[0].value = found.reward_folder == undefined || found.reward_folder.length == 0 ? "" : found.reward_folder || "";
+    Element.children[8].children[1].children[0].value = found.per_stream || "";
+    Element.children[9].children[1].children[0].value = found.reward_folder == undefined || found.reward_folder.length == 0 ? "" : found.reward_folder || "";
+    Element.children[12].children[1].children[0].value = found.reward_action_chat_message == null ? "" : found.reward_action_chat_message;
     Element.children[14].children[1].children[0].value = found.reward_action_id == null ? "" : found.reward_action_id;
     Element.children[15].children[0].dataset.id = id;
     Element.children[15].children[1].dataset.id = id;
@@ -180,7 +183,8 @@ function EditSave(element) {
         folder: null,
         color: null,
         cooldown: null,
-        per_stream: null
+        per_stream: null,
+        chat_message: null
     };
     let Element = document.getElementById("Reward_modal").children[0];
     data.id = element.dataset.id;
@@ -194,10 +198,11 @@ function EditSave(element) {
     }
     data.name = Element.children[2].children[1].value;
     data.points = Element.children[3].children[1].value;
-    data.folder = Element.children[12].children[1].children[0].value;
+    data.folder = Element.children[9].children[1].children[0].value;
     data.color = Element.children[4].children[1].value;
     data.cooldown = Element.children[7].children[1].children[0].value;
-    data.per_stream = Element.children[9].children[1].children[0].value;
+    data.per_stream = Element.children[8].children[1].children[0].value;
+    data.chat_message = Element.children[12].children[1].children[0].value;
     UpdateSend("/post/update/rewards/edit", data);
     document.getElementById("create-btn").classList.remove("hidden");
     created = false;
@@ -231,10 +236,13 @@ function activechange(element) {
 }
 function ClearRewardModalValues() {
     let Element = document.getElementById("Reward_modal").children[0];
+    if (!Element) return;
+    console.log(Element.children[10]);
     Element.children[2].children[1].value = "";
     Element.children[3].children[1].value = "";
     Element.children[4].children[1].value = "#c9574e";
     Element.children[7].children[1].children[0].value = "";
+    Element.children[8].children[1].children[0].value = "";
     Element.children[9].children[1].children[0].value = "";
     Element.children[12].children[1].children[0].value = "";
     Element.children[14].children[1].children[0].value = "";
