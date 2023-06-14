@@ -32,7 +32,7 @@ module.exports = {
                 secondaryhover: "",
                 accent: "#1C1D21", //prev accent
                 accenthover: "",
-                input: "#1d1d20", 
+                input: "#141416", 
                 text: "",
             }
         }

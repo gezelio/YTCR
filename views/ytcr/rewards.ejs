@@ -140,6 +140,76 @@
                         </form>
                     </dialog>
                 </div>
+                <div id="reward builder" class="container grid grid-cols-2 gap-4 bg-accent rounded-lg shadow-lg py-3 px-6">
+                    <div class="col-span-full">
+                        <h1 class="font-bold text-2xl">Reward Builder</h1>
+                    </div>
+                    <h1 class="col-span-full font-bold">Basics</h1>
+                    <div class="col-span-full">
+                        <label class="block text-sm font-bold mb-2" for="reward_name">Reward Name *</label>
+                        <input class="input bg-input border-0 w-full" type="text" name="name" placeholder="My Reward" value="" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" for="reward_name">
+                            <i class="fa-solid fa-coins mr-2"></i>
+                            Cost *
+                        </label>
+                        <input class="input bg-input disabled:bg-transparent border-0 w-full" type="number" name="points" placeholder="100" min="0" value="" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" for="reward_name">
+                            <i class="fa-solid fa-paint-brush mr-2"></i>
+                            Background Color *
+                        </label>
+                        <input class="input bg-input disabled:bg-transparent border-0 w-full rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}" required />
+                    </div>
+                    <div class="divider col-span-full"></div>
+                    <h1 class="col-span-full font-bold">Cooldowns and limits</h1>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" for="reward_name">
+                            <i class="fa-solid fa-clock-rotate-left mr-2"></i>
+                            Cooldown
+                        </label>
+                        <div class="flex items-center">
+                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="cooldown" placeholder="0" min="0" value="${reward.reward_cooldown}" />
+                            <span class="ml-2">seconds</span>
+                        </div>
+                    </div>
+                    <div id="blank-for-spacing"></div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" for="reward_name">
+                            <i class="fa-solid fa-hashtag mr-2"></i>
+                            Per Stream
+                        </label>
+                        <div class="flex items-center">
+                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="per_stream" placeholder="0" min="0" value="${reward.per_stream}" />
+                            <span class="ml-2">redeems per stream</span>
+                        </div>
+                    </div>
+                    <div class="divider col-span-full"></div>
+                    <h1 class="col-span-full font-bold">Advanced Settings</h1>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" for="reward_name">
+                            <i class="fa-solid fa-folder mr-2"></i>
+                            Folder
+                        </label>
+                        <div class="flex items-center"><input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="Folder Name" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"></div>
+                    </div>
+                    <div id="blank-for-spacing"></div>
+                    <div>
+                        <label class="block text-sm font-bold mb-2" for="reward_name">
+                            <i class="fa-solid fa-robot mr-2"></i>
+                            StreamerBot Action
+                        </label>
+                        <div class="flex items-center">
+                            <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="Action-ID" />
+                        </div>
+                    </div>
+                    <div class="col-span-full">
+                        <button class="btn">Save</button>
+                        <button class="btn">Cancel</button>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
