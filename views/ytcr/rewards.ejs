@@ -121,7 +121,7 @@
                     </dialog>
                 </div>
                 <dialog id="Reward_modal" class="modal">
-                    <div class="modal-box w-11/12 max-w-5xl grid grid-cols-2 gap-4 bg-accent rounded-lg shadow-lg py-3 px-6">
+                    <div class="modal-box w-11/12 max-w-5xl grid grid-cols-2 gap-9 bg-accent rounded-lg shadow-lg py-3 px-6">
                         <div class="col-span-full">
                             <h1 class="font-bold text-2xl">Reward Builder</h1>
                         </div>
@@ -145,7 +145,7 @@
                             <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}" required />
                         </div>
                         <div class="divider col-span-full"></div>
-                        <h1 class="col-span-full font-bold">Cooldowns and limits</h1>
+                        <h1 class="col-span-full font-bold">Advanced Settings</h1>
                         <div>
                             <label class="block text-sm font-bold mb-2" for="reward_name">
                                 <i class="fa-solid fa-clock-rotate-left mr-2"></i>
@@ -158,11 +158,10 @@
                                 <span class="ml-2">seconds</span>
                             </div>
                         </div>
-                        <div id="blank-for-spacing"></div>
                         <div>
                             <label class="block text-sm font-bold mb-2" for="reward_name">
                                 <i class="fa-solid fa-hashtag mr-2"></i>
-                                <span>Per Stream</span>
+                                <span>Limit Number Of Redeems</span>
                                 <br />
                                 <span class="text-xs text-offtext font-normal">
                                     Limit the amount of times this reward can be redeemed per stream.
@@ -174,8 +173,6 @@
                                 <span class="ml-2">redeems per stream</span>
                             </div>
                         </div>
-                        <div class="divider col-span-full"></div>
-                        <h1 class="col-span-full font-bold">Advanced Settings</h1>
                         <div>
                             <label class="block text-sm font-bold mb-2" for="reward_name">
                                 <i class="fa-solid fa-folder mr-2"></i>
@@ -184,6 +181,23 @@
                                 <span class="text-xs text-offtext font-normal">This can be left blank if you don't wish to place the reward inside a folder</span>
                             </label>
                             <div class="flex items-center"><input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="Folder Name" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"></div>
+                        </div>
+                        <div class="divider col-span-full"></div>
+                        <h1 class="col-span-full font-bold">Advanced Settings</h1>
+                        <div>
+                            <label class="block text-sm font-bold mb-2" for="reward_name">
+                                <i class="fa-solid fa-message mr-2"></i>
+                                <span>Message Response</span>
+                                <br />
+                                <span class="text-xs text-offtext font-normal">
+                                    This will send an additional message as your YouTube user into the chat. This can be used for additional information or to trigger a command from another tool such as MixItUp or SAMMI.
+                                    <br />
+                                    <a class="font-bold underline" href="/action-id">Click here learn more</a>
+                                </span>
+                            </label>
+                            <div class="flex items-center">
+                                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="!patmyhead" />
+                            </div>
                         </div>
                         <div id="blank-for-spacing"></div>
                         <div>
