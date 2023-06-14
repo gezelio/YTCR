@@ -12,6 +12,10 @@ app.get("/get-started", (req, res) => {
     res.render(path.resolve("./views/ytcr/ytcr-docs/help/get-started.ejs"));
 });
 
+app.get("/action-id", (req, res) => {
+    res.render(path.resolve("./views/ytcr/ytcr-docs/help/acionid.ejs"));
+});
+
 app.get("/get/dashboard/data", functions.LoggedIn, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
     data.user == {};
