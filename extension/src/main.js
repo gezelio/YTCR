@@ -124,6 +124,7 @@ async function ytcr_prompt(reward_id, channel_id, user_id, username, points_to_r
             }, secondsToMilliseconds(cooldown));
             Fetch.ClaimRewards(reward_id, channel_id, user_id, username, points_to_redeem, reward_info, update_cr_points_callback);
             document.getElementById("YTCRDropdown").classList.toggle("hidden");
+            get_channel_reawrds();
         };
         prompt_button_close.onclick = () => {
             document.getElementById("live-chat-message-input").style.display = "block";
