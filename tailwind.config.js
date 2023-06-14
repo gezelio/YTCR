@@ -33,7 +33,7 @@ module.exports = {
                 accent: "#1C1D21", //prev accent
                 accenthover: "",
                 input: "#141416", 
-                text: "",
+                offtext: "#9B9B9B",
             }
         }
     },
