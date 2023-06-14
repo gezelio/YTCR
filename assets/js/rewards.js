@@ -76,23 +76,14 @@ function ShowData(data) {
         <tr id="reward_${reward.reward_id}">
             <td class="bg-accent">N/A</td>
             <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="name" placeholder="My Reward *" value="${reward.reward_name}"disabled></input>
+            ${reward.reward_name}
             </td>
             <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="points" placeholder="100 *" min="0" value="${reward.reward_points}"disabled></input>
+            ${reward.reward_points}
             </td>
             <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="Action-ID" value="${reward.reward_action_id == null ? "" : reward.reward_action_id}"disabled></input>
+                <div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background};"></div>
             </td>
-            <td class="bg-accent" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
-            <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="N/A" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"disabled></input>
-            </td>
-            <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}"disabled></input>
-            </td>
-            <td class="bg-accent">N/A</td>
-            <td class="bg-accent">N/A</td>
             <td class="bg-accent">N/A</td>
         </tr>
         `;
@@ -110,7 +101,7 @@ function ShowData(data) {
             ${reward.reward_points}
             </td>
             <td class="bg-accent">
-                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}"disabled></input>
+                <div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background};"></div>
             </td>
             <td class="bg-accent flex gap-2">
                 <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn text-white w-1/2">Edit</button>
