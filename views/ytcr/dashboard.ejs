@@ -36,130 +36,110 @@
         <script src="/assets/js/navbar.js" defer></script>
         <script src="/assets/js/connectionDiv.js" defer></script>
     </head>
-    <body>
-        <div class="flex justify-center w-full p-4">
+    <body class="relative h-screen">
+        <div class="flex justify-center w-full pt-4">
             <div id="main" class="">
-                <div class="divider"></div>
-                <!--  -->
-                <div id="options">
-                    <!--  -->
-                    <div class="collapse collapse-arrow bg-accent mb-2">
-                        <input type="radio" name="my-accordion-1" checked="checked" />
-                        <div class="collapse-title text-xl font-medium">YouTube Channel Rewards</div>
-                        <div class="collapse-content mx-4">
-                            <div class="grid grid-cols-2 gap-6 mx-4">
-                                <a href="/dashboard/rewards" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-solid fa-rocket p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Manage rewards</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Create and manage the rewards for your YouTube streams. Create folders, add functionality, the sky is the limit</p>
-                                </a>
-                                <a href="/dashboard/settings" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-solid fa-gear p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">General settings</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Adjust points per interval, clipping options and privacy control</p>
-                                </a>
-                                <a href="/additional" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-solid fa-filter p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Additional options</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Learn how to set up the OBS dock and other features</p>
-                                </a>
-                                <a href="/dashboard/select/youtube" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-brands fa-youtube p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Change channel</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Choose a different YouTube channel to YTCR</p>
-                                </a>
-                                <div class="col-span-full divider"></div>
-                                <h2 class="font-bold text-2xl mb-4 col-span-full">Set up</h2>
-                                <a href="/get-started" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group col-span-full">
-                                    <div class="flex justify-between">
-                                        <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-solid fa-question p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">New around here? Follow the setup guide</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Click here to follow the guide on setting up StreamerBot to ensure you're all connected, if you haven't done so already!</p>
-                                </a>
-                                <div class="col-span-full divider"></div>
-                                <h2 class="font-bold text-2xl mb-4 col-span-full">Quick links</h2>
-                                <a href="https://gezel.io/discord" class="bg-discord2 hover:bg-discord hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group col-span-2">
-                                    <div class="flex justify-between">
-                                        <div class="bg-discord group-hover:bg-discord2 p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-brands fa-discord p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Join our Discord</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Have a suggestion or need help? Join our welcoming community!</p>
-                                </a>
-                                <a href="https://github.com/gezelio/ytcr" class="bg-[#0d1117] hover:bg-[#14181e] hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <div class="bg-[#14181e] group-hover:bg-[#0d1117] p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-brands fa-github p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Open source</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">Consider contributing to YTCR! If you're a developer, we'd love your help! You can contribute your code via GitHub</p>
-                                </a>
-                                <a href="https://ko-fi.com/gezel" class="bg-[#2087b1] hover:bg-[#29abe0] hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <div class="bg-[#29abe0] group-hover:bg-[#2087b1] p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
-                                            <i class="fa-solid fa-coins p-2 rounded-full transition duration-200 ease-in-out"></i>
-                                        </div>
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Buy us a coffee</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm">YTCR is a free and open source project, and pay for server costs out of pocket for the YouTube streaming community. We ask for nothing in return, but do have an option to buy us a coffee or two if you feel like it</p>
-                                </a>
+                <div class="grid grid-cols-2 gap-6 bg-accent p-9">
+                    <a href="/dashboard/rewards" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-solid fa-rocket p-2 rounded-full transition duration-200 ease-in-out"></i>
                             </div>
                         </div>
-                    </div>
-                    <div class="collapse collapse-arrow bg-accent mb-2">
-                        <input type="radio" name="my-accordion-1" />
-                        <div class="collapse-title text-xl font-medium">Other tools by Gezel</div>
-                        <div class="collapse-content">
-                            <h3 class="font-bold mb-4">We offer a lot more than YTCR. Check out our other free tools below</h3>
-                            <div class="grid grid-cols-2 gap-6 mx-4">
-                                <a href="/additional" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <img src="https://s6.imgcdn.dev/vjVet.webp" class="w-40" />
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">Mystl.ink</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm col-span-2">
-                                        <span class="font-bold">Streamline your online presence with the most effective link hub</span>
-                                        <br />
-                                        <br />
-                                        Allow your fans and community to find every relevant link at ease. Help guide them with the power of Mystlink.
-                                    </p>
-                                </a>
-                                <a href="/additional" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
-                                    <div class="flex justify-between">
-                                        <img src="https://s6.imgcdn.dev/vjWaD.png" class="w-40" />
-                                    </div>
-                                    <h1 class="text-white font-bold text-lg">GezelBot</h1>
-                                    <p class="text-off_text mt-2 mb-4 text-sm col-span-2">
-                                        <span class="font-bold">Maximize your Discord experience with the ultimate bot for content creators and communities</span>
-                                        <br />
-                                        <br />
-                                        Power up your Discord server with unlimited YouTube and Twitch livestream notifications, Mastodon and RSS feeds, welcome messages, auto roles, embedding tools, and so much more
-                                    </p>
-                                </a>
+                        <h1 class="text-white font-bold text-lg">Manage rewards</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Create and manage the rewards for your YouTube streams. Create folders, add functionality, the sky is the limit</p>
+                    </a>
+                    <a href="/dashboard/settings" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-solid fa-gear p-2 rounded-full transition duration-200 ease-in-out"></i>
                             </div>
                         </div>
-                    </div>
+                        <h1 class="text-white font-bold text-lg">General settings</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Adjust points per interval, clipping options and privacy control</p>
+                    </a>
+                    <a href="/additional" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-solid fa-filter p-2 rounded-full transition duration-200 ease-in-out"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-white font-bold text-lg">Additional options</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Learn how to set up the OBS dock and other features</p>
+                    </a>
+                    <a href="/dashboard/select/youtube" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-brands fa-youtube p-2 rounded-full transition duration-200 ease-in-out"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-white font-bold text-lg">Change channel</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Choose a different YouTube channel to YTCR</p>
+                    </a>
+                    <div class="col-span-full divider"></div>
+                    <h2 class="font-bold text-2xl mb-4 col-span-full">Set up</h2>
+                    <a href="/get-started" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group col-span-full">
+                        <div class="flex justify-between">
+                            <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-solid fa-question p-2 rounded-full transition duration-200 ease-in-out"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-white font-bold text-lg">New around here? Follow the setup guide</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Click here to follow the guide on setting up StreamerBot to ensure you're all connected, if you haven't done so already!</p>
+                    </a>
+                    <div class="col-span-full divider"></div>
+                    <h2 class="font-bold text-2xl mb-4 col-span-full">Quick links</h2>
+                    <a href="https://gezel.io/discord" class="bg-discord2 hover:bg-discord hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group col-span-2">
+                        <div class="flex justify-between">
+                            <div class="bg-discord group-hover:bg-discord2 p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-brands fa-discord p-2 rounded-full transition duration-200 ease-in-out"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-white font-bold text-lg">Join our Discord</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Have a suggestion or need help? Join our welcoming community!</p>
+                    </a>
+                    <a href="https://github.com/gezelio/ytcr" class="bg-[#0d1117] hover:bg-[#14181e] hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <div class="bg-[#14181e] group-hover:bg-[#0d1117] p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-brands fa-github p-2 rounded-full transition duration-200 ease-in-out"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-white font-bold text-lg">Open source</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">Consider contributing to YTCR! If you're a developer, we'd love your help! You can contribute your code via GitHub</p>
+                    </a>
+                    <a href="https://ko-fi.com/gezel" class="bg-[#2087b1] hover:bg-[#29abe0] hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <div class="bg-[#29abe0] group-hover:bg-[#2087b1] p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
+                                <i class="fa-solid fa-coins p-2 rounded-full transition duration-200 ease-in-out"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-white font-bold text-lg">Buy us a coffee</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm">YTCR is a free and open source project, and pay for server costs out of pocket for the YouTube streaming community. We ask for nothing in return, but do have an option to buy us a coffee or two if you feel like it</p>
+                    </a>
+                    <a href="/additional" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <img src="https://s6.imgcdn.dev/vjVet.webp" class="w-40" />
+                        </div>
+                        <h1 class="text-white font-bold text-lg">Mystl.ink</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm col-span-2">
+                            <span class="font-bold">Streamline your online presence with the most effective link hub</span>
+                            <br />
+                            <br />
+                            Allow your fans and community to find every relevant link at ease. Help guide them with the power of Mystlink.
+                        </p>
+                    </a>
+                    <a href="/additional" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group">
+                        <div class="flex justify-between">
+                            <img src="https://s6.imgcdn.dev/vjWaD.png" class="w-40" />
+                        </div>
+                        <h1 class="text-white font-bold text-lg">GezelBot</h1>
+                        <p class="text-off_text mt-2 mb-4 text-sm col-span-2">
+                            <span class="font-bold">Maximize your Discord experience with the ultimate bot for content creators and communities</span>
+                            <br />
+                            <br />
+                            Power up your Discord server with unlimited YouTube and Twitch livestream notifications, Mastodon and RSS feeds, welcome messages, auto roles, embedding tools, and so much more
+                        </p>
+                    </a>
                 </div>
             </div>
         </div>
