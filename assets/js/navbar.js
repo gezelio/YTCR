@@ -1,27 +1,34 @@
 var nav_links = [
     {
         id: 0,
+        name: "Dashboard",
+        link: "/dashboard",
+        disabled: false,
+        current: false
+    },
+    {
+        id: 1,
         name: "Settings",
         link: "/dashboard/settings",
         disabled: false,
         current: false
     },
     {
-        id: 1,
+        id: 2,
         name: "Rewards",
         link: "/dashboard/rewards",
         disabled: false,
         current: false
     },
     {
-        id: 2,
+        id: 3,
         name: "Change Channel",
         link: "/dashboard/select/youtube",
         disabled: false,
         current: false
     },
     {
-        id: 3,
+        id: 4,
         name: "Staff Panel",
         link: "/dashboard/staff",
         disabled: false,
