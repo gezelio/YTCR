@@ -92,7 +92,7 @@ sortByPointsBtn.addEventListener("click", () => {
     sortByPointsBtn.innerHTML = `Sort (${pointsSortOrder === "asc" ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>'})`;
     document.getElementById("users").innerHTML = "";
     users.forEach(function (element, index) {
-        if (!parseInt(element.points)) {
+        if (isNaN(element.points)) {
             points = `<i class="fa-solid fa-infinity"></i>`;
         } else {
             points = element.points;

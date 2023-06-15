@@ -2,7 +2,7 @@ var nav_links = [
     {
         id: 0,
         name: "Settings",
-        link: "/dashboard",
+        link: "/dashboard/settings",
         disabled: false,
         current: false
     },
@@ -10,13 +10,6 @@ var nav_links = [
         id: 1,
         name: "Rewards",
         link: "/dashboard/rewards",
-        disabled: false,
-        current: false
-    },
-    {
-        id: 1,
-        name: "Additional Settings",
-        link: "/additional",
         disabled: false,
         current: false
     },

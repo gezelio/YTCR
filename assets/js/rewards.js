@@ -3,6 +3,7 @@ var edit = {
     edit: false,
     id: null
 };
+var created = false;
 RefreshData();
 function RefreshData() {
     fetch("/get/dashboard/data", {
@@ -21,6 +22,7 @@ function RefreshData() {
             }
         })
         .catch(function (error) {
+            console.error("error: ", error);
             loggingPerm({ "error RefreshData": error });
             $("#toast-container-fail").fadeIn(400, function () {
                 $(this).delay(5000).fadeOut(400);
@@ -64,6 +66,7 @@ function UpdateSend(url, data) {
         });
 }
 function ShowData(data) {
+    ClearRewardModalValues();
     edit = {
         edit: false,
         id: null
@@ -73,21 +76,15 @@ function ShowData(data) {
     data.rewards.map(function (reward) {
         document.getElementById("reward-table").innerHTML += `
         <tr id="reward_${reward.reward_id}">
+            <td class="bg-accent">N/A</td>
             <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="name" placeholder="My Reward *" value="${reward.reward_name}"disabled></input>
+            ${reward.reward_name}
             </td>
             <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="points" placeholder="100 *" min="0" value="${reward.reward_points}"disabled></input>
+            ${reward.reward_points}
             </td>
             <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="Action-ID" value="${reward.reward_action_id == null ? "" : reward.reward_action_id}"disabled></input>
-            </td>
-            <td class="bg-accent" data-tippy-content="This reward was built in StreamerBot and you would need to modify the action from there" >StreamerBot</td>
-            <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="N/A" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"disabled></input>
-            </td>
-            <td class="bg-accent">
-                <input class="input disabled:bg-transparent border-0 w-full max-w-xs" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}"disabled></input>
+                <div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background};"></div>
             </td>
             <td class="bg-accent">N/A</td>
         </tr>
@@ -97,26 +94,20 @@ function ShowData(data) {
         document.getElementById("reward-table").innerHTML += `
         <tr id="reward_${reward.reward_id}">
             <td class="bg-accent">
-                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="name" placeholder="My Reward *" value="${reward.reward_name}"disabled></input>
+                <input class="toggle toggle-success bg-red-500 border-0" type="checkbox" name="active" placeholder="" data-id="${reward.reward_id}" ${reward.active == undefined ? "checked" : "" || reward.active ? "checked" : ""} onchange="activechange(this)" ></input>
             </td>
             <td class="bg-accent">
-                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="number" name="points" placeholder="100 *" min="0" value="${reward.reward_points}"disabled></input>
+            ${reward.reward_name}
             </td>
             <td class="bg-accent">
-                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="Action-ID" placeholder="Action-ID" value="${reward.reward_action_id == null ? "" : reward.reward_action_id}"disabled></input>
-            </td>
-            <td class="bg-accent">YTCR</td>
-            <td class="bg-accent">
-                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="Folder Name" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"disabled></input>
+            ${reward.reward_points}
             </td>
             <td class="bg-accent">
-                <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}"disabled></input>
+                <div class="rounded-full w-9 h-9" style="background:${reward?.reward_color?.background};"></div>
             </td>
             <td class="bg-accent flex gap-2">
-                <button onclick="Edit(this)" class="bg-green-500 btn text-white w-1/2">Edit</button>
+                <button onclick="Edit('${reward.reward_id}')" class="bg-green-500 btn text-white w-1/2">Edit</button>
                 <button onclick="DeleteReward('${reward.reward_id}')" class="bg-red-500 btn text-white w-1/2"><i class="fa-solid fa-trash-can"></i></button>
-                <button onclick="EditSave(this)" data-id="${reward.reward_id}" class="hidden bg-green-500 btn text-white w-1/2">Save</button>
-                <button onclick="Cancel()" data-id="${reward.reward_id}" class="hidden bg-input btn text-white w-1/2">Cancel</button>
             </td>
         </tr>
         `;
@@ -146,34 +137,42 @@ function Create() {
         points: "",
         action_id: "",
         folder: "",
-        color: "#c9574e"
+        color: "#c9574e",
+        active: true
     });
     setTimeout(() => {
-        let Element = document.getElementById("reward-table").children[document.getElementById("reward-table").children.length - 1];
-        Array.from(Element.children).forEach(function (childElement, length) {
-            if (!childElement.children[0]) return;
-            childElement.children[0].disabled = false;
-            if (length == 6) {
-                childElement.children[0].classList.add("hidden");
-                childElement.children[1].classList.add("hidden");
-                childElement.children[2].classList.remove("hidden");
-                childElement.children[3].classList.remove("hidden");
-            }
-        });
+        Reward_modal.showModal();
+        found = Data.user_rewards[Data.user_rewards.length - 1];
+        if (!found) return;
+        let Element = document.getElementById("Reward_modal").children[0];
+        Element.children[2].children[1].value = found.reward_name;
+        Element.children[3].children[1].value = found.reward_points;
+        Element.children[4].children[1].value = found.reward_color.background;
+        Element.children[7].children[1].children[0].value = found.reward_cooldown || "";
+        Element.children[8].children[1].children[0].value = found.per_stream || "";
+        Element.children[9].children[1].children[0].value = found.reward_folder == undefined || found.reward_folder.length == 0 ? "" : found.reward_folder || "";
+        Element.children[12].children[1].children[0].value = found.reward_action_chat_message == null ? "" : found.reward_action_chat_message;
+        Element.children[14].children[1].children[0].value = found.reward_action_id == null ? "" : found.reward_action_id;
+        Element.children[15].children[0].dataset.id = found.reward_id;
+        Element.children[15].children[1].dataset.id = found.reward_id;
     }, 1000);
-    document.getElementById("create-btn").classList.add("hidden");
+    created = true;
 }
-function Edit(element) {
-    let Element = element.parentElement;
-    Element.children[0].classList.add("hidden");
-    Element.children[1].classList.add("hidden");
-    Element.children[2].classList.remove("hidden");
-    Element.children[3].classList.remove("hidden");
-    Array.from(Element.parentElement.children).forEach((childElement) => {
-        if (!childElement.children[0]) return;
-        childElement.children[0].disabled = false;
-    });
-    document.getElementById("create-btn").classList.add("hidden");
+function Edit(id) {
+    Reward_modal.showModal();
+    found = Data.user_rewards.find((e) => e.reward_id == id);
+    if (!found) return;
+    let Element = document.getElementById("Reward_modal").children[0];
+    Element.children[2].children[1].value = found.reward_name;
+    Element.children[3].children[1].value = found.reward_points;
+    Element.children[4].children[1].value = found.reward_color.background;
+    Element.children[7].children[1].children[0].value = found.reward_cooldown || "";
+    Element.children[8].children[1].children[0].value = found.per_stream || "";
+    Element.children[9].children[1].children[0].value = found.reward_folder == undefined || found.reward_folder.length == 0 ? "" : found.reward_folder || "";
+    Element.children[12].children[1].children[0].value = found.reward_action_chat_message == null ? "" : found.reward_action_chat_message;
+    Element.children[14].children[1].children[0].value = found.reward_action_id == null ? "" : found.reward_action_id;
+    Element.children[15].children[0].dataset.id = id;
+    Element.children[15].children[1].dataset.id = id;
 }
 function EditSave(element) {
     data = {
@@ -182,48 +181,71 @@ function EditSave(element) {
         points: null,
         action_id: null,
         folder: null,
-        color: null
+        color: null,
+        cooldown: null,
+        per_stream: null,
+        chat_message: null
     };
-    let Element = element.parentElement;
+    let Element = document.getElementById("Reward_modal").children[0];
     data.id = element.dataset.id;
-    Array.from(Element.parentElement.children).forEach((childElement) => {
-        if (!childElement.children[0]) return;
-        if (childElement.children[0].name == "Action-ID") {
-            if (!CheckActionID(childElement.children[0].value)) {
-                $("#toast-container-fail-message").html(`Error Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>`);
-                return $("#toast-container-fail").fadeIn(400, function () {
-                    $(this).delay(5000).fadeOut(400);
-                });
-            } else {
-                data.action_id = childElement.children[0].value;
-            }
-        }
-        if (childElement.children[0].name == "name") {
-            data.name = childElement.children[0].value;
-        }
-        if (childElement.children[0].name == "points") {
-            data.points = childElement.children[0].value;
-        }
-        if (childElement.children[0].name == "folder") {
-            data.folder = childElement.children[0].value;
-        }
-        if (childElement.children[0].name == "color") {
-            data.color = childElement.children[0].value;
-        }
-    });
+    if (!CheckActionID(Element.children[14].children[1].children[0].value)) {
+        $("#toast-container-fail-message").html(`Error Only required if you want this reward to a StreamerBot action. To connect an action, right click on the action on StreamerBot and click <span class='font-bold underline'>Copy Action Id</span>`);
+        return $("#toast-container-fail").fadeIn(400, function () {
+            $(this).delay(5000).fadeOut(400);
+        });
+    } else {
+        data.action_id = Element.children[14].children[1].children[0].value;
+    }
+    data.name = Element.children[2].children[1].value;
+    data.points = Element.children[3].children[1].value;
+    data.folder = Element.children[9].children[1].children[0].value;
+    data.color = Element.children[4].children[1].value;
+    data.cooldown = Element.children[7].children[1].children[0].value;
+    data.per_stream = Element.children[8].children[1].children[0].value;
+    data.chat_message = Element.children[12].children[1].children[0].value;
     UpdateSend("/post/update/rewards/edit", data);
     document.getElementById("create-btn").classList.remove("hidden");
+    created = false;
 }
 function DeleteSend(data) {
     UpdateSend("/post/update/rewards/delete", {
         id: data.dataset.id
     });
+    document.getElementById("create-btn").classList.remove("hidden");
 }
 function DeleteReward(id) {
     delete_reward.showModal();
     document.getElementById("DeleteButton").dataset.id = id;
 }
-function Cancel() {
+function Cancel(element) {
+    if (created) {
+        UpdateSend("/post/update/rewards/delete", {
+            id: element.dataset.id
+        });
+        created = false;
+        return;
+    }
     document.getElementById("create-btn").classList.remove("hidden");
     RefreshData();
+}
+function activechange(element) {
+    UpdateSend("/post/update/rewards/active", {
+        id: element.dataset.id,
+        active: element.checked
+    });
+}
+function ClearRewardModalValues() {
+    let Element = document.getElementById("Reward_modal").children[0];
+    if (!Element) return;
+    console.log(Element.children[10]);
+    Element.children[2].children[1].value = "";
+    Element.children[3].children[1].value = "";
+    Element.children[4].children[1].value = "#c9574e";
+    Element.children[7].children[1].children[0].value = "";
+    Element.children[8].children[1].children[0].value = "";
+    Element.children[9].children[1].children[0].value = "";
+    Element.children[12].children[1].children[0].value = "";
+    Element.children[14].children[1].children[0].value = "";
+    Element.children[15].children[0].dataset.id = "";
+    Element.children[15].children[1].dataset.id = "";
 }

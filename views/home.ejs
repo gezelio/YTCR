@@ -2,6 +2,7 @@
 <html lang="en" class="dark bg-background text-white scroll-smooth">
     <head>
         <!-- <script src="/js/swiper.js" defer></script> -->
+        <script src="/assets/js/navbar_home.js" defer></script>
         <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -29,30 +30,19 @@
                 background: linear-gradient(90deg, main_grey 50%, off_white 100%);
             }
         </style>
-        <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     </head>
 
     <body>
-        <div id="nav" class="navbar sticky top-0 z-50 bg-primary hover:bg-nav_bg">
-            <div class="navbar-start">
-                <a href="/#home" class="btn btn-ghost normal-case text-white text-xl">YTCR</a>
-            </div>
-            <div class="navbar-end gap-3">
-                <a href="https://gezel.io/download" class="btn bg-neutral-500 hover:bg-neutral-700 border-0 text-white font-bold"><i class="fa-brands fa-chrome"></i></a>
-                <a href="https://gezel.io/discord" class="btn bg-discord hover:bg-discord2 border-0 text-white font-bold"><i class="fa-brands fa-discord"></i></a>
-                <a href="https://github.com/gezelio/ytcr" class="btn bg-accent hover:bg-background border-0 text-white font-bold"><i class="fa-brands fa-github"></i></a>
-                <a href="/creds/login" class="btn hover:bg-button2 border-0 text-white font-bold">Login</a>
-            </div>
-        </div>
         <div id="home" class="flex items-center justify-center text-center h-screen">
-            <div class="gap-4 mx-9 md:mx-24 lg:mx-72 xl:mx-80">
-                <h1 class="font-black leading-tight text-text text-6xl animate-jump animate-duration-500 animate-ease-in-out animate-normal animate-fill-both">Bring life to your YouTube streams</h1>
-                <h2 class="text-transparent text-2xl font-bold bg-clip-text bg-gradient-to-tr from-primary to-white animate-jump-in animate-duration-500 animate-delay-50 animate-ease-in-out animate-normal animate-fill-both">Interactive Channel Rewards</h2>
+            <div class="gap-4 mx-9 md:mx-24 lg:mx-72 xl:mx-80 relative">
+                <img id="logo" alt="YTCR Logo" src="https://s6.imgcdn.dev/vN81i.gif" class="mx-auto animate-jump-out animate-once animate-ease-in-out animate-alternate-reverse animate-fill-both w-52" />
+                <h1 class="font-black leading-tight text-text text-6xl animate-jump-out animate-once animate-delay-500 animate-ease-in-out animate-alternate-reverse animate-fill-both">Bring life to your YouTube streams</h1>
+                <h2 class="text-white bg-accent px-2 rounded-lg text-2xl font-bold animate-jump-out animate-once animate-delay-700 animate-ease-in-out animate-alternate-reverse animate-fill-both">Interactive Channel Rewards</h2>
                 <div class="grid sm:grid-cols-2 gap-4">
-                    <a href="#streamers" class="btn bg-primary mt-4 hover:bg-button2 border-0 text-white font-bold animate-jump-in animate-duration-500 animate-delay-200 animate-ease-in-out animate-normal animate-fill-both">Streamers</a>
-                    <a href="#viewers" class="btn bg-neutral-500 mt-4 hover:bg-secondary_hover border-0 text-white font-bold animate-jump-in animate-duration-500 animate-delay-300 animate-ease-in-out animate-normal animate-fill-both">Viewers</a>
+                    <a href="#streamers" class="btn bg-primary mt-4 hover:bg-button2 border-0 text-white font-bold animate-jump-in animate-duration-500 animate-delay-700 animate-ease-in-out animate-normal animate-fill-both">Streamers</a>
+                    <a href="#viewers" class="btn bg-neutral-500 mt-4 hover:bg-secondary_hover border-0 text-white font-bold animate-jump-in animate-duration-500 animate-delay-700 animate-ease-in-out animate-normal animate-fill-both">Viewers</a>
                 </div>
-                <p class="font-bold animate-jump-in animate-duration-500 animate-delay-50 animate-ease-in-out animate-normal animate-fill-both mt-3 text-sm">
+                <p class="font-bold animate-jump-out animate-once animate-delay-800 animate-ease-in-out animate-alternate-reverse animate-fill-both mt-3 text-sm">
                     Open source - contribute on
                     <a href="https://github.com/gezelio/ytcr" class="underline font-bold hover:text-primary">GitHub</a>
                 </p>

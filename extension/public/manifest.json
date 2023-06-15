@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "YouTube Channel Rewards",
-    "version": "2.0.1",
+    "version": "2.0.3",
     "description": "Unleash channel points on YouTube, just like how you do on Twitch with our powerful extension!",
     "background": {
         "service_worker": "background.js"
