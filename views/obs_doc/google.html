@@ -33,10 +33,15 @@
 
     <body>
         <div id="sign_in" class="flex flex-col h-screen justify-center items-center">
-            <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto">
+            <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto" />
             <h1 class="font-bold text-xl">Sign into YTCR</h1>
-            <btn class="btn rounded-md bg-primary hover:bg-primaryhover text-white border-0" onclick="window.open('/google/auth', 'mozillaWindow', 'popup')">Sign In</btn>
+            <btn class="btn rounded-md bg-primary hover:bg-primaryhover text-white border-0" onclick="openWindow()">Sign In</btn>
             <p class="text-xs text-offtext underline">Channel points will not function until you sign in</p>
         </div>
     </body>
 </html>
+<script>
+    function openWindow() {
+        window.location.href = "/google/auth";
+    }
+</script>

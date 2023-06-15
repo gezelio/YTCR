@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="dark bg-background text-white scroll-smooth">
     <head>
+        <script>
+            let channel_link = JSON.parse(`<%- JSON.stringify(channel_link) %>`);
+        </script>
         <!-- <script src="/js/swiper.js" defer></script> -->
         <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
@@ -31,11 +34,16 @@
         </style>
     </head>
 
-<body class="flex flex-col h-screen justify-center items-center">
-  <div class="text-center">
-    <h1 class="font-bold text-xl">Login Successful</h1>
-    <p>You can now close this window</p>
-    <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto">
-  </div>
-</body>
+    <body class="flex flex-col h-screen justify-center items-center">
+        <div class="text-center">
+            <h1 class="font-bold text-xl">Login Successful</h1>
+            <p>You are being redirected ...</p>
+            <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto" />
+        </div>
+    </body>
 </html>
+<script>
+    setTimeout(() => {
+        window.location.href = "/obs/u/" + channel_link;
+    }, 5000);
+</script>
