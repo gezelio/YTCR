@@ -85,6 +85,18 @@ const yt_extensionSchema = mongoose.Schema({
             default: true
         }
     },
+    google: {
+        token: {
+            type: Object,
+            unique: false,
+            default: {}
+        },
+        liveChatId: {
+            type: String,
+            unique: false,
+            default: ""
+        }
+    },
     users: {
         type: Array,
         required: false
