@@ -34,6 +34,7 @@ module.exports = {
                 accenthover: "",
                 input: "#141416", 
                 offtext: "#9B9B9B",
+                link: "#cf4f4f"
             }
         }
     },

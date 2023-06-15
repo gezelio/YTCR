@@ -15,6 +15,9 @@ app.get("/get-started", (req, res) => {
 app.get("/action-id", (req, res) => {
     res.render(path.resolve("./views/ytcr/ytcr-docs/help/actionid.ejs"));
 });
+app.get("/commands", (req, res) => {
+    res.render(path.resolve("./views/ytcr/ytcr-docs/help/chat-commands.ejs"));
+});
 
 app.get("/get/dashboard/data", functions.LoggedIn, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
