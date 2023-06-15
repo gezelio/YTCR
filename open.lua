@@ -1,33 +1,48 @@
--- Define the URL to open
-local url = "https://ytcr.gezel.io"
+obs = obslua
+ws = nil
 
--- Define the delay duration in seconds
-local delay_duration = 5
-
--- Detect the operating system to determine the browser command
-local os_name = string.lower(package.config:sub(1, 1)) == '\\' and 'windows' or 'unix'
-
--- Define the browser commands based on the operating system
-local browser_commands = {
-  windows = 'start "" "%s"',
-  unix = 'xdg-open "%s"'
-}
-
--- Get the browser command based on the operating system
-local browser_command = browser_commands[os_name]
-
--- Function to wait for a specific number of seconds
-local function delay(seconds)
-  local cmd = os_name == 'windows' and 'ping 127.0.0.1 -n ' .. seconds + 1 .. ' >nul' or 'sleep ' .. seconds
-  os.execute(cmd)
+function script_properties()
+    local props = obs.obs_properties_create()
+    obs.obs_properties_add_text(props, "url", "URL", obs.OBS_TEXT_DEFAULT)
+    return props
 end
 
--- Open OBS
-os.execute("obs-studio")
+function script_description()
+    return "Create and open a dock to the specified URL"
+end
 
--- Wait for the specified delay duration
-delay(delay_duration)
+function script_update(settings)
+    local url = obs.obs_data_get_string(settings, "url")
 
--- Open the URL in a new tab of the default browser
-local full_command = string.format(browser_command, url)
-os.execute(full_command)
+    if ws == nil then
+        ws = obs.obs_frontend_get_ws()
+    end
+
+    local source = obs.obs_get_source_by_name("BrowserDock")
+
+    if source == nil then
+        source = obs.obs_source_create_private("browser_source", "BrowserDock", nil)
+        obs.obs_source_set_defaults(source)
+        obs.obs_source_release(source)
+
+        local source_settings = obs.obs_source_get_settings(source)
+        obs.obs_data_set_string(source_settings, "url", url)
+        obs.obs_source_update(source, source_settings)
+        obs.obs_data_release(source_settings)
+
+        obs.obs_frontend_save_sources()
+    end
+
+    obs.obs_source_release(source)
+end
+
+function script_load(settings)
+    obs.obs_frontend_add_event_callback(function(event)
+        if event == obs.OBS_FRONTEND_EVENT_EXIT then
+            if ws ~= nil then
+                obs.obs_ws_dispose(ws)
+                ws = nil
+            end
+        end
+    end)
+end
