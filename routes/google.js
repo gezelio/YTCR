@@ -54,10 +54,11 @@ app.get("/google/callback", async (req, res) => {
                 channelId: JSON.parse(storedCredentials).channelId
             });
             const liveChatId = response.data.items[0].snippet.liveChatId;
+            dataBase.google.liveChatId = liveChatId;
+            req.session.user = dataBase;
             res.render(path.resolve("./views/obs_doc/google_auth.ejs"), {
                 channel_link: dataBase.channel_link
             });
-            dataBase.google.liveChatId = liveChatId;
         } catch (error) {
             console.error("Error retrieving liveChatId:", error);
             res.status(500).send("Error retrieving youtube data.");
