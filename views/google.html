@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>YouTube Channel Rewards</title>
-        <meta name="description" content="Your one stop link, for all your social profiles with MystLink" />
+        <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
         <!--Replace with your tailwind.css once created-->
@@ -32,8 +32,11 @@
     </head>
 
     <body>
-        <body>
-            <btn class="rounded-md bg-primary" onclick="window.open('/google/auth', 'mozillaWindow', 'popup')">Google login</btn>
-        </body>
+        <div id="sign_in" class="flex flex-col h-screen justify-center items-center">
+            <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto">
+            <h1 class="font-bold text-xl">Sign into YTCR</h1>
+            <btn class="btn rounded-md bg-primary hover:bg-primaryhover text-white border-0" onclick="window.open('/google/auth', 'mozillaWindow', 'popup')">Sign In</btn>
+            <p class="text-xs text-offtext underline">Channel points will not function until you sign in</p>
+        </div>
     </body>
 </html>
