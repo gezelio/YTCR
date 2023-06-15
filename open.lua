@@ -22,6 +22,9 @@ local function delay(seconds)
   os.execute(cmd)
 end
 
+-- Open OBS
+os.execute("obs-studio")
+
 -- Wait for the specified delay duration
 delay(delay_duration)
 
