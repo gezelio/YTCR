@@ -22,6 +22,8 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
+![downloads-shield]
+
 
 <!-- PROJECT LOGO -->
 <br />
@@ -243,6 +245,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [stars-shield]: https://img.shields.io/github/stars/gezelio/ytcr.svg?style=for-the-badge
 [stars-url]: https://github.com/gezelio/ytcr/stargazers
 [issues-shield]: https://img.shields.io/github/issues/gezelio/ytcr.svg?style=for-the-badge
+[issues-url]: https://github.com/gezelio/ytcr/issues
+[downloads-shield]: https://img.shields.io/github/downloads/gezelio/ytcr/latest/total.svg?style=for-the-badge
 [issues-url]: https://github.com/gezelio/ytcr/issues
 [license-shield]: https://img.shields.io/github/license/gezelio/ytcr.svg?style=for-the-badge
 [license-url]: https://github.com/gezelio/ytcr/blob/master/LICENSE.txt
