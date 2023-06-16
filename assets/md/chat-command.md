@@ -14,6 +14,13 @@ Below we'll go over how to set these up for each service.
 
 ## StreamerBot
 
+---
+**PLEASE NOTE**
+
+This is only if you don't wish to use the `Action ID` section. If you wish to use the `Action ID` instead of a chat command, please follow [this guide](/action-id)
+
+---
+
 1. Create the `action` you wish to be triggered on the reward event
 2. Navigate to `Commands` and right click to create a new command
 3. Inside the `Command(s)` box, please enter your desired command. For example, if you wanted to trigger a sound effect, you would enter `!soundeffect`
