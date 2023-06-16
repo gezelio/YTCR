@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html style="font-size: 16px">
     <head>
+        <script src="/assets/js/markdown.js"></script>
         <script src="/assets/js/logging.js"></script>
         <script>
             let user = JSON.parse(`<%- JSON.stringify(user) %>`);
@@ -20,7 +21,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Admin</title>
-        <meta name="description" content="Your one stop link, for all your social profiles with MystLink" />
+        <meta name="description" content="Level up your YouTube streams with the power of YouTube Channel Rewards" />
         <meta name="keywords" content="" />
         <meta name="author" content="" />
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
@@ -72,7 +73,7 @@
         <div class="justify-items-center grid grid-cols-1 gap-4 mt-[5.5rem]">
             <div class="container bg-[#2b3036] p-4 rounded-lg shadow-xl col-span-full">
                 <h1 class="font-black mb-2 text-center">Totals</h1>
-                <div class="grid lg:grid-cols-3 justify-center">
+                <div class="grid grid-cols-3 sm:grid-cols-4 justify-center">
                     <div class="tooltip" data-tip="Showcases the total amount of users">
                         <i class="fa-solid fa-circle text-white mr-2"></i>
                         Total users:
@@ -88,6 +89,11 @@
                         Active SB:
                         <span id="sbStats"></span>
                     </div>
+                </div>
+                <div>
+                    <h1 class="text-center mt-4">Download count of latest release</h1>
+
+                    <div style="text-align: -webkit-center" class="" id="md-github"></div>
                 </div>
             </div>
             <div id="main">
@@ -188,7 +194,7 @@
             <span><i data-tippy-content="Discord UserID" class="fa-brands fa-discord"></i> ${element.user.discord_user_id}</span>
         </div>
         <div class="UserCardDiv">
-            <a class="underline hover:text-primary" href="/dashboard/staff/rewards_and_users/${element.user.id}" target="_blank"><i data-tippy-content="Discord UserID" class="fa fa-award"></i>${parseInt(element.rewards.length)+parseInt(element.user_rewards.length)} Rewards</a>
+            <a class="underline hover:text-primary" href="/dashboard/staff/rewards_and_users/${element.user.id}" target="_blank"><i data-tippy-content="Discord UserID" class="fa fa-award"></i>${parseInt(element.rewards.length) + parseInt(element.user_rewards.length)} Rewards</a>
         </div>
     </div>
             `;
@@ -263,4 +269,9 @@
                 }
             });
     }
+</script>
+<script defer>
+    setTimeout(() => {
+        MarkDown("github", "md-github");
+    }, 200);
 </script>
