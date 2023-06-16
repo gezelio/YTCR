@@ -94,6 +94,7 @@ app.use(async (req, res, next) => {
 //ANCHOR - Server
 app.use("/", require("./routes/discord_auth"));
 app.use("/", require("./routes/files"));
+app.use("/", require("./routes/google"));
 app.use("/", require("./routes/get"));
 app.use("/dashboard", require("./routes/dashboard"));
 app.use("/", require("./routes/admin"));
@@ -202,6 +203,7 @@ app.post("/api/claim_rewards", async (req, res) => {
             if (data != null) {
                 let user_found_update = data.users.find((go) => go.user_id === req.body.user_id);
                 if (user_found_update !== undefined) {
+                    SendYoutubeMessage({ channel_id: req.query.channel_id, username: req.body.username, reward_name: req.body.reward_info.reward_name });
                     if (user_found_update.points == "%") {
                         res.send({
                             status: "success",
@@ -226,6 +228,9 @@ app.post("/api/claim_rewards", async (req, res) => {
                                         reward_action_chat_message: found.reward_action_chat_message
                                     })
                                 );
+                                setTimeout(() => {
+                                    SendYoutubeMessageCommand({ channel_id: req.query.channel_id, command: found.reward_action_chat_message });
+                                }, 1000);
                                 return;
                             }
                         }
@@ -308,6 +313,9 @@ app.post("/api/claim_rewards", async (req, res) => {
                                         reward_action_chat_message: found.reward_action_chat_message
                                     })
                                 );
+                                setTimeout(() => {
+                                    SendYoutubeMessageCommand({ channel_id: req.query.channel_id, command: found.reward_action_chat_message });
+                                }, 1000);
                                 return;
                             }
                         }
@@ -925,6 +933,7 @@ wss.on("close", function (error) {
 wss.on("listening", () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `wss is listening on ${port}`);
 });
+
 app.use(function (req, res, next) {
     res.status(404);
     // respond with html page
@@ -971,4 +980,56 @@ function hexToRgb(hex) {
 // Function to calculate the brightness of an RGB color
 function calculateBrightness(r, g, b) {
     return (r * 299 + g * 587 + b * 114) / 1000;
+}
+const { google } = require("googleapis");
+const auth = new google.auth.OAuth2(process.env.G_client_id, process.env.G_client_secret, process.env.D_redirect_url + "/google/callback");
+async function SendYoutubeMessage(info) {
+    try {
+        const dataBase = await DataBase.findOne({ channel_id: info.channel_id }).exec();
+        const dataBaseYTCR = await DataBase.findOne({ "user.id": process.env.Y_Uid }).exec();
+        auth.setCredentials(dataBaseYTCR.google.token);
+        const youtube = google.youtube({
+            version: "v3",
+            auth: auth
+        });
+        const response = await youtube.liveChatMessages.insert({
+            part: "snippet",
+            resource: {
+                snippet: {
+                    liveChatId: dataBase.google.liveChatId,
+                    type: "textMessageEvent",
+                    textMessageDetails: {
+                        messageText: `${info.username} has redeemed '${info.reward_name}'`
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Error sending message:", error);
+    }
+}
+async function SendYoutubeMessageCommand(info) {
+    try {
+        const dataBase = await DataBase.findOne({ channel_id: info.channel_id }).exec();
+        const dataBaseYTCR = await DataBase.findOne({ "user.id": process.env.Y_Uid }).exec();
+        auth.setCredentials(dataBaseYTCR.google.token);
+        const youtube = google.youtube({
+            version: "v3",
+            auth: auth
+        });
+        const response = await youtube.liveChatMessages.insert({
+            part: "snippet",
+            resource: {
+                snippet: {
+                    liveChatId: dataBase.google.liveChatId,
+                    type: "textMessageEvent",
+                    textMessageDetails: {
+                        messageText: `${info.command}`
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Error sending message:", error);
+    }
 }
