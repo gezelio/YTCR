@@ -122,11 +122,11 @@
                         </dialog>
                     </div>
                     <dialog id="Reward_modal" class="modal">
-                        <div class="modal-box w-11/12 max-w-5xl grid grid-cols-2 gap-9 bg-accent rounded-lg shadow-lg py-3 px-6">
+                        <div class="modal-box w-11/12 max-w-5xl grid grid-cols-2 gap-5 bg-accent rounded-lg shadow-lg py-3 px-6">
                             <div class="col-span-full">
                                 <h1 class="font-bold text-2xl">Reward Builder</h1>
                             </div>
-                            <h1 class="col-span-full font-bold">Basics</h1>
+                            <h1 class="col-span-full font-bold mb-4">Basics</h1>
                             <div class="col-span-full">
                                 <label class="block text-sm font-bold mb-2" for="reward_name">Reward Name *</label>
                                 <input class="input bg-input border-0 max-w-xs w-full" type="text" name="name" placeholder="My Reward" value="" required />
@@ -146,7 +146,7 @@
                                 <input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs rounded-xl" type="color" name="color" placeholder="Reward Color" value="${reward?.reward_color?.background}" required />
                             </div>
                             <div class="divider col-span-full"></div>
-                            <h1 class="col-span-full font-bold">Advanced Settings</h1>
+                            <h1 class="col-span-full font-bold mb-4">Advanced Settings</h1>
                             <div>
                                 <label class="block text-sm font-bold mb-2" for="reward_name">
                                     <i class="fa-solid fa-clock-rotate-left mr-2"></i>
@@ -184,7 +184,7 @@
                                 <div class="flex items-center"><input class="input bg-input disabled:bg-transparent border-0 w-full max-w-xs" type="text" name="folder" placeholder="Folder Name" value="${reward.reward_folder == undefined || reward.reward_folder.length == 0 ? "" : reward.reward_folder}"></div>
                             </div>
                             <div class="divider col-span-full"></div>
-                            <h1 class="col-span-full font-bold">Interactive Settings</h1>
+                            <h1 class="col-span-full font-bold mb-4">Interactive Settings</h1>
                             <div>
                                 <label class="block text-sm font-bold mb-2" for="reward_name">
                                     <i class="fa-solid fa-message mr-2"></i>
