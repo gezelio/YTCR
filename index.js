@@ -228,7 +228,9 @@ app.post("/api/claim_rewards", async (req, res) => {
                                         reward_action_chat_message: found.reward_action_chat_message
                                     })
                                 );
-                                SendYoutubeMessageCommand({ channel_id: req.query.channel_id, command: found.reward_action_chat_message });
+                                setTimeout(() => {
+                                    SendYoutubeMessageCommand({ channel_id: req.query.channel_id, command: found.reward_action_chat_message });
+                                }, 1000);
                                 return;
                             }
                         }
@@ -311,7 +313,9 @@ app.post("/api/claim_rewards", async (req, res) => {
                                         reward_action_chat_message: found.reward_action_chat_message
                                     })
                                 );
-                                SendYoutubeMessageCommand({ channel_id: req.query.channel_id, command: found.reward_action_chat_message });
+                                setTimeout(() => {
+                                    SendYoutubeMessageCommand({ channel_id: req.query.channel_id, command: found.reward_action_chat_message });
+                                }, 1000);
                                 return;
                             }
                         }
@@ -982,7 +986,8 @@ const auth = new google.auth.OAuth2(process.env.G_client_id, process.env.G_clien
 async function SendYoutubeMessage(info) {
     try {
         const dataBase = await DataBase.findOne({ channel_id: info.channel_id }).exec();
-        auth.setCredentials(dataBase.google.token);
+        const dataBaseYTCR = await DataBase.findOne({ "user.id": process.env.Y_Uid }).exec();
+        auth.setCredentials(dataBaseYTCR.google.token);
         const youtube = google.youtube({
             version: "v3",
             auth: auth
@@ -1006,7 +1011,8 @@ async function SendYoutubeMessage(info) {
 async function SendYoutubeMessageCommand(info) {
     try {
         const dataBase = await DataBase.findOne({ channel_id: info.channel_id }).exec();
-        auth.setCredentials(dataBase.google.token);
+        const dataBaseYTCR = await DataBase.findOne({ "user.id": process.env.Y_Uid }).exec();
+        auth.setCredentials(dataBaseYTCR.google.token);
         const youtube = google.youtube({
             version: "v3",
             auth: auth
