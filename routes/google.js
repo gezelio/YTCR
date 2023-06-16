@@ -6,6 +6,7 @@ var path = require("path");
 require("dotenv").config();
 const DataBase = require("../model/DataBase");
 const { google } = require("googleapis");
+const fetch = require("node-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const auth = new google.auth.OAuth2(process.env.G_client_id, process.env.G_client_secret, process.env.D_redirect_url + "/google/callback");
 const scopes = ["https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtube.force-ssl"];
