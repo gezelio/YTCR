@@ -9,7 +9,7 @@ const { google } = require("googleapis");
 const auth = new google.auth.OAuth2(process.env.G_client_id, process.env.G_client_secret, process.env.D_redirect_url + "/google/callback");
 const scopes = ["https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtube.force-ssl"];
 app.get("/google", (req, res) => {
-    res.sendFile(path.resolve("./views/obs_doc/google.html"));
+    res.sendFile(path.resolve("./views/obs_dock/google.html"));
 });
 app.get("/google/auth", (req, res) => {
     const authUrl = auth.generateAuthUrl({
@@ -56,7 +56,7 @@ app.get("/google/callback", async (req, res) => {
             const liveChatId = response.data.items[0].snippet.liveChatId;
             dataBase.google.liveChatId = liveChatId;
             req.session.user = dataBase;
-            res.render(path.resolve("./views/obs_doc/google_auth.ejs"), {
+            res.render(path.resolve("./views/obs_dock/google_auth.ejs"), {
                 channel_link: dataBase.channel_link
             });
         } catch (error) {

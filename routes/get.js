@@ -43,7 +43,7 @@ app.get("/api/u/points/:slug", async (req, res) => {
 app.get("/obs/u/:slug", async (req, res) => {
     const UserData = await DataBase.findOne({ channel_link: req.params.slug }).exec();
     if (UserData) {
-        res.render(path.resolve("./views/obs_doc/rewards.ejs"), {
+        res.render(path.resolve("./views/obs_dock/rewards.ejs"), {
             channel_link: UserData.channel_link
         });
     }
