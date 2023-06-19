@@ -18,6 +18,12 @@ app.get("/action-id", (req, res) => {
 app.get("/commands", (req, res) => {
     res.render(path.resolve("./views/ytcr/ytcr-docs/help/chat-commands.ejs"));
 });
+app.get("/beta/get-started", (req, res) => {
+    res.render(path.resolve("./views/ytcr/ytcr-docs/beta/get-started.ejs"));
+});
+app.get("/streamerbot/action-id", (req, res) => {
+    res.render(path.resolve("./views/ytcr/ytcr-docs/beta/streamerbot.ejs"));
+});
 
 app.get("/get/dashboard/data", functions.LoggedIn, async (req, res) => {
     const data = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
