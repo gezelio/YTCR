@@ -42,6 +42,7 @@ app.get("/google/callback", async (req, res) => {
         const channelId = channel.id;
         const storedCredentials = JSON.stringify({ token, channelId });
         const dataBase = await DataBase.findOne({ channel_id: channel.id }).exec();
+        if (!dataBase) return res.redirect("/");
         dataBase.google.token = JSON.parse(storedCredentials).token;
         dataBase.save();
         req.session.user = dataBase;
