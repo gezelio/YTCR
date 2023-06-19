@@ -1,11 +1,11 @@
 # StreamerBot Setup
+## Follow the below guide to get StreamerBot setup with YTCR
 
----
-**PLEASE NOTE**
+If you wish to connect to StreamerBot via websocket instead of messages, you can follow this guide to get it set up! 
 
 Ensure you've followed the [Get Started](/beta/get-started) guide before continuing.
 
----
+### Setting up StreamerBot
 
 1. Remove your existing YTCR actions from StreamerBot (if you have any) and import the beta version [from here]()
 2. Once imported, head over to the `Set Channel Rewards` action and double click `Set global "youtube_channel_id"`.
