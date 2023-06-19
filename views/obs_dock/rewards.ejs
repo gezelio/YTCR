@@ -59,62 +59,71 @@
         <div class="flex justify-center w-full pt-4">
             <div id="main" class="">
                 <div class="grid grid-cols-1 gap-4">
-                    <!-- top -->
-                    <div class="collapse collapse-arrow bg-accent">
-                        <input type="radio" name="my-accordion-2" checked="checked" />
-                        <div class="collapse-title text-2xl font-bold">Rewards</div>
-                        <div class="collapse-content mx-auto w-full">
-                            <div class="overflow-x-auto">
-                                <table class="table w-full text-xs">
-                                    <!-- head -->
-                                    <thead>
-                                        <tr class="text-white">
-                                            <th class="bg-primary">
-                                                Active
-                                                <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="Change the state of the reward if users can view and claim reward, etc"></i></span>
-                                            </th>
-                                            <th class="bg-primary">
-                                                Reward
-                                                <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="This is the name of your reward"></i></span>
-                                            </th>
-                                            <th class="bg-primary">
-                                                Cost
-                                                <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="Cost of your reward for a user to redeem"></i></span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="reward-table"></tbody>
-                                </table>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button">Rewards</button>
+                            </h2>
+                            <div class="accordion-panel">
+                                <div class="col-span-2 container bg-accent rounded-lg shadow-xl p-4 my-4">
+                                    <p class="mb-4">This currently only lists the rewards created from here, and not from StreamerBot</p>
+                                    <div class="mx-auto w-full">
+                                        <div class="overflow-x-auto">
+                                            <table class="table w-full text-xs">
+                                                <!-- head -->
+                                                <thead>
+                                                    <tr class="text-white">
+                                                        <th class="bg-primary">
+                                                            Active
+                                                            <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="Change the state of the reward if users can view and claim reward, etc"></i></span>
+                                                        </th>
+                                                        <th class="bg-primary">
+                                                            Reward
+                                                            <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="This is the name of your reward"></i></span>
+                                                        </th>
+                                                        <th class="bg-primary">
+                                                            Cost
+                                                            <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="Cost of your reward for a user to redeem"></i></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="reward-table"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button">User Points</button>
+                            </h2>
+                            <div class="accordion-panel">
+                                <div class="container bg-accent rounded-lg shadow-xl p-4 my-4">
+                                    <div class="mx-auto w-full">
+                                        <div class="overflow-x-auto">
+                                            <table class="table w-full text-xs">
+                                                <!-- head -->
+                                                <thead>
+                                                    <tr class="text-white">
+                                                        <th class="bg-primary" data-tippy-content="This is the name of the user">
+                                                            Name
+                                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                                        </th>
+                                                        <th class="bg-primary" data-tippy-content="Points of the user">
+                                                            Points
+                                                            <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="user-table"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- top -->
-                    <!-- bottom -->
-                    <div class="collapse collapse-arrow bg-accent">
-                        <input type="radio" name="my-accordion-2" checked="checked" />
-                        <div class="collapse-title text-2xl font-bold">User Points</div>
-                        <div class="collapse-content mx-auto w-full">
-                            <div class="overflow-x-auto">
-                                <table class="table w-full text-xs">
-                                    <!-- head -->
-                                    <thead>
-                                        <tr class="text-white">
-                                            <th class="bg-primary" data-tippy-content="This is the name of the user">
-                                                Name
-                                                <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                            </th>
-                                            <th class="bg-primary" data-tippy-content="Points of the user">
-                                                Points
-                                                <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="user-table"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- bottom -->
                 </div>
             </div>
         </div>
