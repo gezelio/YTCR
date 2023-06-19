@@ -2,7 +2,13 @@ const marked = require("marked");
 const path = require("path");
 const fs = require("fs");
 const cheerio = require("cheerio");
-
+if (!fs.existsSync("./data")) {
+    // Data folder does not exist, create it
+    fs.mkdirSync("./data");
+}
+if (!fs.existsSync("./data/markdown-docs.json")) {
+    fs.writeFileSync("./data/markdown-docs.json", JSON.stringify([]), { encoding: "utf8" });
+}
 marked.use({
     mangle: false,
     headerIds: false

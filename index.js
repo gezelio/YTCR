@@ -23,13 +23,6 @@ if (!fs.existsSync("./logs")) {
     // Data folder does not exist, create it
     fs.mkdirSync("./logs");
 }
-if (!fs.existsSync("./data")) {
-    // Data folder does not exist, create it
-    fs.mkdirSync("./data");
-}
-if (!fs.existsSync("./data/markdown-docs.json")) {
-    fs.writeFileSync("./data/markdown-docs.json", JSON.stringify([]), { encoding: "utf8" });
-}
 const port = 82;
 var wss = new WebSocketServer({ server });
 app.set("view engine", "ejs");
