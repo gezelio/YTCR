@@ -59,13 +59,11 @@ app.get("/api/u/points/:slug", async (req, res) => {
         res.send({ status: "fail" });
     }
 });
-app.get("/obs/u/:slug", async (req, res) => {
-    const UserData = await DataBase.findOne({ channel_link: req.params.slug }).exec();
-    if (UserData) {
-        res.render(path.resolve("./views/obs_dock/rewards.ejs"), {
-            channel_link: UserData.channel_link
-        });
-    }
+app.get("/obs/dock", functions.LoggedIn, async (req, res) => {
+    const user = await DataBase.findOne({ "user.id": req.session.user.user.id }).exec();
+    res.render(path.resolve("./views/obs_dock/rewards.ejs"), {
+        user: functions.CheckUser(user)
+    });
 });
 app.post("/get-obs/reward/data", async (req, res) => {
     const data = await DataBase.findOne({ channel_link: req.body.channel_link }).exec();
