@@ -9,9 +9,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/docs", (req, res) => {
-    res.render(path.resolve("./views/ytcr/ytcr-docs/docs.ejs"));
+    res.render(path.resolve("./views/docs/docs.ejs"));
 });
-
+app.get("/docs/*", (req, res) => {
+    const file = req.params[0]; // Use req.params[0] to capture the complete file path
+    console.log("file: ", file);
+    res.render(path.resolve("./views/docs/docs_helper.ejs"), { file: file });
+});
 app.get("/get-started", (req, res) => {
     res.render(path.resolve("./views/ytcr/ytcr-docs/help/get-started.ejs"));
 });

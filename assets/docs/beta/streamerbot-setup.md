@@ -1,4 +1,4 @@
-## StreamerBot Setup
+# StreamerBot Setup
 
 ---
 **PLEASE NOTE**

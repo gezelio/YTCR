@@ -1,5 +1,6 @@
 .env
 /logs
+/data
 # Logs
 logs
 *.log
@@ -106,3 +107,4 @@ dist
 .tern-port
 credentials.json
 .DS_Store
+assets/styles/tailwind.css
