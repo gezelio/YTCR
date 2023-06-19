@@ -7,7 +7,9 @@ const DataBase = require("../model/DataBase");
 app.get("/", (req, res) => {
     res.render(path.resolve("./views/home.ejs"));
 });
-
+app.get("/beta-request", (req, res) => {
+    res.redirect("https://forms.gle/uz25jr7qMNxfFDK3A");
+});
 app.get("/docs", (req, res) => {
     res.render(path.resolve("./views/docs/docs.ejs"));
 });
