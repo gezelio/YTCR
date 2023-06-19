@@ -15,6 +15,9 @@ app.get("/assets/js/:file", (req, res) => {
 app.get("/assets/md/:file", (req, res) => {
     res.sendFile(path.resolve("./assets/md/" + req.params.file.replace("!", "/")));
 });
+app.get("/assets/md/doc/:file", (req, res) => {
+    res.sendFile(path.resolve("./assets/md/doc/" + req.params.file));
+});
 app.get("/error/404", (req, res) => {
     res.render(path.resolve("./views/404.ejs"));
 });

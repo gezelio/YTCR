@@ -40,7 +40,7 @@
         <div class="flex justify-center w-full pt-4">
             <div id="main" class="flex flex-col items-center">
                 <div class="grid grid-cols-2 gap-6 mx-14">
-                    <a id="beta-visible" href="/beta/get-started" class="bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group col-span-full">
+                    <a id="beta-visible" href="/beta/get-started" class="hidden bg-primaryhover hover:bg-primary hover:shadow-xl scale-100 hover:scale-105 ease-in duration-100 transition p-4 rounded-lg flex flex-col text-left group col-span-full">
                         <div class="flex justify-between">
                             <div class="bg-primary group-hover:bg-primaryhover p-2 rounded-lg transition duration-200 ease-in-out shadow-2xl">
                                 <i class="fa-solid fa-flask p-2 rounded-full transition duration-200 ease-in-out"></i>
@@ -154,3 +154,8 @@
         </div>
     </body>
 </html>
+<script>
+    if (user.ytcr_beta) {
+        document.getElementById("beta-visible").classList.remove("hidden");
+    }
+</script>

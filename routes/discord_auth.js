@@ -62,6 +62,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                     let good = data_connections.find((x) => x.id === data_data.channel_id);
                                     // console.log("connection no: ", good);
                                     data_data.verified = false;
+                                    data_data.ytcr_beta = await GetYTCRBetaRole(data_data.user, D_access_token);
                                     data_data
                                         .save()
                                         .then((savedDocument) => {
@@ -72,6 +73,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 } else {
+                                    data_data.ytcr_beta = await GetYTCRBetaRole(data_data.user, D_access_token);
                                     data_data
                                         .save()
                                         .then((savedDocument) => {
@@ -82,9 +84,6 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 }
-                                setTimeout(() => {
-                                    GetYTCRBetaRole(data_data.user, D_access_token);
-                                }, 1000);
                             });
                     } else {
                         let new_user = {
@@ -113,6 +112,8 @@ app.get("/auth/discord/callback", async (req, res) => {
                                     let good = data_connections.find((x) => x.id === newDataBase.channel_id);
                                     // console.log("connection no: ", good);
                                     newDataBase.verified = false;
+                                    newDataBase.ytcr_beta = await GetYTCRBetaRole(newDataBase.user, D_access_token);
+                                    console.log("newDataBase: ", newDataBase);
                                     newDataBase
                                         .save()
                                         .then((savedDocument) => {
@@ -123,6 +124,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 } else {
+                                    newDataBase.ytcr_beta = await GetYTCRBetaRole(data_data.user, D_access_token);
                                     newDataBase
                                         .save()
                                         .then((savedDocument) => {
@@ -133,9 +135,6 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 }
-                                setTimeout(() => {
-                                    GetYTCRBetaRole(newDataBase.user, D_access_token);
-                                }, 1000);
                             });
                     }
                 });
@@ -148,9 +147,9 @@ app.get("/creds/logout", (req, res) => {
 });
 
 async function GetYTCRBetaRole(user, D_access_token) {
-    if (!process.env.YTCR_ROLE) return;
-    const data_data = await DataBase.findOne({ "user.id": user.id }).exec();
-    fetch(`https://discord.com/api/users/@me/guilds/${process.env.DISCORD_SERVER_ID}/member`, {
+    role = false;
+    if (!process.env.YTCR_ROLE) return false;
+    await fetch(`https://discord.com/api/users/@me/guilds/${process.env.DISCORD_SERVER_ID}/member`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${D_access_token}`
@@ -158,20 +157,13 @@ async function GetYTCRBetaRole(user, D_access_token) {
     })
         .then((response) => response.json())
         .then(async function (data) {
-            // console.log("data: ", data);
             found = data.roles.find((e) => e == process.env.DISCORD_SEVER_ROLE);
             if (found) {
-                data_data.ytcr_beta = true;
+                role = true;
             } else {
-                data_data.ytcr_beta = false;
+                role = false;
             }
-            data_data
-                .save()
-                .then((savedDocument) => {})
-                .catch((err) => {
-                    console.error("err: ", err);
-                    // handle error
-                });
         });
+    return role;
 }
 module.exports = app;
