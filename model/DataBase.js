@@ -141,6 +141,10 @@ const yt_extensionSchema = mongoose.Schema({
             default: "https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png"
         }
     },
+    ytcr_beta: {
+        type: Boolean,
+        default: false
+    },
     verified: {
         type: Boolean,
         default: true

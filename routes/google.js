@@ -2,6 +2,7 @@ var express = require("express");
 var app = express.Router();
 var fs = require("fs");
 const functions = require("../lib/functions");
+const logs = require("../lib/logs");
 var path = require("path");
 require("dotenv").config();
 const DataBase = require("../model/DataBase");
@@ -10,7 +11,7 @@ const fetch = require("node-fetch");
 const { OAuth2Client } = require("google-auth-library");
 const auth = new google.auth.OAuth2(process.env.G_client_id, process.env.G_client_secret, process.env.D_redirect_url + "/google/callback");
 const scopes = ["https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtube.force-ssl"];
-app.get("/google", (req, res) => {
+app.get("/dock", (req, res) => {
     res.sendFile(path.resolve("./views/obs_dock/google.html"));
 });
 app.get("/google/auth", (req, res) => {
@@ -47,60 +48,8 @@ app.get("/google/callback", async (req, res) => {
         res.render(path.resolve("./views/obs_dock/google_auth.ejs"), {
             channel_link: dataBase.channel_link
         });
-        // try {
-        //     auth.setCredentials(JSON.parse(storedCredentials).token);
-        //     dataBase.google.token = JSON.parse(storedCredentials).token;
-        //     dataBase.save();
-        //     const youtube = google.youtube({
-        //         version: "v3",
-        //         auth: auth
-        //     });
-        //     const response = await youtube.liveBroadcasts.list({
-        //         part: "snippet",
-        //         filter: "mine", // Specify the filter parameter
-        //         maxResults: 1,
-        //         mine: true,
-        //         channelId: JSON.parse(storedCredentials).channelId
-        //     });
-        //     const liveChatId = response.data.items[0].snippet.liveChatId;
-        //     dataBase.google.liveChatId = liveChatId;
-        //     req.session.user = dataBase;
-        //     res.render(path.resolve("./views/obs_dock/google_auth.ejs"), {
-        //         channel_link: dataBase.channel_link
-        //     });
-        // } catch (error) {
-        //     console.error("Error retrieving liveChatId:", error);
-        //     res.status(500).send("Error retrieving youtube data.");
-        // }
     });
 });
-// app.get("/google/sendmessage/:slug", async (req, res) => {
-//     try {
-//         const dataBase = await DataBase.findOne({ channel_id: req.params.slug }).exec();
-//         // const storedCredentials = fs.readFileSync("credentials.json");
-//         auth.setCredentials(dataBase.google.token);
-//         const youtube = google.youtube({
-//             version: "v3",
-//             auth: auth
-//         });
-//         const response = await youtube.liveChatMessages.insert({
-//             part: "snippet",
-//             resource: {
-//                 snippet: {
-//                     liveChatId: dataBase.google.liveChatId,
-//                     type: "textMessageEvent",
-//                     textMessageDetails: {
-//                         messageText: "Hello, YouTube!"
-//                     }
-//                 }
-//             }
-//         });
-//         res.send("Message sent successfully!");
-//     } catch (error) {
-//         console.error("Error sending message:", error);
-//         res.status(500).send("Error sending message.");
-//     }
-// });
 module.exports = app;
 
 async function refreshAccessToken(clientId, clientSecret, refreshToken) {
@@ -145,15 +94,18 @@ async function refreshTokenIfNeeded() {
             console.log("remainingTimeSeconds: ", remainingTimeSeconds);
             // Token is about to expire, refresh it
             await refreshAccessToken(process.env.G_client_id, process.env.G_client_secret, refreshToken);
+            logs.writeToLogFile("YTCR Google Token refreshed successfully");
             console.log("YTCR Google Token refreshed successfully");
         } else {
+            logs.writeToLogFile("YTCR Google Token is still valid");
             console.log("YTCR Google Token is still valid");
         }
     } catch (error) {
         console.error("YTCR Google Error checking token expiration:", error);
+        logs.writeToLogFile("YTCR Google Error checking token expiration: ", error);
     }
 }
-const refreshInterval = 30 * 60 * 1000; // 45 minutes
+const refreshInterval = 10 * 60 * 1000; // 15 minutes
 setInterval(refreshTokenIfNeeded, refreshInterval);
 refreshTokenIfNeeded();
 async function CheckLive() {
@@ -177,7 +129,7 @@ async function CheckLive() {
             });
     });
 }
-setInterval(CheckLive, 1 * 60 * 1000);
+setInterval(CheckLive, 1 * 60 * 1000); // 1 minute
 CheckLive();
 async function LiveChatId(user) {
     const dataBase = await DataBase.findOne({ channel_id: user.channel_id }).exec();

@@ -34,6 +34,14 @@ var nav_links = [
         disabled: false,
         current: false,
         type: "staff"
+    },
+    {
+        id: 4,
+        name: "Staff Console",
+        link: "/dashboard/staff/console",
+        disabled: false,
+        current: false,
+        type: "admin"
     }
 ];
 let nav1 = document.createElement("div");
@@ -73,7 +81,7 @@ nav.innerHTML = `
             if (link.disabled) {
                 return;
             }
-            if (account.type == "staff" && link?.type == "staff") {
+            if (((account.type == "staff") | (account.type == "admin") && link?.type == "staff") | (account.type == "admin" && link?.type == "admin")) {
                 if (window.location.pathname == link.link) {
                     link.current = true;
                 }

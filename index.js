@@ -15,7 +15,14 @@ var WebSocketServer = require("ws").Server;
 var favicon = require("serve-favicon");
 const { error } = require("console");
 const { v4: uuidv4 } = require("uuid");
+var fs = require("fs");
+const logs = require("./lib/logs");
+logs.writeToLogFile("Server Started");
 
+if (!fs.existsSync("./logs")) {
+    // Data folder does not exist, create it
+    fs.mkdirSync("./logs");
+}
 const port = 82;
 var wss = new WebSocketServer({ server });
 app.set("view engine", "ejs");
@@ -884,7 +891,16 @@ setInterval(() => {
     wss.clients.forEach(function each(client) {
         client.send(
             JSON.stringify({
-                type: "Heartbeat"
+                type: "HeatBeat",
+                channel_id: "none",
+                reward_id: "0",
+                reward_name: "HeatBeat",
+                reward_action_id: "HeatBeat",
+                reward_action_userInput: false,
+                reward_action_message: "",
+                reward_action_clip: false,
+                reward_chat_command: false,
+                reward_action_chat_message: ""
             })
         );
     });
@@ -939,16 +955,19 @@ app.use(function (req, res, next) {
     // respond with html page
     if (req.accepts("html")) {
         res.render(path.resolve("./views/404.ejs"));
+        logs.writeToLogFile("404 Error no route found", req.originalUrl);
         return;
     }
 
     // respond with json
     if (req.accepts("json")) {
         res.send({ error: "Not found" });
+        logs.writeToLogFile("404 Error no JSON found", req.originalUrl);
         return;
     }
     // default to plain-text. send()
     res.type("txt").send("Not found");
+    logs.writeToLogFile("404 Error no Text found", req.originalUrl);
 });
 server.listen(port, () => {
     functions.log(require("url").pathToFileURL(__filename).toString(), `URL is running on port ${port}`);

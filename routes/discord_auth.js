@@ -6,7 +6,7 @@ const functions = require("../lib/functions");
 const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 app.get("/creds/login", (req, res) => {
-    res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${process.env.D_client_id}&redirect_uri=${process.env.D_redirect_url}/auth/discord/callback&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join`);
+    res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${process.env.D_client_id}&redirect_uri=${process.env.D_redirect_url}/auth/discord/callback&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read`);
 });
 var D_access_token = "";
 app.get("/auth/discord/callback", async (req, res) => {
@@ -82,6 +82,9 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 }
+                                setTimeout(() => {
+                                    GetYTCRBetaRole(data_data.user, D_access_token);
+                                }, 1000);
                             });
                     } else {
                         let new_user = {
@@ -130,6 +133,9 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 }
+                                setTimeout(() => {
+                                    GetYTCRBetaRole(newDataBase.user, D_access_token);
+                                }, 1000);
                             });
                     }
                 });
@@ -140,4 +146,32 @@ app.get("/creds/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");
 });
+
+async function GetYTCRBetaRole(user, D_access_token) {
+    if (!process.env.YTCR_ROLE) return;
+    const data_data = await DataBase.findOne({ "user.id": user.id }).exec();
+    fetch(`https://discord.com/api/users/@me/guilds/${process.env.DISCORD_SERVER_ID}/member`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${D_access_token}`
+        }
+    })
+        .then((response) => response.json())
+        .then(async function (data) {
+            // console.log("data: ", data);
+            found = data.roles.find((e) => e == process.env.DISCORD_SEVER_ROLE);
+            if (found) {
+                data_data.ytcr_beta = true;
+            } else {
+                data_data.ytcr_beta = false;
+            }
+            data_data
+                .save()
+                .then((savedDocument) => {})
+                .catch((err) => {
+                    console.error("err: ", err);
+                    // handle error
+                });
+        });
+}
 module.exports = app;

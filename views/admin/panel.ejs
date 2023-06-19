@@ -51,7 +51,17 @@
                 padding-top: 0.375rem;
                 padding-bottom: 0.375rem;
             }
-
+            .UserCardDiv_hidden {
+                display: none;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 0.2rem;
+                word-break: break-all;
+                justify-content: flex-start;
+                padding-top: 0.375rem;
+                padding-bottom: 0.375rem;
+            }
             .UserCardDiv1,
             .UserCardDiv span {
                 display: flex;
@@ -103,6 +113,9 @@
     </body>
 </html>
 <script>
+    moment_js_script = document.createElement("script");
+    moment_js_script.src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js";
+    document.head.appendChild(moment_js_script);
     let sbStats = [];
     function open_img(URL) {
         window.open(URL, "_blank");
@@ -157,6 +170,7 @@
         document.getElementById("all").innerHTML = data.length;
         data.sort(dynamicSort("created_at"));
         data.forEach(async function (element, index) {
+            console.log("element: ", element);
             document.getElementById("data").innerHTML += `
     <div class="bg-nav_bar p-4 rounded-lg">
         <div class="flex flex-row place-content-between content-center UserCardTop">
@@ -196,6 +210,13 @@
         <div class="UserCardDiv">
             <a class="underline hover:text-primary" href="/dashboard/staff/rewards_and_users/${element.user.id}" target="_blank"><i data-tippy-content="Discord UserID" class="fa fa-award"></i>${parseInt(element.rewards.length) + parseInt(element.user_rewards.length)} Rewards</a>
         </div>
+        <div class="UserCardDiv">
+            <span><i data-tippy-content="Google Stuff" class="fa-brands fa-google"></i> ${element.google.token ? "Connected" : "not connected"}</span>
+        </div>
+        <div class="UserCardDiv_hidden" id="id_${element.channel_id}_sb_connect">
+            <img data-tippy-content="SB time connected" src="https://streamer.bot/logo.png" class="w-6 h-6 align-middle shadow-xl rounded-full">
+            ${SBconnectTime(element)}
+        </div>
     </div>
             `;
             if (data.length - 1 == index) {
@@ -210,6 +231,8 @@
                     tippy("[data-tippy-content]", {
                         arrow: true
                     });
+                    document.getElementById(`id_${element}_sb_connect`).classList.remove("UserCardDiv_hidden");
+                    document.getElementById(`id_${element}_sb_connect`).classList.add("UserCardDiv");
                 });
             }
         });
@@ -268,6 +291,13 @@
                     });
                 }
             });
+    }
+    function SBconnectTime(data) {
+        const timestamp = moment(data.reward_updated, "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+        // Calculate the duration between the timestamp and the current time
+        const duration = moment.duration(moment().diff(timestamp));
+        // Display the duration in a human-readable format
+        return duration.humanize();
     }
 </script>
 <script defer>
