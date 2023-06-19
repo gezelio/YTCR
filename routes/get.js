@@ -8,6 +8,10 @@ app.get("/", (req, res) => {
     res.render(path.resolve("./views/home.ejs"));
 });
 
+app.get("/docs", (req, res) => {
+    res.render(path.resolve("./views/ytcr/ytcr-docs/docs.ejs"));
+});
+
 app.get("/get-started", (req, res) => {
     res.render(path.resolve("./views/ytcr/ytcr-docs/help/get-started.ejs"));
 });
