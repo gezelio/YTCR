@@ -213,6 +213,9 @@
         <div class="UserCardDiv">
             <span><i data-tippy-content="Google Stuff" class="fa-brands fa-google"></i> ${element.google.token ? "Connected" : "not connected"}</span>
         </div>
+        <div class="UserCardDiv">
+            <span><i data-tippy-content="Discord YTCR beta role" class="fa fa-flask"></i> ${element.ytcr_beta}</span>
+        </div>
         <div class="UserCardDiv_hidden" id="id_${element.channel_id}_sb_connect">
             <img data-tippy-content="SB time connected" src="https://streamer.bot/logo.png" class="w-6 h-6 align-middle shadow-xl rounded-full">
             ${SBconnectTime(element)}

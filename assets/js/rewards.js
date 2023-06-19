@@ -3,6 +3,29 @@ var edit = {
     edit: false,
     id: null
 };
+function dynamicSort(property, order) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    if (order == "asc")
+        return function (b, a) {
+            /* next line works with strings and numbers,
+             * and you may want to customize it to your needs
+             */
+            var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+            return result * sortOrder;
+        };
+    if (order == "desc")
+        return function (a, b) {
+            /* next line works with strings and numbers,
+             * and you may want to customize it to your needs
+             */
+            var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+            return result * sortOrder;
+        };
+}
 var created = false;
 RefreshData();
 function RefreshData() {
@@ -66,6 +89,7 @@ function UpdateSend(url, data) {
         });
 }
 function ShowData(data) {
+    console.log("data: ", data);
     ClearRewardModalValues();
     edit = {
         edit: false,
@@ -111,6 +135,23 @@ function ShowData(data) {
             </td>
         </tr>
         `;
+    });
+    data.users.forEach(function (element, index) {
+        element.points = parseInt(element.points);
+    });
+    data.users.sort(dynamicSort("points", "asc"));
+    data.users.forEach(function (element, index) {
+        if (isNaN(element.points)) {
+            points = `<i class="fa-solid fa-infinity"></i>`;
+        } else {
+            points = element.points;
+        }
+        document.getElementById("user-table").innerHTML += `
+            <tr>
+                <td data-name="${element.user}" class="px-4 py-2 border border-[#1f2428]">${element.user}</td>
+                <td data-points="${element.points}" class="px-4 py-2 border border-[#1f2428]">${points}</td>
+            </tr>
+            `;
     });
     tippy("[data-tippy-content]", {
         arrow: true,

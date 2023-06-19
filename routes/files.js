@@ -13,7 +13,7 @@ app.get("/assets/js/:file", (req, res) => {
     res.sendFile(path.resolve("./assets/js/" + req.params.file));
 });
 app.get("/assets/md/:file", (req, res) => {
-    res.sendFile(path.resolve("./assets/md/" + req.params.file));
+    res.sendFile(path.resolve("./assets/md/" + req.params.file.replace("!", "/")));
 });
 app.get("/error/404", (req, res) => {
     res.render(path.resolve("./views/404.ejs"));
