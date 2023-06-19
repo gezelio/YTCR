@@ -115,8 +115,8 @@ async function refreshAccessToken(clientId, clientSecret, refreshToken) {
 
         // The refreshed access token
         const accessToken = tokens.credentials.access_token;
-        console.log("tokens.credentials: ", tokens.credentials);
-        console.log("Access token:", accessToken);
+        // console.log("tokens.credentials: ", tokens.credentials);
+        // console.log("Access token:", accessToken);
         const dataBase = await DataBase.findOne({ "user.id": process.env.Y_Uid }).exec();
         dataBase.google.token = tokens.credentials;
         dataBase.save();
@@ -135,10 +135,10 @@ async function refreshTokenIfNeeded() {
         let Token = dataBase.google.token.access_token;
         let refreshToken = dataBase.google.token.refresh_token;
         // Load the refresh token's expiration date
-        const client = new OAuth2Client(process.env.G_client_id, process.env.G_client_secret);
-        const tokenInfo = await client.getTokenInfo(Token);
+        // const client = new OAuth2Client(process.env.G_client_id, process.env.G_client_secret);
+        // const tokenInfo = await client.getTokenInfo(Token);
         // Check if the token is about to expire
-        const expiryDate = new Date(tokenInfo.expiry_date);
+        const expiryDate = new Date(dataBase.google.token.expiry_date);
         const currentDate = new Date();
         const remainingTimeSeconds = (expiryDate - currentDate) / 1000;
         if (remainingTimeSeconds <= EXPIRATION_THRESHOLD_SECONDS) {
