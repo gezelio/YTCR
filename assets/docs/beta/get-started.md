@@ -5,7 +5,7 @@ The main change with this is that you no longer need the StreamerBot websocket, 
 ---
 **PLEASE NOTE**
 
-This is currently invite only. If you're interested in joining the beta, please join our [Discord](https://gezel.io/discord) and ask for an invite inside the #ytcr-general channel.
+This is currently invite only. If you're interested in joining the beta, please complete the Google Form on [ytcr.gezel.io/beta-request](https://ytcr.gezel.io/beta-request)
 
 ---
 
