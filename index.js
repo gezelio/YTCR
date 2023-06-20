@@ -279,7 +279,7 @@ app.post("/api/claim_rewards", async (req, res) => {
                         }
                         data.users.splice(data.users.indexOf(user_found_update), 1, user_update);
                         DataBase.findOneAndUpdate({ channel_id: req.query.channel_id }, data)
-                            .then((savedDocument) => {})
+                            .then((savedDocument) => { })
                             .catch((err) => {
                                 // handle error
                             });
@@ -1043,7 +1043,7 @@ async function SendYoutubeMessageCommand(info) {
                     liveChatId: dataBase.google.liveChatId,
                     type: "textMessageEvent",
                     textMessageDetails: {
-                        messageText: `${info.command}`
+                        messageText: `!${info.command}`
                     }
                 }
             }

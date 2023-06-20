@@ -136,6 +136,7 @@ function ShowData(data) {
         </tr>
         `;
     });
+    document.getElementById("user-table").innerHTML = ""
     data.users.forEach(function (element, index) {
         element.points = parseInt(element.points);
     });
