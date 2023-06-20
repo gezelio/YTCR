@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="dark bg-background text-white">
+    <head>
+        <script src="/assets/js/logging.js" defer></script>
+        <script>
+            let user = JSON.parse(`<%- JSON.stringify(user) %>`);
+        </script>
+        <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
+        <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
+        <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846" src="https://analytics-v2.gezel.io/script.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>YouTube Channel Rewards - Rewards</title>
+        <meta name="description" content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
+        <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
+        <meta name="author" content="gezel.io" />
+        <!--Replace with your tailwind.css once created-->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+        <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <style>
+            .gradient {
+                background: linear-gradient(90deg, main_grey 50%, off_white 100%);
+            }
+        </style>
+        <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+        <script src="/assets/js/rewardsobs.js" defer></script>
+        <script src="/assets/js/connectionDiv.js" defer></script>
+    </head>
+    <div style="display: none" id="toast-container-works" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
+        <div class="relative toast rounded bg-green-500 text-white">
+            <div class="toast-header">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong id="toast-container-works-message" class="me-auto">Updated</strong>
+            </div>
+        </div>
+    </div>
+    <div style="display: none" id="toast-container-fail" class="z-[99999999] toast-container fixed top-0 end-0 p-3">
+        <div class="relative toast rounded bg-red-500 text-white">
+            <div class="toast-header">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong id="toast-container-fail-message" class="me-auto">Error</strong>
+            </div>
+        </div>
+    </div>
+    <body class="relative h-screen">
+        <div class="flex justify-center w-full pt-4">
+            <div id="main" class="">
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex justify-center mt-4 gap-2">
+                        <button id="rewards-tab" onclick="toggleTab('rewards')" class="btn py-2 px-4 bg-primary hover:bg-primaryhover text-white font-semibold border-0">Rewards</button>
+                        <button id="userpoints-tab" onclick="toggleTab('userpoints')" class="btn py-2 px-4 bg-primary hover:bg-primaryhover text-white font-semibold border-0">User Points</button>
+                    </div>
+
+                    <div id="rewards" class="container bg-accent rounded-lg shadow-xl p-4 my-4">
+                        <h2 class="text-2xl font-bold">Rewards</h2>
+                        <p class="mb-4">This currently only lists the rewards created from here, and not from StreamerBot</p>
+                        <div class="mx-auto w-full">
+                            <div class="overflow-x-auto">
+                                <table class="table w-full text-xs">
+                                    <!-- head -->
+                                    <thead>
+                                        <tr class="text-white">
+                                            <th class="bg-primary">
+                                                Active
+                                                <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="Change the state of the reward if users can view and claim reward, etc"></i></span>
+                                            </th>
+                                            <th class="bg-primary">
+                                                Reward
+                                                <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="This is the name of your reward"></i></span>
+                                            </th>
+                                            <th class="bg-primary">
+                                                Cost
+                                                <span class="text-lg"><i class="fa-solid fa-circle-info" data-tippy-content="Cost of your reward for a user to redeem"></i></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reward-table"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="userpoints" class="container bg-accent rounded-lg shadow-xl p-4 my-4 hidden">
+                        <h2 class="text-2xl font-bold">User Points</h2>
+                        <div class="mx-auto w-full">
+                            <div class="overflow-x-auto">
+                                <table class="table w-full text-xs">
+                                    <!-- head -->
+                                    <thead>
+                                        <tr class="text-white">
+                                            <th class="bg-primary" data-tippy-content="This is the name of the user">
+                                                Name
+                                                <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                            </th>
+                                            <th class="bg-primary" data-tippy-content="Points of the user">
+                                                Points
+                                                <span class="text-lg"><i class="fa-solid fa-circle-info"></i></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="user-table"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function toggleTab(tabId) {
+                            const rewardsTab = document.getElementById("rewards-tab");
+                            const userPointsTab = document.getElementById("userpoints-tab");
+
+                            const rewardsContent = document.getElementById("rewards");
+                            const userPointsContent = document.getElementById("userpoints");
+
+                            if (tabId === "rewards") {
+                                rewardsContent.classList.remove("hidden");
+                                userPointsContent.classList.add("hidden");
+                            } else if (tabId === "userpoints") {
+                                userPointsContent.classList.remove("hidden");
+                                rewardsContent.classList.add("hidden");
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

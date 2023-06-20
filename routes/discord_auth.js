@@ -6,7 +6,7 @@ const functions = require("../lib/functions");
 const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 app.get("/creds/login", (req, res) => {
-    res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${process.env.D_client_id}&redirect_uri=${process.env.D_redirect_url}/auth/discord/callback&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join`);
+    res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${process.env.D_client_id}&redirect_uri=${process.env.D_redirect_url}/auth/discord/callback&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read`);
 });
 var D_access_token = "";
 app.get("/auth/discord/callback", async (req, res) => {
@@ -62,6 +62,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                     let good = data_connections.find((x) => x.id === data_data.channel_id);
                                     // console.log("connection no: ", good);
                                     data_data.verified = false;
+                                    data_data.ytcr_beta = await GetYTCRBetaRole(data_data.user, D_access_token);
                                     data_data
                                         .save()
                                         .then((savedDocument) => {
@@ -72,6 +73,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 } else {
+                                    data_data.ytcr_beta = await GetYTCRBetaRole(data_data.user, D_access_token);
                                     data_data
                                         .save()
                                         .then((savedDocument) => {
@@ -110,6 +112,8 @@ app.get("/auth/discord/callback", async (req, res) => {
                                     let good = data_connections.find((x) => x.id === newDataBase.channel_id);
                                     // console.log("connection no: ", good);
                                     newDataBase.verified = false;
+                                    newDataBase.ytcr_beta = await GetYTCRBetaRole(newDataBase.user, D_access_token);
+                                    console.log("newDataBase: ", newDataBase);
                                     newDataBase
                                         .save()
                                         .then((savedDocument) => {
@@ -120,6 +124,7 @@ app.get("/auth/discord/callback", async (req, res) => {
                                             console.log("err: ", err);
                                         });
                                 } else {
+                                    newDataBase.ytcr_beta = await GetYTCRBetaRole(data_data.user, D_access_token);
                                     newDataBase
                                         .save()
                                         .then((savedDocument) => {
@@ -140,4 +145,25 @@ app.get("/creds/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");
 });
+
+async function GetYTCRBetaRole(user, D_access_token) {
+    role = false;
+    if (!process.env.YTCR_ROLE) return false;
+    await fetch(`https://discord.com/api/users/@me/guilds/${process.env.DISCORD_SERVER_ID}/member`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${D_access_token}`
+        }
+    })
+        .then((response) => response.json())
+        .then(async function (data) {
+            found = data.roles.find((e) => e == process.env.DISCORD_SEVER_ROLE);
+            if (found) {
+                role = true;
+            } else {
+                role = false;
+            }
+        });
+    return role;
+}
 module.exports = app;

@@ -85,6 +85,18 @@ const yt_extensionSchema = mongoose.Schema({
             default: true
         }
     },
+    google: {
+        token: {
+            type: Object,
+            unique: false,
+            default: {}
+        },
+        liveChatId: {
+            type: String,
+            unique: false,
+            default: ""
+        }
+    },
     users: {
         type: Array,
         required: false
@@ -128,6 +140,10 @@ const yt_extensionSchema = mongoose.Schema({
             required: true,
             default: "https://p.kindpng.com/picc/s/451-4517876_default-profile-hd-png-download.png"
         }
+    },
+    ytcr_beta: {
+        type: Boolean,
+        default: false
     },
     verified: {
         type: Boolean,

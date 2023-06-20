@@ -1,7 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-background text-white">
+<html lang="en" class="bg-background text-white">
     <head>
-        <script src="/assets/js/markdown.js"></script>
+        <script>
+            let file = JSON.parse(`<%- JSON.stringify(file) %>`);
+        </script>
+        <script>
+            var md = document.createElement("script"); // is a node
+            md.src = "https://cdn.jsdelivr.net/npm/marked/marked.min.js";
+            document.head.appendChild(md);
+            function MarkDown(file, ElmentID) {
+                fetch(`/assets/docs/${file}.md`)
+                    .then((response) => response.text())
+                    .then((data) => {
+                        document.getElementById(ElmentID).innerHTML = marked.parse(data);
+                    });
+            }
+        </script>
         <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -34,13 +48,13 @@
     <body>
         <div class="flex h-screen bg-background">
             <div class="my-9 mx-auto">
-                <article class="prose prose-p:text-white prose-headings:text-white" id="md-started"></article>
+                <article class="prose prose-p:text-white prose-h2:bg-primary prose-h2:text-white prose-h2:p-4 prose-h2:rounded-xl prose-headings:text-white prose-a:text-link prose-h6:font-bold prose-ul:text-white prose-ol:text-white prose-code:text-white prose-code:bg-primary pb-9" id="md"></article>
             </div>
         </div>
     </body>
 </html>
 <script defer>
     setTimeout(() => {
-        MarkDown("get-started", "md-started");
+        MarkDown(file, "md");
     }, 200);
 </script>

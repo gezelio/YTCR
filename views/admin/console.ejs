@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html style="font-size: 16px">
+    <head>
+        <script src="/assets/js/markdown.js"></script>
+        <script src="/assets/js/logging.js"></script>
+        <script>
+            let user = JSON.parse(`<%- JSON.stringify(user) %>`);
+        </script>
+        <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
+        <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.map"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TNH2EKLKV"></script>
+        <!-- <script async defer data-website-id="94af8724-cf3b-4356-b674-17a02a527846"
+            src="https://analytics-v2.gezel.io/script.js"></script> -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Admin</title>
+        <meta name="description" content="Level up your YouTube streams with the power of YouTube Channel Rewards" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+        <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <script src="/assets/js/navbar.js" defer></script>
+    </head>
+    <style>
+        #console {
+            font-family: "Roboto Mono", monospace;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px;
+            line-height: 1.4;
+            overflow-y: auto;
+        }
+    </style>
+    <body>
+        <div id="main" class="w-full h-full">
+            <div id="console" class="w-full h-full container mx-auto px-4 py-6 space-y-2"></div>
+        </div>
+    </body>
+</html>
+<script>
+    function HumanTime(time) {
+        return new Date(time).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric", second: "numeric" });
+    }
+    function displayLogFile() {
+        fetch("/staff/get-console.log")
+            .then((response) => response.text())
+            .then((logData) => {
+                document.getElementById("console").innerHTML = "";
+                const logEntries = logData.split("\n"); // Split log data into individual entries
+                logEntries.forEach((entry) => {
+                    if (entry.length == 0) return;
+                    entry = JSON.parse(entry);
+                    document.getElementById("console").innerHTML += `
+                    <div class="flex flex-row flex-nowrap border-b border-opacity-25 border-white">
+                        <p class="text-[#16c60c]">Time: ${HumanTime(entry.time)}</p>&nbsp;
+                        <p class="text-[#3263d1]">Text: ${entry.text} </p>&nbsp;
+                        <p class="text-[#438f8f]">${entry.data ? "- Data: " + entry.data : ""}</p>
+                    </div>
+                    `;
+                });
+            })
+            .catch((error) => {
+                console.error("error: ", error);
+            });
+    }
+
+    // Call the function to display the log file
+    displayLogFile();
+    setInterval(() => {
+        displayLogFile();
+    }, 30000);
+</script>

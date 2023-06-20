@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="dark bg-background text-white">
+<html lang="en" class="dark bg-background text-white scroll-smooth">
     <head>
-        <script src="/assets/js/markdown.js"></script>
+        <script>
+            let channel_link = JSON.parse(`<%- JSON.stringify(channel_link) %>`);
+        </script>
+        <!-- <script src="/js/swiper.js" defer></script> -->
         <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -14,9 +17,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>YouTube Channel Rewards</title>
-        <meta name="description" content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
-        <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
-        <meta name="author" content="gezel.io" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
         <!--Replace with your tailwind.css once created-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
         <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
@@ -29,18 +32,18 @@
                 background: linear-gradient(90deg, main_grey 50%, off_white 100%);
             }
         </style>
-        <script src="/assets/js/navbar_home.js" defer></script>
     </head>
-    <body>
-        <div class="flex h-screen bg-background">
-            <div class="my-9 mx-auto">
-                <article class="prose prose-p:text-white prose-headings:text-white" id="md-action"></article>
-            </div>
+
+    <body class="flex flex-col h-screen justify-center items-center">
+        <div class="text-center">
+            <h1 class="font-bold text-xl">Login Successful</h1>
+            <p>You are being redirected ...</p>
+            <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto" />
         </div>
     </body>
 </html>
-<script defer>
+<script>
     setTimeout(() => {
-        MarkDown("action-id", "md-action");
-    }, 200);
+        window.location.href = "/obs/dock";
+    }, 2000);
 </script>

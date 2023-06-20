@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-background text-white">
+<html lang="en" class="dark bg-background text-white scroll-smooth">
     <head>
-        <script src="/assets/js/markdown.js"></script>
+        <!-- <script src="/js/swiper.js" defer></script> -->
         <link href="/assets/styles/tailwind.css" rel="stylesheet" type="text/css" />
         <script src="https://kit.fontawesome.com/e311482788.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -14,9 +14,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>YouTube Channel Rewards</title>
-        <meta name="description" content="YTCR is a platform that allows Twitch streamers to bring their channel points to YouTube streams using Streamerbot. Join YTCR today and enhance your streaming experience!" />
-        <meta name="keywords" content="YTCR, Twitch, YouTube, channel points, Streamerbot, streaming, platform" />
-        <meta name="author" content="gezel.io" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
         <!--Replace with your tailwind.css once created-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
         <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
@@ -29,18 +29,19 @@
                 background: linear-gradient(90deg, main_grey 50%, off_white 100%);
             }
         </style>
-        <script src="/assets/js/navbar_home.js" defer></script>
     </head>
+
     <body>
-        <div class="flex h-screen bg-background">
-            <div class="m-9 mx-auto px-9">
-                <article class="prose prose-p:text-white prose-h2:bg-primary prose-h2:text-white prose-h2:p-4 prose-h2:rounded-xl prose-headings:text-white prose-a:text-link prose-h6:font-bold prose-ul:text-white prose-ol:text-white prose-code:text-white prose-code:bg-primary pb-9" id="md-chat-commands"></article>
-            </div>
+        <div id="sign_in" class="flex flex-col h-screen justify-center items-center">
+            <img src="https://s6.imgcdn.dev/vN81i.gif" class="w-40 mx-auto" />
+            <h1 class="font-bold text-xl">Sign into YTCR</h1>
+            <btn class="btn rounded-md bg-primary hover:bg-primaryhover text-white border-0" onclick="openWindow()">Sign In</btn>
+            <p class="text-xs text-offtext underline">Channel points will not function until you sign in</p>
         </div>
     </body>
 </html>
-<script defer>
-    setTimeout(() => {
-        MarkDown("chat-command", "md-chat-commands");
-    }, 200);
+<script>
+    function openWindow() {
+        window.location.href = "/google/auth";
+    }
 </script>

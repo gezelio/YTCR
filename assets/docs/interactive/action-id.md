@@ -1,4 +1,4 @@
-## What is an Action ID?
+# What is an Action ID?
 An `Action ID` is a unique identifier for a specific action that can be performed by [StreamerBot](https://streamer.bot). It is used to identify the action that should be performed when a specific command is received by the bot.
 
 ## When do I need to fill this in?
