@@ -25,20 +25,18 @@ function CheckSBConnection() {
                 // Display the duration in a human-readable format
                 const durationString = duration.humanize();
                 connectionDiv.innerHTML = `
-            <p class="font-bold">
-                StreamerBot: <span class="text-green-600 font-bold">Connected</span>
-            </p>
+                <h1 class="font-bold">Connections</h1>
+                <div class="font-bold flex gap-4 items-center" data-tippy-content="StreamerBot is connected via websocket. Rewards will Action ID's are set.">
+                <img src="./assets/images/streamerbot.png"><span class="text-green-600 font-bold"><i class="fa-solid fa-signal"></i></span>
+            </div>
             <p>Last update from StreamerBot: ${durationString} ago</p>
             `;
             } else {
                 connectionDiv.innerHTML = `
-            <p class="font-bold">
-                StreamerBot: <span class="text-primary font-bold">Disconnected</span>
-            </p>
-            <p>
-                StreamerBot is currently not connected so YTCR will not act as expected. Please ensure you connect to the websocket and have the actions provided. If you need assistance, please jump into our
-                <a href="https://gezel.io/discord" class="text-discord hover:text-discord2 hover:underline">Discord</a>
-            </p>
+                <h1 class="font-bold mb-2">Connections</h1>
+            <div class="font-bold flex gap-4 items-center" data-tippy-content="StreamerBot is not connected. Please connect via the websocket if you need Action ID's in your rewards.">
+                <img src="./assets/images/streamerbot.png"><span class="text-primary font-bold"><i class="fa-solid fa-signal"></i></span>
+            </div>
             `;
             }
             document.getElementById("main").prepend(connectionDiv);
