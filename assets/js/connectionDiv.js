@@ -26,16 +26,23 @@ function CheckSBConnection() {
                 const durationString = duration.humanize();
                 connectionDiv.innerHTML = `
                 <h1 class="font-bold">Connections</h1>
+                <div>
                 <div class="font-bold flex gap-4 items-center" data-tippy-content="StreamerBot is connected via websocket. Rewards will Action ID's are set.">
                 <img src="./assets/images/streamerbot.png"><span class="text-green-600 font-bold"><i class="fa-solid fa-signal"></i></span>
             </div>
             <p>Last update from StreamerBot: ${durationString} ago</p>
+            </div>
             `;
             } else {
                 connectionDiv.innerHTML = `
-                <h1 class="font-bold mb-2">Connections</h1>
-            <div class="font-bold flex gap-4 items-center" data-tippy-content="StreamerBot is not connected. Please connect via the websocket if you need Action ID's in your rewards.">
-                <img src="./assets/images/streamerbot.png"><span class="text-primary font-bold"><i class="fa-solid fa-signal"></i></span>
+                <h1 class="font-bold mb-2 text-center">Connections</h1>
+                <div class="flex gap-4 justify-center">
+            <div class="font-bold flex gap-4 items-center bg-[#2E2F37] p-2 rounded-lg" data-tippy-content="StreamerBot is not connected. Please connect via the websocket if you need Action ID's in your rewards.">
+                <img src="./assets/images/streamerbot.png" class="w-5"><span class="text-primary font-bold"><i class="fa-solid fa-signal"></i></span>
+            </div>
+            <div class="font-bold flex gap-4 items-center bg-[#2E2F37] p-2 rounded-lg" data-tippy-content="StreamerBot is not connected. Please connect via the websocket if you need Action ID's in your rewards.">
+            <img src="favicon.ico" class="w-5"><span class="text-primary font-bold"><i class="fa-solid fa-signal"></i></span>
+        </div>
             </div>
             `;
             }
