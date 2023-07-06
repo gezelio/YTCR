@@ -25,23 +25,29 @@ function CheckSBConnection() {
                 // Display the duration in a human-readable format
                 const durationString = duration.humanize();
                 connectionDiv.innerHTML = `
-            <p class="font-bold">
-                StreamerBot: <span class="text-green-600 font-bold">Connected</span>
-            </p>
+                <h1 class="font-bold">Connections</h1>
+                <div>
+                <div class="font-bold flex gap-4 items-center" data-tippy-content="StreamerBot is connected via websocket. Rewards will Action ID's are set.">
+                <img src="/assets/images/streamerbot.png"><span class="text-green-600 font-bold"><i class="fa-solid fa-signal"></i></span>
+            </div>
             <p>Last update from StreamerBot: ${durationString} ago</p>
+            </div>
             `;
             } else {
                 connectionDiv.innerHTML = `
-            <p class="font-bold">
-                StreamerBot: <span class="text-primary font-bold">Disconnected</span>
-            </p>
-            <p>
-                StreamerBot is currently not connected so YTCR will not act as expected. Please ensure you connect to the websocket and have the actions provided. If you need assistance, please jump into our
-                <a href="https://gezel.io/discord" class="text-discord hover:text-discord2 hover:underline">Discord</a>
-            </p>
+                <h1 class="font-bold mb-2 text-center">Connections</h1>
+                <div class="flex gap-4 justify-center">
+            <div class="font-bold flex gap-4 items-center bg-[#2E2F37] p-2 rounded-lg" data-tippy-content="StreamerBot is not connected. Please connect via the websocket if you need Action ID's in your rewards.">
+                <img src="/assets/images/streamerbot.png" class="w-5"><span class="text-primary font-bold"><i class="fa-solid fa-signal"></i></span>
+            </div>
+            </div>
             `;
             }
             document.getElementById("main").prepend(connectionDiv);
+            tippy("[data-tippy-content]", {
+                arrow: true,
+                allowHTML: true
+            });
         })
         .catch(function (error) {
             console.error("error: ", error);
@@ -55,3 +61,6 @@ function CheckSBConnection() {
 setInterval(() => {
     CheckSBConnection();
 }, 60000);
+//     <div class="font-bold flex gap-4 items-center bg-[#2E2F37] p-2 rounded-lg" data-tippy-content="StreamerBot is not connected. Please connect via the websocket if you need Action ID's in your rewards.">
+//     <img src="/favicon.ico" class="w-5"><span class="text-primary font-bold"><i class="fa-solid fa-signal"></i></span>
+// </div>

@@ -1,4 +1,4 @@
-let domain = "https://ytcr.gezel.io";
+let domain = "https://youtube.redeems.live";
 import logging from "./log.js";
 const ChannelPoints = async (channel_id, points, user_id_points, username) => {
     const response = await fetch(`${domain}/api/channel_points/?channel_id=${channel_id}&user_id=${user_id_points}&user=${username}`);
