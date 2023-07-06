@@ -1,8 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "YouTube Channel Rewards",
-    "version": "2.0.3",
-    "description": "Unleash channel points on YouTube, just like how you do on Twitch with our powerful extension!",
+    "name": "Redeems.live - Channel Rewards For YouTube™",
+    "version": "2.0.4",
+    "version_name": "2.0.4",
+    "description": "Unleash channel points and channel rewards on your YouTube™ streams, just like how you do on Twitch with our powerful extension!",
     "background": {
         "service_worker": "background.js"
     },
@@ -10,15 +11,31 @@
         "56": "icons/ytcr.png"
     },
     "author": "Gezel.io",
-    "permissions": ["webNavigation", "scripting", "activeTab", "tabs"],
-    "host_permissions": ["https://*.youtube.com/*"],
+    "permissions": [
+        "webNavigation",
+        "scripting",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://*.youtube.com/*"
+    ],
     "externally_connectable": {
-        "matches": ["https://*.youtube.com/*"]
+        "matches": [
+            "https://*.youtube.com/*"
+        ]
     },
     "web_accessible_resources": [
         {
-            "resources": ["main.js", "reward.css", "tailwind.css", "icons/*", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"],
-            "matches": ["https://www.youtube.com/*"]
+            "resources": [
+                "main.js",
+                "reward.css",
+                "tailwind.css",
+                "icons/*",
+                "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ]
         }
     ]
 }

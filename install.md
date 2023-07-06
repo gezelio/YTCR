@@ -36,7 +36,7 @@ Right click and select ‘Add’ and insert the following:
 | SECTION                        | INPUT                                        |
 | ------------------------------ | -------------------------------------------- |
 | Name                           | `Gezel's YTCR `                              |
-| Endpoint                       | `wss://ytcr.gezel.io/ws`                     |
+| Endpoint                       | `wss://youtube.redeems.live/ws`                     |
 | Auto Connect on Startup        | ✅                                           |
 | Reconnect on Disconnect        | ✅                                           |
 | TLS (tick the following boxes) | ✅ `TLS 1.0`<br>✅ `TLS 1.1`<br>✅ `TLS 1.2` |
@@ -76,7 +76,7 @@ It's likely you've set up channel points with StreamerBot before for your Twitch
 -   Action
     -   Ensure you have an action set in order for this to work! You must create a new action, and have a sub action inside to link. (This will be resolved in v2.0.0)
 
-> The cost of a channel point inside StreamerBot will also be the cost of the action inside YouTube. Users generate points every 5 minutes, so be sure you set these fair with how many points you offer every 5 minutes from the [Dashboard](https://ytcr.gezel.io).
+> The cost of a channel point inside StreamerBot will also be the cost of the action inside YouTube. Users generate points every 5 minutes, so be sure you set these fair with how many points you offer every 5 minutes from the [Dashboard](https://youtube.redeems.live).
 
 ---
 
@@ -84,16 +84,16 @@ It's likely you've set up channel points with StreamerBot before for your Twitch
 
 Before going forward, it's good to confirm that your YouTube channel is linked to your Discord account. If you do not have a YouTube channel linked to your Discord, YTCR won't be able to find your channel as we use Discord as our sign in method. Once you've added your YouTube channel to your Discord's `Connections` (can be found in User Settings):
 
-1.  Sign in to [https://ytcr.gezel.io](http://ytcr.gezel.io/creds/login)
+1.  Sign in to [https://youtube.redeems.live](http://youtube.redeems.live/creds/login)
 2.  Authenticate with Discord (the only sign in method)
 3.  Choose your YouTube channel
 
 After this, you can do things like set the amount of points you'd like your viewers to earn each interval (which is roughly 5 minutes) and much more!
 
 > **Tip:** You can actually add a custom dock on your OBS to see how many points each user has! If you click `View Profile` on the YTCR site, you can see your username in the URL bar like this:
-> `ytcr.gezel.io/u/USERNAME`.\
+> `youtube.redeems.live/u/USERNAME`.\
 > Add the following URL (and update your username) to a `custom dock` inside `OBS > Docks > Custom Browser Docks` to see this from there;
-> ` https://ytcr.gezel.io/obs/USERNAME?darkmode=true&refresh=true`
+> ` https://youtube.redeems.live/obs/USERNAME?darkmode=true&refresh=true`
 
 ---
 

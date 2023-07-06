@@ -324,7 +324,7 @@ function send_claim_reward_popup(reward_id, channel_id, user_id, username, point
     }
 }
 function connect() {
-    var ws = new WebSocket("wss://ytcr.gezel.io/ws?group=ext");
+    var ws = new WebSocket("wss://youtube.redeems.live/ws?group=ext");
     // var ws = new WebSocket("ws://localhost:82/ws?group=ext");
     ws.onopen = function () {
         logging.perm("Socket is connected to YTCR");

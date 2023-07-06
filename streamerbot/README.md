@@ -15,7 +15,7 @@ If you're setting up YTCR for the first time, you can ignore these and follow th
 | SECTION                        | INPUT                                        |
 | ------------------------------ | -------------------------------------------- |
 | Name                           | `Gezel's YTCR `                              |
-| Endpoint                       | `wss://ytcr.gezel.io/ws`                     |
+| Endpoint                       | `wss://youtube.redeems.live/ws`                     |
 | Auto Connect on Startup        | ✅                                           |
 | Reconnect on Disconnect        | ✅                                           |
 | TLS (tick the following boxes) | ✅ `TLS 1.0`<br>✅ `TLS 1.1`<br>✅ `TLS 1.2` |

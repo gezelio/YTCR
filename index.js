@@ -45,7 +45,7 @@ app.get("/robots.txt", function (req, res) {
     res.type("text/plain");
     res.send(`User-agent: *
     \nAllow: /
-    \nSitemap: https://ytcr.gezel.io/sitemap.xml
+    \nSitemap: https://youtube.redeems.live/sitemap.xml
     \nCrawl-delay: 10
     `);
 });
@@ -58,7 +58,7 @@ app.get("/sitemap.xml", function (req, res) {
         return;
     }
     try {
-        const smStream = new SitemapStream({ hostname: "https://ytcr.gezel.io/" });
+        const smStream = new SitemapStream({ hostname: "https://youtube.redeems.live/" });
         const pipeline = smStream.pipe(createGzip());
         sitmap_info.forEach((data) => {
             smStream.write(data);
@@ -279,7 +279,7 @@ app.post("/api/claim_rewards", async (req, res) => {
                         }
                         data.users.splice(data.users.indexOf(user_found_update), 1, user_update);
                         DataBase.findOneAndUpdate({ channel_id: req.query.channel_id }, data)
-                            .then((savedDocument) => { })
+                            .then((savedDocument) => {})
                             .catch((err) => {
                                 // handle error
                             });

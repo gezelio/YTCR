@@ -124,7 +124,7 @@
 }
 
 /* ytcr settings end */
-/* ytcr prompt  */
+/* Redeems.live prompt  */
 #ytcr_prompt {
     display: flex;
     flex-direction: column;
@@ -170,7 +170,7 @@
     flex-direction: column;
 }
 
-.ytcr_prompt_button {
+.Redeems.live_prompt_button {
     display: flex;
     flex-flow: column wrap;
     align-content: center;
