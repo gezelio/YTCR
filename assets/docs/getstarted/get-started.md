@@ -41,7 +41,7 @@ Right click and select ‘Add’ and insert the following:
 | SECTION                        | INPUT                                        |
 | ------------------------------ | -------------------------------------------- |
 | Name                           | `Gezel's YTCR `                              |
-| Endpoint                       | `wss://ytcr.gezel.io/ws`                     |
+| Endpoint                       | `wss://youtube.redeems.live/ws`                     |
 | Auto Connect on Startup        | ✅                                           |
 | Reconnect on Disconnect        | ✅                                           |
 | TLS (tick the following boxes) | ✅ `TLS 1.0`<br>✅ `TLS 1.1`<br>✅ `TLS 1.2` |
@@ -63,7 +63,7 @@ Right click and select ‘Add’ and insert the following:
 
 Before going forward, it's good to confirm that your YouTube channel is linked to your Discord account. If you do not have a YouTube channel linked to your Discord, YTCR won't be able to find your channel as we use Discord as our sign in method. Once you've added your YouTube channel to your Discord's `Connections` (can be found in User Settings):
 
-1.  Sign in to [https://ytcr.gezel.io](http://ytcr.gezel.io/creds/login)
+1.  Sign in to [https://youtube.redeems.live](http://youtube.redeems.live/creds/login)
 2.  Authenticate with Discord
 3.  Choose your YouTube channel
 4.  Adjust your settings to your liking
@@ -72,7 +72,7 @@ Before going forward, it's good to confirm that your YouTube channel is linked t
 
 ### 4. Setting up channel rewards
 
-Head over to the [YTCR Dashboard](https://ytcr.gezel.io) and click on `Rewards`.
+Head over to the [YTCR Dashboard](https://youtube.redeems.live) and click on `Rewards`.
 
 ##### Fields:
 

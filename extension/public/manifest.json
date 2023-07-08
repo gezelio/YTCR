@@ -13,8 +13,7 @@
     "author": "Gezel.io",
     "permissions": [
         "webNavigation",
-        "scripting",
-        "tabs"
+        "scripting"
     ],
     "host_permissions": [
         "https://*.youtube.com/*"
