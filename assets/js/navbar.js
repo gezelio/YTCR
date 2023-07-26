@@ -48,7 +48,7 @@ let nav1 = document.createElement("div");
 nav1.className = "navbar bg-background";
 nav1.innerHTML = `
 <div class="flex-1">
-    <a href="/dashboard" class="btn btn-ghost normal-case text-xl text-white"><img src="/favicon.ico" class="mr-4 h-9 sm:h-9" alt="YTCR Logo">YTCR</a>
+    <a href="/dashboard" class="btn btn-ghost normal-case text-xl text-white"><img src="/favicon.ico" class="mr-4 h-9 sm:h-9" alt="YTCR Logo">Redeems.live</a>
 </div>
 <div class="flex-none">
 <a href="https://gezel.io/discord"
