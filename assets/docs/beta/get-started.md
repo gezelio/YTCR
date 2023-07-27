@@ -2,6 +2,13 @@
 
 The main change with this is that you no longer need the StreamerBot websocket, and you use an OBS dock instead. This is to make it easier to use and to make it more reliable. This is using the YouTube API instead of the StreamerBot API.
 
+**Why use the OBS Dock?**
+
+To put simply, we know that not all our users like to use StreamerBot, or have a separate browser window open during their live streams. So to help with this we created a Browser Dock for OBS that you can create, edit, and manage the YTCR interface.
+Along with this, you can create a command with the Prefix "!" and the chatbot will send a message within Youtube Chat with this prefix. Then in YOUR preferred streaming bot (Mix It Up, Nightbot, whatever you want) create a command with the Prefix "!",
+then when the YTCR Chatbot uses that command it will trigger your action in your preffered Chat Bot.
+We are constantly working on updating this extention and appreciate any feedback or ideas you may have. 
+
 ---
 **PLEASE NOTE**
 
