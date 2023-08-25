@@ -106,7 +106,7 @@ async function refreshTokenIfNeeded() {
         logs.writeToLogFile("YTCR Google Error checking token expiration: ", error);
     }
 }
-const refreshInterval = 10 * 60 * 1000; // 15 minutes
+const refreshInterval = 2 * 60 * 1000; // 2 minutes
 setInterval(refreshTokenIfNeeded, refreshInterval);
 refreshTokenIfNeeded();
 async function CheckLive() {
