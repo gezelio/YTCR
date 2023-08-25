@@ -157,9 +157,13 @@ async function GetYTCRBetaRole(user, D_access_token) {
     })
         .then((response) => response.json())
         .then(async function (data) {
-            found = data.roles.find((e) => e == process.env.DISCORD_SEVER_ROLE);
-            if (found) {
-                role = true;
+            if (data) {
+                found = data.roles.find((e) => e == process.env.DISCORD_SEVER_ROLE);
+                if (found) {
+                    role = true;
+                } else {
+                    role = false;
+                }
             } else {
                 role = false;
             }
