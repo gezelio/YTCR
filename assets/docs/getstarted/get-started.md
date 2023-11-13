@@ -65,6 +65,8 @@ With `Execute Channel Reward Redeem` selected, right click an empty space inside
      - Client
        - Websocket Client Message
 
+Should Look like this.
+
 | Action                                                                   | Triggers                                                           |
 | -------------------------------------------------------------------------| -------------------------------------------------------------------|
 | `Clipping Tool                Yes               None`                    | `Websocket Client    Websocket Client Message    Yes    Any`       |
