@@ -57,6 +57,25 @@ Right click and select ‘Add’ and insert the following:
 
 > **Tip:** Anytime you add/remove/modify channel rewards while connected to the WebSocket, you must go into `Servers/Clients` > `Websocket Clients` and right-click `disconnect` and then `reconnect` to pull the changes. It only pulls the reward data on load at this present time.
 
+Next step is to add a trigger. This works for Streamerbot 2.1 and newer. If you do not have this, skip this step.
+
+With `Execute Channel Reward Redeem` selected, right click an empty space inside the `Triggers` box.
+1. Core
+   - Websocket
+     - Client
+       - Websocket Client Message
+
+Should Look like this.
+
+| Action                                                                   | Triggers                                                           |
+| -------------------------------------------------------------------------| -------------------------------------------------------------------|
+| `Clipping Tool                Yes               None`                    | `Websocket Client    Websocket Client Message    Yes    Any`       |
+| `Error Helper                 Yes               None`                    |                                                                    |
+| `Execute Chann..              Yes               None           1`        |                                                                    |
+| `Set Channel Re..             Yes               None`                    |                                                                    |
+| `Set Channel Re..             Yes               None`                    |                                                                    |
+| `YTCR Error                   Yes               None`                    |                                                                    |
+
 ---
 
 ### 3. The YTCR Dashboard
