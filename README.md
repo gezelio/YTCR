@@ -1,3 +1,5 @@
+# The project has hit end of life. [Please see our Discord post](https://discord.com/channels/956414587597631578/958965432281358376)
+
 <!-- Improved compatibility of back to top link: See: https://github.com/gezelio/ytcr/pull/73 -->
 
 <a name="readme-top"></a>
